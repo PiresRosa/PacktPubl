@@ -205,3 +205,18 @@
     - Netflix mail xin lỗi người dùng, bảo ai nhận được phim người lớn thì báo để gửi lại. Nhưng ko có ai mail lại cả :lol:
 - Quote hay:
     - “Nghe có vẻ tuyệt vọng, nhưng đó chính là ý nghĩa của các công ty khởi nghiệp. Bạn phải học cách để sống trên đó. Với mọi người, chuyện đó nghe rất đáng sợ. Nhưng nếu trải qua đủ nhiều, tất cả sẽ trở thành cuộc sống của bạn”
+
+## Chap 12:  Tôi đang mất niềm tin nơi ông đấy
+- Lúc này Netflix đã được IVP bơm tiền và đang có khoảng 40 nhân sự.
+- Reed thẳng thắn gặp tác giả và nói: ông đã làm mọi thứ khởi đầu rất tốt, xây dựng được văn hoá team rất tốt; tuy nhiên ông vận hành như bòi vậy: mọi thứ khá là cảm tính và ý thức chiến lược của ông khá thất thường. 
+    - Giờ là lúc ông nên làm chủ tịch, và tôi sẽ làm giám đốc vận hành.
+- Lúc này tác giả suy nghĩ và đau đớn nhiều:
+    - “Tôi biết Reed nói đúng. Nhưng nói đúng về công ty CỦA TÔI, ý tưởng CỦA TÔI, ước mơ CỦA TÔI”. 
+    - Có thực tế không khi kỳ vọng ai đó có thể quyết định đúng mọi thứ? Liệu tôi có được phép làm theo cách của mình với những sai lầm không?
+    - Ông nghĩ tới việc có rất nhiều nhân viên bỏ qua cơ hội tốt hơn để tới làm việc cho mình
+- Tối hôm đó, ông ngồi rất lâu trong phòng làm việc của mình, cho tới khi tất cả mọi người ra về hết và không bật đèn.
+- Cũng tối hôm đó, ông ngồi cùng vợ rất lâu. Tất nhiên là vợ ông thấy giận giữ và bất công cho ông
+—
+- Quote hay:
+    - Đôi khi theo đuổi một ước mơ cũng giống như vậy: một cuộc rượt đuổi đơn độc với những thứ gần như bất khả thi.
+    - Khi ước mơ của bạn trở thành sự thật, nó không chỉ thuộc về bạn nữa. Nó còn thuộc về những người đã giúp đỡ bạn - gia đình, bạn bè, đồng nghiệp. Nó thuộc về thế giới này.
