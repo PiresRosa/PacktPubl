@@ -290,3 +290,13 @@
 - Một lập trình viên chăm chỉ, hiền lành và tử tế khi bị sa thải và quay lại nói với Marc:
     - “Tôi muốn quay lại để biết chắc rằng anh ổn. Tôi biết chuyện này chắc rất khó khăn với anh”
     - “Này, đè bẹp Blockbuster nhé”
+
+## Chap 18: Cổ phần hoá
+> Tháng 5/2002: 49 tháng sau khi ra mắt
+- Sau nhiều tuần, nhiều tháng của đợt cắt giảm, Netflix bắt đầu trở nên hoạt động hiệu quả hơn.
+- Team hoạt động giống như thời kì đầu: một đội ngũ tinh tuyển gồm những con người giàu năng lực và làm việc hết mình
+- Nhiều thành viên của đội ngũ sáng lập đã ra đi: Christina, Te, Eric, Jim,…
+- Netflix làm việc với Microsoft để phát triển công nghệ truyền tải video qua mạng (tương tự như truyền tải phần mềm qua Xbox) nhưng bị Microsoft từ chối.
+- Reed nhiều lần đề nghị tác giả từ chức vị trí giám đốc/ chủ tịch của mình để cho một nhà đầu tư khác lên; tuy nhiên tác giả từ chối.
+- 22/5/2002, Netflix niêm yết lên sàn chứng khoán với giá 16.19$ (lúc này apple là 16.94)
+- Tác giả sẽ từ chức, để thanh khoản số lượng cổ phiếu của mình; để rút về một cuộc sống bình yên hằng mơ ước.
