@@ -1,5 +1,0 @@
-if (!version.is_deleted) {
-    return this.versionRepository.save({...version, is_deleted: true});
-}
-
-throw new HttpException('Version was deleted', HttpStatus.BAD_REQUEST);

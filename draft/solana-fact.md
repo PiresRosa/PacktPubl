@@ -1,3 +1,0 @@
-- 1 sol = 1 tỉ lamport
-- lamport là tên đặt theo cảm hứng của người ảnh hưởng tới hệ thống solana
-- 
