@@ -260,3 +260,12 @@
     - “Chắc là em sai rồi nhỉ? Ý tưởng này sẽ thành công phải không anh?”
     - “Thật sự thì anh nghĩ thế. Nhưng em đừng áy náy. Vài năm trước thì ý tưởng này cũng không khả quan đến thế. Và bên cạnh đó, không ai biết trước được điều gì.”
     - “Sự tập trung. Đó chính là vũ khí bí mật của một doanh nhân khởi nghiệp. Hết lần này đến lần khác trong câu chuyện Netflix - từ bỏ việc bán đĩa DVD, từ bỏ mô hình cho thuê truyền thống, và cuối cùng là từ bỏ nhiều thành viên trong đội ngũ ban đầu - chúng tôi phải sẵn sàng từ bỏ những phần thuộc về quá khứ vì lợi ích của tương lai. Đôi khi, sự tập trung ở mức độ này có vẻ như rất tàn nhẫn - và thật sự thì nó cũng hơi tàn nhẫn một chút. Nhưng không chỉ có vậy. Sự tập trung đó gần giống với lòng can đảm.”
+
+## Chap 15: Chết chìm trong thành công của chính mình
+
+> 9/2000, hai năm rưỡi sau khi ra mắt
+- Đây là thời điểm bong bóng dot com bùng nổ (bong bóng dot com ý chỉ việc cổ phiếu của các hãng công nghệ bị đầu cơ hoặc nhận được sự kì vọng thái quá từ nhà đầu tư).
+- Netflix thời điểm này đã có khoảng 350 nhân viên.
+- Netflix phát triển cơ chế Cinematch giúp người dùng lựa chọn đĩa DVD cho mình dễ dàng hơn và thật sự là số lượng người dùng phát triển kinh khủng.
+- Netflix tìm kiếm khoản đầu tư 80 triệu đô từ Deutsche Bank, nhưng do tác động từ sự đổ vỡ bong bóng dot com, ngân hàng đã không rải ngân và không phát hành được cổ phiếu.
+- Mặc dù tăng lượng người dùng, nhưng chi phí để aquire một user quá lớn dẫn tới việc các nhà sáng lập của Netflix nghĩ tới việc bán cho Blockbuster
