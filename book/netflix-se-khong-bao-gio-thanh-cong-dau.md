@@ -130,3 +130,21 @@
 - Cho tới trước khi ra mắt 5 tháng, tác giả vẫn chưa chọn được tên cho công ty của mình.
 - Có hàng trăm cái tên được đề cử: CinemaCenter, TakeOne, NowShopping, E-Flix, NetFlix,…
 - Cuối cùng thì NetFlix đã được chọn, dù nó không phải cái tên hoàn hảo và nghe có chút gợi dục (do Flix ~ Skin Flicks là 1 từ lóng để gọi phim khiêu dâm)
+
+## Chap 8: Sẵn sàng ra mắt
+- Tác giả tới nhà Steve (nhà đầu từ 25k$) để ăn tối, nói chuyện và bàn bạc về công việc.
+- Đến đây có cả Reed nữa.
+- Nhà Steve có đầy đủ mọi thứ, giàu vkl. Tác giả nghĩ tới gia cảnh của mình hơi hơi nghèo nên cũng chạnh lòng tí.
+- Đoạn sau kể về  tầm quan trọng của sự chuẩn bị:
+    - Ông kể về việc đi rừng núi, cần chuẩn bị tinh thần ứng phó với mọi rủi ro có thể xảy ra ở một nơi thiếu thốn dịch vụ y tế: rắn độc, côn trùng, vách đá hiểm trở,..
+    - Sự chuẩn bị trên cũng cần có trong một công ty khởi nghiệp.
+    - Mọi sự tồi tệ có thể xảy ra và bạn sẽ phải là người đứng ra tự dọn dẹp.
+    - Sự chuẩn bị sẽ giúp bạn khác biệt giữa một người thành công và một người chìm trong đống bung bét.
+- Ngày Netflix ra mắt:
+    - Tác giả dậy rất sớm (5h), uống nhiều cafe
+    - Tác giả chuẩn bị trước câu trả lời cho cánh báo chí
+    - Khi ra mắt thì website bị sập do có quá nhiều lượt truy cập. Eric (CTO) và team Tech chạy đôn đáo để mua thêm máy chủ dự phòng.
+    - Lượng đơn đặt ra quá nhiều; có nhiều công đoạn đang làm thủ công => tốn thời gian và hơi loạn.
+    - Bưu điện đóng lúc 3h, nếu không làm kịp thì ngày hôm sau họ mới giao => ảnh hưởng tới experience của khách hàng.
+    - Việc website sập trong ngày ra mắt thực sự là một thảm họa. Tuy nhiên thì nhìn theo chiều hướng tích cực, nó là một tín hiệu tốt: website có người truy cập, Netflix có đơn đặt hàng
+- Sau ngày ra mắt đầu tiên, đội ngũ Netflix đã làm việc cả đêm để đảm bảo website sẽ hoạt động tốt vào ngày hôm sau
