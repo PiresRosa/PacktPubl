@@ -39,3 +39,20 @@
     - cần phải cạnh tranh với Blockbuster, luôn có cửa hàng trong phạm vi 10-15 phút di chuyển.
     - => fail vl
 - Khi tác giả nói với vợ mình là Lorraine thì vợ bảo: "Ý tưởng đó sẽ không bao giờ thành công đâu". Lí do tương tự trên.
+
+## Chương 3: Làm ơn đi, ngài bưu tá`
+- Khi gặp phải các rào cản với băng cát-xét ở chương 2, tác giả bắt đầu nản chí
+- Tại thời điểm 1997, băng DVD chưa phổ biến
+- Đĩa DVD nhỏ gọn, bỏ vào phong bì gửi đi chỉ với chi phí 32 xu (thay vì vài $ như băng cát-xét) làm tác giả nhen nhóm ý tưởng cho thuê đĩa DVD thay vì băng cát xét
+- Ông đánh cược với Reed: thử gửi 1 đĩa CD qua bưu điện (chưa có DVD để thử, gửi CD vì cùng kích cỡ với DVD) từ nhà ông tới nhà Reed
+    - Nếu hỏng: ông sẽ từ bỏ ý tưởng này
+    - Nếu không: Reed sẽ phải nghe ông trình bày ý tưởng
+- Rất may là đĩa CD nguyên vẹn. Phần nhiều do gửi ở 1 bưu điện có tâm, bưu tá phân loại bằng tay chứ không quăng quật.
+    - Nói vui là nếu không may mắn chọn bưu điện này, có thể ông tác giả không ngồi viết quyển sách này, Netflix chưa chắc ra đời.
+    - => Bài học ở đây là nhiều khi sự may mắn tạo động lực cho startup ra đời.
+- Đoạn sau nói về việc thành lập vốn công ty:
+    - Tác giả và Reed giả định công ty 3 triệu đô, tương ứng 6 triệu cổ phiếu (lúc này chỉ có ý tưởng); Mỗi người 3 triệu cổ phiếu, tương ứng 50%
+    - Sau đó sẽ pha loãng cổ phiếu: Phát hành thêm 4 triệu cổ phiếu để bán với giá 2 triệu $. Reed mua 4 triệu cổ phiếu -> nâng tổng nắm giữ lên 7 triệu cổ phiếu.
+    - Như vậy tác giả 3/10, Reed 7/10 => tỉ lệ 70/30. Đây gọi là pha loãng cổ phiếu.
+
+// Chưa hiểu lắm về cái tiêu đề này :thinking:
