@@ -220,3 +220,24 @@
 - Quote hay:
     - Đôi khi theo đuổi một ước mơ cũng giống như vậy: một cuộc rượt đuổi đơn độc với những thứ gần như bất khả thi.
     - Khi ước mơ của bạn trở thành sự thật, nó không chỉ thuộc về bạn nữa. Nó còn thuộc về những người đã giúp đỡ bạn - gia đình, bạn bè, đồng nghiệp. Nó thuộc về thế giới này.
+
+## Chap 13: Bên kia ngọn đồi
+> Mùa xuân 1999, 1 năm sau khi ra mắt
+- Năm 1999, Netflix chuyển văn phòng công ty tới Los Gatos ở phía bên kia ngọn đồi.
+- Tác giả mất 14 phút lái xe mỗi ngày thay vì 5 phút như thường lệ.
+- Marc (tác giả) thích hát dòng nhạc babershop - một dòng nhạc cần có sự phối hợp giữa nhiều bộ phận. Marc không phải người hát chính, nhưng ông hát rất nghiêm túc.
+- Việc hát trong vai trò phụ tương tự như việc Marc đã trở thành chủ tịch, không phải giám đốc vận hành nữa. Tuy không phải nhân vật chính, nhưng ông vẫn làm tốt nhiệm vụ của mình.
+- Sau khi Reed lên làm CEO, ông đưa Patty McCord vào vị trí điều hành nhân sự.
+- Patty biết cách phân tích đúng sai, mềm mỏng vừa đủ để không làm mất lòng nhân sự; cũng vừa đủ để phân tích cho Reed nóng nảy nghe chuyện đúng sai.
+- Đoạn sau nói về việc tuyển dụng nhân sự:
+    - Nếu bạn tuyển một người mà bạn chỉ cần trao cho họ quyền lực, đưa cho họ mục tiêu chung và họ có thể thoả sức sáng tạo để đi tới mục tiêu ấy => chúc mừng bạn, bạn đã tuyển dụng được đúng người.
+    - Nếu bạn tuyển dụng một người mà bạn cần chỉ cho họ hướng đi, luôn luôn cần giám sát họ bằng những bộ quy tắc khô cứng thì bạn nên xem xét lại, đặc biệt khi công ty còn nhỏ.
+- Ở Netflix thi thoảng có những trò chơi quán đản sinh ra nhằm mục đích gắn kết các nhân viên:
+    - Đặt đồng xu trong bồn tiểu nam, xem đến bao nhiêu tiền thì sẽ có người "hi sinh" để nhặt chúng ra.
+    - Mang đồ ăn vặt cho cả công ty ăn sao cho ăn trong đúng một ngày thì hết.
+    - Mang trứng vịt lộn tới công ty (bên Tây ít ăn trứng vịt lộn).
+- Công ty lớn dần, mang lại 1 thay đổi tất yếu: đội ngũ sáng lập đang dần ra đi:
+    - Jim Cook muốn vào Netflix với vai trò giám đốc tài chính; nhưng Reed thuê Barry về để làm => Jim không hài lòng và ra đi.
+    - Việc ra đi này là cần thiết khi công ty đang dần lớn lên.
+- Netflix link trang mua đĩa sang Amazon nhưng Amazon thì không mặn mà làm điều ngược lại.
+- Tình hình kinh doanh đang đi xuống, không có doanh thu nên đang tiêu dần vào tiền gọi vốn.
