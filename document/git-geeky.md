@@ -23,4 +23,7 @@ printf "blob 0\0" | shasum
 
 ## Tree object
 - Loại object quan trọng thứ 2 đó là tree. Nó cho phép lưu trữ nhiều file cùng lúc.
+
+
+# 3. The branch is a reference
 - 
