@@ -65,7 +65,7 @@ print(response)
 - Trong RAG, dữ liệu của bạn được load vào trong index.
 - Khi query, sẽ tìm ra các dữ liệu liên quan tới query của bạn.
 - Từ (query + dữ liệu liên quan) -> đi qua LLM -> câu trả lời.
-![Basic RAG](images/basic_rag.png)
+![Basic RAG](https://minhphong306.wordpress.com/wp-content/uploads/2024/06/basic_rag.png)
 
 ## Stage với RAG
 Có 5 bước quan trọng:
@@ -74,7 +74,7 @@ Có 5 bước quan trọng:
 - Storing: Index xong thì lưu lại, để đỡ mất công index lại.
 - Querying: Sử dụng dữ liệu
 - Evaluation: đánh giá lại hiệu quả (?)
-![Stages](images/stages.png)
+![Stages](https://minhphong306.wordpress.com/wp-content/uploads/2024/06/stages.png)
 
 ## Concepts quan trọng với RAG
 ### Loading stage
