@@ -185,3 +185,23 @@
 - Quote hay:
     - Nếu có một cơ hội gõ cửa, bạn không nhất thiết phải mở cửa. Nhưng ít nhất bạn phải dặn lòng rằng hãy nhìn qua lỗ khoá xem cơ hội ấy là gì.
     - Nếu muốn trứng nở thành chim và khôn lớn bay đi, bạn sẽ cần một chút gió (sóng gió)
+
+## Chap 11: Hai xu cho Bill Clinton
+- Jim phát hiện ra một khách hàng quen thuộc thường xuyên nhập code khuyến mãi khi mua đầu đĩa để nhận và thuê đĩa free
+-  Tác giả và Mitch đi khảo sát mới biết được do mã sản phẩm nhà sản xuất để phía ngoài bao bì => tricker chỉ cần scan lại cái mã để về nhập vào là xong mà không cần mua hàng.
+- Một tá các vấn đề cùng xảy ra:
+    - Một chương trình khuyến mãi dễ bị gian lận
+    - Máy chủ thiếu ổn định
+    - Bao bì thi thoảng mắc kẹt trong hệ thống máy móc của bưu điện
+    - Một công ty đang thua lỗ trong mọi giao dịch
+    - …
+- Công ty bắt đầu tăng nhân sự, tác giả phải tìm cách để việc tăng quy mô nhân sự lên nhưng vẫn không làm mất đi bản chất văn hoá của doanh nghiệp.
+- Có một sự kiện xảy ra:
+    - Tổng thống Bill Clinton dính bê bối, phải tham gia điều trần.
+    - Mitch có quen biết, dự tính record đống này lại và gửi tặng cho người dùng Netflix.
+    - Việc sao chép bản thu của vụ bê bối này làm Mitch mất 72 giờ không ngủ để làm.
+    - Sau đó thì Chris quyết định không gửi tặng không, mà thu phí 2 xu để tránh spam; coi đây là chi phí cho chiến dịch marketing.
+    - Khoảng 5000 bản được gửi đi, tuy nhiên lại gửi nhầm phim người lớn.
+    - Netflix mail xin lỗi người dùng, bảo ai nhận được phim người lớn thì báo để gửi lại. Nhưng ko có ai mail lại cả :lol:
+- Quote hay:
+    - “Nghe có vẻ tuyệt vọng, nhưng đó chính là ý nghĩa của các công ty khởi nghiệp. Bạn phải học cách để sống trên đó. Với mọi người, chuyện đó nghe rất đáng sợ. Nhưng nếu trải qua đủ nhiều, tất cả sẽ trở thành cuộc sống của bạn”
