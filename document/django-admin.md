@@ -51,6 +51,20 @@ admin.site.site_header = "The Bookstore Admin" # thay đổi ở Title tag
 admin.site.site_title = "Site Title Bookstore" # thay đổi ở title trên title tag, sau |
 ```
 
+- Trong core/settings.py, INSTALLED_APPS, thêm vào 2 app blog, bookstore
+```
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'bookstore',
+    'blog'
+]
+```
+
 ## Lesson 3: Setup custom/multiple django admin sites
 - Topics:
     - Setup a custom admin area
