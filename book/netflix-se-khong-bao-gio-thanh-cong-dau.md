@@ -40,7 +40,7 @@
     - => fail vl
 - Khi tác giả nói với vợ mình là Lorraine thì vợ bảo: "Ý tưởng đó sẽ không bao giờ thành công đâu". Lí do tương tự trên.
 
-## Chương 3: Làm ơn đi, ngài bưu tá`
+## Chương 3: Làm ơn đi, ngài bưu tá
 - Khi gặp phải các rào cản với băng cát-xét ở chương 2, tác giả bắt đầu nản chí
 - Tại thời điểm 1997, băng DVD chưa phổ biến
 - Đĩa DVD nhỏ gọn, bỏ vào phong bì gửi đi chỉ với chi phí 32 xu (thay vì vài $ như băng cát-xét) làm tác giả nhen nhóm ý tưởng cho thuê đĩa DVD thay vì băng cát xét
@@ -56,3 +56,15 @@
     - Như vậy tác giả 3/10, Reed 7/10 => tỉ lệ 70/30. Đây gọi là pha loãng cổ phiếu.
 
 // Chưa hiểu lắm về cái tiêu đề này :thinking:
+
+## Chương 4: Tập hợp đội ngũ
+- Một tuần sau khi chiếc đĩa CD được gửi thành công qua bưu điện, đội ngũ của tác giả đã thực sự vào làm việc.
+- Tác giả, Chris và Te vẫn làm việc ở một công ty khác, Reed thì thi thoảng mới chạy qua được, nên họ phải tranh thủ giờ nghỉ trưa để chạy qua 1 quán ăn trung tâm giữa mọi người để bàn bạc.
+- Việc chiêu mộ người tài, người phù hợp với dự án khá challenge:
+    - Một vị giám đốc tài chính cẩn thận, không thích rủi do không muốn làm việc trong 1 công ty non trẻ, đành thuê làm việc theo giờ
+    - Có những người quan tâm đến CHỨC DANH hơn là công việc thật sự (hình như mình cũng thuộc kiểu người này). Việc trao chức danh thường không tốn gì nhiều, nhưng lúc lạm phát thì ối dời ôi phết. Tác giả cũng phải nhượng bộ, trao chức danh đi để tuyển được người tài  (dù chức danh chưa phù hợp).
+- Tác giả fake CV của mình để tham dự hội nghị VSDA (Video Software Dealers Association) dù chẳng có mục đích và kế hoạch nào cụ thể, chỉ đơn giản là nghiên cứu.
+- Ở đây ông gặp chủ tịch của hội nghị: Mitch.
+- Mitch thân thiện, giản dị, là một mọt phim chính hiệu.
+- Tác giả mời Mitch vào công ty của mình, nhưng nhanh chóng bị ông từ chối.
+- Tuy vậy, Mitch vẫn support tác giả, đưa ra lời khuyên vào những bữa trưa mà tác giả mời Mitch.
