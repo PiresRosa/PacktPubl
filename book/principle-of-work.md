@@ -1,5 +1,5 @@
 # Principles: Life and Work 
->> Mình note lại những ý chính mà mình đọc hiểu được. Recommend bạn nên đọc bản gốc của tác giả để có 1 góc nhìn đầy đủ hơn.
+> Mình note lại những ý chính mà mình đọc hiểu được. Recommend bạn nên đọc bản gốc của tác giả để có 1 góc nhìn đầy đủ hơn.
 
 ## Introduction
 - Thành công = cách ứng phó với những gì không biết.
