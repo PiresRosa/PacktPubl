@@ -119,3 +119,14 @@
 - Lúc này tác giả cảm thấy niềm vui mà cha ông có được khi làm các đoàn tàu handmade:
     - Sự thoả mãn khi sắp xếp các nhiệm vụ
     - Tìm hiểu tất cả các vấn đề rồi nỗ lực giải quyết chúng
+
+## Chap 7: Chúng tôi suýt nữa đã được gọi là CinemaCenter
+- Netflix rất nổi tiếng về văn hoá công ty.
+- Tại thời điểm 1997, tác giả đã rất chú trọng việc quản lý hiệu quả công việc thay vì quản lý con người.
+- Việc cho mỗi người một không gian riêng để sáng tạo, nhưng vẫn hướng tới bức tranh tổng thể là một cách quản lý khá hay, có thể gọi là “lạt mềm buộc chặt”
+- Netflix đánh cược vào việc mua nhiều bản sao đĩa DVD để không khách hàng nào phải chờ, mang lại trải nghiệm tốt nhất cho họ.
+- Tác giả đã phải kí một hợp đồng oái oăm, bị phụ thuộc vào một bên cung cấp dữ liệu về phim ảnh => đoạn này cho thấy ông bị đưa vào thế khó, giữa áp lực về thời gian release với cái hợp đồng bất lợi hoàn toàn cho Netflix, ông vẫn phải nhượng bộ kí nó && nghĩ cách thoát khỏi nó.
+- Dù công việc bề bộn, làm việc 50-60 giờ/ tuần, tác giả vẫn giữ thói quen dành buổi tối ngày thứ ba riêng tư bên vợ mình (thuê giúp việc để trông trẻ).
+- Cho tới trước khi ra mắt 5 tháng, tác giả vẫn chưa chọn được tên cho công ty của mình.
+- Có hàng trăm cái tên được đề cử: CinemaCenter, TakeOne, NowShopping, E-Flix, NetFlix,…
+- Cuối cùng thì NetFlix đã được chọn, dù nó không phải cái tên hoàn hảo và nghe có chút gợi dục (do Flix ~ Skin Flicks là 1 từ lóng để gọi phim khiêu dâm)
