@@ -1,6 +1,12 @@
 # Part 1: Mastering Typescript syntax
 # Chap 1: Getting familiar with typescript
 # Chap 2: Basic & custom type
+# Chap 3: OOP with classes and interfaces
+
+## 3.1
+### 3.1.5: Abstract classes
+- Không cho phép khởi tạo object
+
 
 # Appendix: Modern javascript
 ## let, const, var
