@@ -73,3 +73,51 @@ import * as constants from './constants.js';
     - Có thể viết gọn lại:
     ```
     export { default } from './logger.js'
+    ```
+
+## Bài 5: Enhanced object literals
+- Dùng dể định nghĩa key cho object ngắn gọn (mà k nên dùng cách này)
+```
+// Thay vì viết:
+const number = 10;
+const obj = {
+    number: number
+};
+
+// có thể viết gọn
+const number = 10;
+const obj = {
+    number,
+};
+```
+
+- Dùng để định nghĩa function cho ngắn gọn
+```
+// thay vì viết:
+const obj = {
+    getName: function() {
+        return 'Phong';
+    }
+};
+
+// có thể viết gọn
+const obj = {
+    getName() {
+        return 'Phong';
+    }
+};
+```
+- Định nghĩa key, value cho object dưới dạng biến
+```
+const fieldName = 'name';
+const fieldAge = 'age';
+
+const obj = {
+    [fieldName]: 'Phong',
+    [fieldAge]: 99,
+};
+
+console.log(obj); // {name: 'Phong', age: 99}
+```
+## Bài 6: Spread
+- Ôn tập về destructuring
