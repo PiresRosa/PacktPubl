@@ -1,0 +1,13 @@
+# Core concepts
+- Application: Tập hợp các K8s resources, định nghĩa như là manifest. Đây là Custom Resource Definition (CRD)
+- Application source type: công cụ nào để xây dựng application
+- Target state: trạng thái mong muốn (phiên bản mong muốn)
+- Live state: state hiện tại của application.
+- Sync status: trạng thái sync
+- Sync: hành động đồng bộ
+- Sync operation status: trạng thái đồng bộ thành công hay thất bại.
+- Refresh: So sánh code latest trên git với live state.
+- Health: trạng thái ứng dụng, có được run đúng không, có được serve request không?
+- Tool:Công cụ tạo ra manifest từ một thư mục hoặc files (VD: Kustomize) - xem Application source type.
+- Configuration management tool: xem Tool
+- Configuration management plugin: một custom tool

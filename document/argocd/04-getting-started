@@ -1,0 +1,27 @@
+> https://argo-cd.readthedocs.io/en/stable/getting_started/
+
+# Yêu cầu
+- Cài kubectl, có kubeconfig (~/.kube/config).
+- CoreDNS
+
+# 1. Cài Argo CD
+```
+kubectl create namespacce argocd
+kubectl apply - argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+- Đoạn command trên sẽ tạo ra 1 namespace argocd, nơi mà ArgoCD services và application sẽ được chạy.
+- Lưu ý: file cài đặt mặc định bao gồm ClusterRoleBinding được tham chiếu tới argocd namespace. Nếu bạn cài vào namespace khác, vui lòng update giá trị này.
+- Tip: Nếu bạn không cần UI, SSO,... thì bạn chỉ cần cài core thôi cũng được.
+- Mặc định thì chưa vào được UI ngay, cần làm 1 số thao tác để trust cái client certificate nữa.
+- Có thể set namespace mặc định về argocd để không phải gõ dài dòng nữa:
+
+```
+kubectl config set-context --current --namespace=argocd
+```
+- Sử dụng `argocd login --core` để cấu hình CLI access.
+- Lưu ý: Mặc định thì Redis sử dụng password authentication.
+    - Redis password được lưu ở Kubenetes secret `argocd-redis` với key `auth`, ở namespace `argocd`
+
+# 2. Cài ArgoCD CLI
+# 3. Truy cập Argo CD API server
+- Mặc định thì Argo CD API server không expose
