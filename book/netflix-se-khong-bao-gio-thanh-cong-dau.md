@@ -300,3 +300,14 @@
 - Reed nhiều lần đề nghị tác giả từ chức vị trí giám đốc/ chủ tịch của mình để cho một nhà đầu tư khác lên; tuy nhiên tác giả từ chối.
 - 22/5/2002, Netflix niêm yết lên sàn chứng khoán với giá 16.19$ (lúc này apple là 16.94)
 - Tác giả sẽ từ chức, để thanh khoản số lượng cổ phiếu của mình; để rút về một cuộc sống bình yên hằng mơ ước.
+
+## Chap 19 - chap cuối: Lời bạt
+- Bản những nguyên tắc thành công nhà Radolph được tác giả đóng khung và treo cạnh gương nhà tắm, để ông có thể đọc mỗi buổi sáng đánh răng
+- Suốt cuộc đời ông đã sống theo những nguyên tắc này.
+- Cha ông dính khối u nã. Trong suốt khoảng thời gian những năm 2000, khi Netflix đang căng thẳng thử nghiệm nhiều mô hình mới, tác giả vẫn bay đi bay lại về New York ít nhất mỗi tháng một lần để thăm cha
+- Netflix đã rất lớn mạnh sau đó. Marc nhận thấy ông không còn phù hợp với việc làm trong 1 công ty quá lớn. Ông thích làm việc ở các công ty nhỏ và có nhiều vấn đề hơn.
+- Vào một ngày đẹp trời, Netflix thuê trọn nhà hát Los Gatos để tổ chức tiệc chia tay cho tác giả - Marc Radolph.
+- Nhiều năm sau đó:
+    - Marc đã chuyển sang làm mentor, giúp nhiều dự án thành hiện thực; có thời gian cho vợ con mình.
+    - Những nhân viên tài năng đầu tiên của Netflix đã trở thành người đứng đầu/ nhà sáng lập ở các công ty khác.
+    - Blockbuster chỉ còn lại 1 cửa hàng duy nhất ở Ben, Oregon
