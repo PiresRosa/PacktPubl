@@ -117,6 +117,12 @@ urlpatterns = [
     path('blogadmin/', blog_site.urls),
 ]
 ```
+- Để ch được code thì phải tạo migration và run:
+```
+python3.9 manage.py makemigrations
+python3.9 manage.py migrate
+```
+
 - Có thể dùng cả 2 cháu: admin và blog admin
 ```python
 urlpatterns = [
