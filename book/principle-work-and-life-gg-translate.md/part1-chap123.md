@@ -161,8 +161,7 @@ LÀM. Tất nhiên lúc đó tôi không biết, nhưng năm đó là thị trư
 chứng minh sai.
 
 --
-Một cuộc tấn công bất ngờ đồng thời của Bắc Việt vào hơn một trăm thành phố
-và các thị trấn ở miền Nam Việt Nam.
+- Một cuộc tấn công bất ngờ đồng thời của Bắc Việt vào hơn một trăm thành phố và các thị trấn ở miền Nam Việt Nam.
 --
 
 ## CHAPTER 2: CROSSING THE THRESHOLD 1967–1979
@@ -645,7 +644,116 @@ sự nghiệp của tôi, và tôi đã liên kết chúng. Để cung cấp cho
 trong tâm trí tôi, Devon được đặt tên theo một trong những giống gia súc lâu đời nhất
 được con người biết đến, trong số những giống chó đầu tiên được nhập khẩu vào Hoa Kỳ và nổi tiếng
 vì khả năng sinh sản cao.
+
 ---
-Anh ta không có khả năng đáp ứng các nghĩa vụ của mình, đặc biệt là các cuộc gọi ký quỹ của anh ta tại các nhà môi giới,
+- Anh ta không có khả năng đáp ứng các nghĩa vụ của mình, đặc biệt là các cuộc gọi ký quỹ của anh ta tại các nhà môi giới,
 có thể đã dẫn đến mặc định xếp tầng.
----
+
+## CHAPTER 3: MY ABYSS (VĨNH VIỄN CỦA TÔI): 1979–1982
+
+Từ năm 1950 đến năm 1980, nợ, lạm phát và tăng trưởng lên xuống
+cùng nhau thành những đợt sóng lớn hơn đều đặn, với đợt sau lớn hơn đợt trước,
+đặc biệt là sau khi liên kết của đồng đô la với vàng bị phá vỡ vào năm 1971. Trong những năm 1970,
+có ba làn sóng như vậy. Lần đầu tiên xảy ra vào năm 1971, là kết quả của việc đồng đô la
+phá giá. Lần thứ hai, xảy ra giữa năm 1974 và 1975, lấy lạm phát
+lên mức cao nhất kể từ Thế chiến II. Fed thắt chặt cung tiền,
+đẩy lãi suất lên mức cao kỷ lục, gây ra thị trường chứng khoán tồi tệ nhất
+và suy thoái kinh tế từ những năm 1930. Làn sóng thứ ba và lớn nhất đã đến
+1979–82 và là một trong những giai đoạn phát triển kinh tế/thị trường lớn nhất và
+đảo ngược kể từ năm 1929–32. Lãi suất và lạm phát tăng vọt rồi sụp đổ;
+cổ phiếu, trái phiếu, hàng hóa và tiền tệ đã trải qua một trong những
+những giai đoạn đầy biến động từ trước đến nay; và tỷ lệ thất nghiệp đạt mức cao nhất kể từ Đại
+Trầm cảm. Đó là thời điểm vô cùng hỗn loạn đối với nền kinh tế toàn cầu, vì
+thị trường, và cho cá nhân tôi.
+
+Vào năm 1978–80 (như năm 1970–71 và năm 1974–75) các thị trường khác nhau bắt đầu
+di chuyển đồng loạt vì họ bị ảnh hưởng nhiều hơn bởi sự dao động của tiền và
+tăng trưởng tín dụng hơn là do những thay đổi trong cán cân cung-cầu cá nhân của họ.
+Những biến động lớn này đã trở nên trầm trọng hơn bởi cú sốc dầu mỏ sau sự sụp đổ của
+Shah của Iran. Sự biến động của thị trường dầu mỏ đó đã dẫn đến việc tạo ra loại dầu đầu tiên
+hợp đồng tương lai, đã cho tôi cơ hội giao dịch (lúc đó, đã có
+thị trường tương lai về lãi suất và tiền tệ, và tôi đã đặt cược
+trong tất cả chúng).
+
+Bởi vì tất cả các thị trường đều bị chi phối bởi những yếu tố này, tôi đắm mình
+trong kinh tế vĩ mô và dữ liệu lịch sử (đặc biệt là lãi suất và tiền tệ
+dữ liệu) để nâng cao hiểu biết của tôi về máy khi chơi. Khi lạm phát bắt đầu
+tăng vào năm 1978, tôi nhận ra rằng Fed có thể sẽ hành động để thắt chặt tiền tệ
+cung cấp. Đến tháng 7 năm 1979, lạm phát rõ ràng đã vượt khỏi tầm kiểm soát, và Tổng thống
+Jimmy Carter bổ nhiệm Paul Volcker làm chủ tịch Cục Dự trữ Liên bang. MỘT
+vài tháng sau, Volcker thông báo rằng Fed sẽ hạn chế tốc độ tăng trưởng của
+cung tiền lên 5,5%. Theo tính toán của tôi vào thời điểm đó,
+Tăng trưởng tiền 5,5 phần trăm sẽ phá vỡ vòng xoáy lạm phát - nhưng nó cũng sẽ
+bóp nghẹt nền kinh tế và thị trường và có khả năng gây ra một cuộc khủng hoảng nợ thảm khốc
+
+> TÀU SÉC BẠC
+Ngay trước Lễ tạ ơn, tôi đã gặp Bunker Hunt, khi đó là người giàu nhất thế giới, tại Câu lạc bộ Dầu khí ở Dallas. Bud Dillard, một người bạn người Texas và là khách hàng của tôi, người rất thành công trong lĩnh vực kinh doanh dầu mỏ và gia súc, đã giới thiệu chúng tôi vài năm trước, và chúng tôi thường xuyên nói chuyện về nền kinh tế và thị trường, đặc biệt là lạm phát. Chỉ vài tuần trước cuộc họp của chúng tôi, các chiến binh Iran đã xông vào đại sứ quán Hoa Kỳ ở Tehran, bắt 52 người Mỹ làm con tin. Đã có hàng dài người mua xăng và thị trường biến động cực độ. Rõ ràng là có một cảm giác khủng hoảng: Cả nước bối rối, thất vọng và tức giận.
+
+Bunker đã nhìn thấy cuộc khủng hoảng nợ và rủi ro lạm phát giống như tôi đã thấy. Anh ấy đã muốn khai thác tài sản của mình từ tiền giấy trong vài năm qua, vì vậy anh ấy đã mua hàng hóa, đặc biệt là bạc, thứ mà anh ấy đã bắt đầu mua với giá khoảng 1,29 đô la một ounce, như một hàng rào chống lại lạm phát. Anh ta tiếp tục mua và mua khi lạm phát và giá bạc tăng lên, cho đến khi về cơ bản anh ta đã dồn vào thị trường bạc. Vào thời điểm đó, bạc được giao dịch ở mức khoảng 10 đô la. Tôi nói với anh ấy rằng tôi nghĩ đây có thể là thời điểm tốt để rút lui vì Fed đang trở nên đủ chặt chẽ để tăng lãi suất ngắn hạn lên trên lãi suất dài hạn (được gọi là “đảo ngược đường cong lợi suất”). Mỗi lần điều đó xảy ra, tài sản phòng ngừa lạm phát và nền kinh tế đi xuống. Nhưng Bunker kinh doanh dầu mỏ, và các nhà sản xuất dầu ở Trung Đông mà ông nói chuyện vẫn lo lắng về sự mất giá của đồng đô la. Họ đã nói với anh ấy rằng họ cũng sẽ mua bạc để phòng ngừa lạm phát nên anh ấy đã giữ nó với kỳ vọng rằng giá của nó sẽ tiếp tục tăng. Tôi ra ngoài.
+
+Vào ngày 8 tháng Mười Hai năm 1979, tôi và Barbara sinh con trai thứ hai, Paul. Mọi thứ thay đổi rất nhanh, nhưng tôi thích cường độ của tất cả.
+Đến đầu năm 1980, bạc đã tăng lên gần 50 đô la, và dù giàu có như thế nào, Bunker cũng trở nên giàu có hơn rất nhiều. Trong khi tôi đã kiếm được rất nhiều tiền khi bạc lên giá
+đến 10 đô la, tôi đã tự trách mình vì đã bỏ lỡ chuyến đi tới 50 đô la. Nhưng ít nhất, khi ra ngoài, tôi đã không bị mất tiền. Có những thời điểm lo lắng trong sự nghiệp của mỗi nhà đầu tư khi kỳ vọng của bạn về những gì sẽ xảy ra không phù hợp với những gì đang xảy ra và bạn không biết mình đang nhìn vào những cơ hội tuyệt vời hay những sai lầm thảm khốc. Bởi vì tôi có xu hướng mạnh mẽ là đúng ngay từ sớm, nên tôi đã có xu hướng nghĩ rằng đó là trường hợp. Đúng là như vậy, nhưng việc bỏ lỡ mức tăng 40 đô la đối với tôi là điều không thể tha thứ được.
+
+Khi sự sụt giảm cuối cùng đã xảy ra, vào tháng 3 năm 1980, bạc đã giảm xuống dưới 11 đô la. Nó đã hủy hoại Hunt, và gần như khiến cả nền kinh tế Mỹ sụp đổ khi anh ta sa sút.2 Fed đã phải can thiệp để kiểm soát các hiệu ứng dây chuyền. Tất cả những điều này đã khắc sâu vào đầu tôi một bài học không thể xóa nhòa: Thời gian là tất cả. Tôi cảm thấy nhẹ nhõm vì mình đã thoát khỏi thị trường đó, nhưng chứng kiến người đàn ông giàu nhất thế giới - cũng là người mà tôi đồng cảm - bị phá sản thật là chói tai. Tuy nhiên, nó không là gì so với những gì sẽ đến.
+
+> MỞ RỘNG ĐỘI
+
+Cuối năm đó, một chàng trai tuyệt vời tên là Paul Colman gia nhập Bridgewater. Chúng tôi đã trở thành những người bạn tốt từ các giao dịch của chúng tôi trong ngành chăn nuôi gia súc và thịt bò, và tôi tôn trọng trí tuệ và giá trị của anh ấy, vì vậy tôi đã thuyết phục anh ấy rằng chúng ta nên cùng nhau chinh phục thế giới đó. Anh ấy đã mang theo người vợ tuyệt vời và những đứa con từ Guymon, Oklahoma, và gia đình chúng tôi trở nên không thể tách rời. Chúng tôi điều hành công việc kinh doanh một cách cẩu thả. Vì phần văn phòng bằng đá sa thạch nơi tôi sống và làm việc nhìn chung rất bừa bộn—với xương gà hoặc những mảnh vụn khác do làm việc suốt bữa tối hôm trước vương vãi trên bàn của tôi—chúng tôi tổ chức tất cả các cuộc gặp khách hàng tại Câu lạc bộ Harvard. Paul sẽ giấu một chiếc áo sơ mi oxford màu xanh sạch sẽ và thắt cà vạt giữa đống lộn xộn để tôi có thứ gì đó để mặc. Vào năm 1981, chúng tôi quyết định muốn nuôi dạy gia đình mình ở một môi trường đồng quê hơn, vì vậy tất cả chúng tôi chuyển đến Wilton, Connecticut, để điều hành Bridgewater từ đó.
+Colman và tôi làm việc bằng cách thách thức ý tưởng của nhau và cố gắng tìm ra câu trả lời tốt nhất; đó là một sự qua lại liên tục mà cả hai chúng tôi đều thích thú, đặc biệt là vào thời điểm có quá nhiều điều phải tìm hiểu. Chúng tôi sẽ tranh luận về thị trường và các thế lực đằng sau chúng đến tận đêm khuya, cắm dữ liệu vào máy tính trước khi đi ngủ và xem những gì nó tiết ra vào buổi sáng.
+
+
+CUỘC GỌI TRẦM CẢM LỚN CỦA TÔI
+
+Nền kinh tế trong giai đoạn 1979–81 thậm chí còn tồi tệ hơn so với thời kỳ khủng hoảng tài chính 2007–08 và thị trường biến động nhiều hơn. Trên thực tế, một số người sẽ nói đây là giai đoạn bất ổn nhất từ ​​trước đến nay. Các biểu đồ ngược lại từ năm 1940 cho thấy sự biến động của lãi suất và vàng.
+Như bạn có thể thấy, không có gì giống như vậy trước năm 1979–82. Đó là một trong những thời điểm quan trọng nhất trong hàng trăm năm qua. Con lắc chính trị trên toàn thế giới nghiêng về bên phải, đưa Margaret Thatcher, Ronald Reagan và Helmut Kohl lên nắm quyền. “Tự do” không còn có nghĩa là ủng hộ sự tiến bộ mà có nghĩa là “trả tiền cho những người không làm việc”.
+Như tôi đã thấy, Fed đã bị mắc kẹt giữa một tảng đá và một nơi khó khăn. Họ phải a) in tiền để giải quyết các vấn đề nợ nần và giữ cho nền kinh tế tiếp tục phát triển (vốn đã đẩy lạm phát lên 10% vào năm 1981 và khiến mọi người đổ xô đi mua trái phiếu và mua các tài sản được phòng ngừa lạm phát), hoặc b) phá vỡ nền kinh tế lạm phát bằng cách trở nên chặt chẽ đến mức thấu xương (điều này sẽ khiến các con nợ đau đầu vì nợ ở mức cao nhất kể từ Đại suy thoái). Vấn đề tồi tệ hơn xuất hiện ở cả mức độ lạm phát ngày càng cao và mức độ hoạt động kinh tế ngày càng tồi tệ hơn. Cả hai dường như đang đi đến một cái đầu. Các khoản nợ tiếp tục tăng nhanh hơn nhiều so với thu nhập mà những người đi vay cần để trả nợ, và các ngân hàng Mỹ đang cho các nước mới nổi vay những khoản tiền khổng lồ – nhiều hơn nhiều so với vốn họ có. Vào tháng 3 năm 1981, tôi đã viết một bài Quan sát hàng ngày có tựa đề “Sự suy thoái tiếp theo trong viễn cảnh” và kết luận nó bằng câu: “Mức nợ khổng lồ của chúng ta ngụ ý rằng cuộc suy thoái sẽ tồi tệ hoặc tồi tệ hơn những gì đã chứng kiến ở những năm 30.”
+
+![](images/02.png)
+
+Quan điểm này đã cực kỳ gây tranh cãi. Đối với hầu hết mọi người, “trầm cảm” là một từ đáng sợ được sử dụng bởi những người lập dị và theo chủ nghĩa giật gân, không phải là điều mà những người chín chắn coi trọng. Nhưng tôi đã nghiên cứu về nợ và suy thoái từ năm 1800, thực hiện các tính toán của mình và tin chắc rằng cuộc khủng hoảng nợ do các nước mới nổi dẫn đầu sẽ đến. Tôi phải chia sẻ suy nghĩ của mình với khách hàng. Bởi vì quan điểm của tôi gây nhiều tranh cãi nên tôi đã yêu cầu những người khác theo dõi lập luận của tôi và chỉ ra cho tôi điểm không tốt. Không ai có thể tìm thấy bất kỳ sai sót nào trong logic của tôi, mặc dù tất cả họ đều miễn cưỡng tán thành kết luận của tôi.
+Bởi vì tôi tin rằng sự lựa chọn là giữa tăng tốc lạm phát và giảm phát, nên tôi đã nắm giữ cả hai loại vàng (thứ hoạt động tốt trong
+đẩy nhanh lạm phát) và trái phiếu (hoạt động tốt trong thời kỳ suy thoái giảm phát). Cho đến thời điểm đó, vàng và trái phiếu đã di chuyển ngược chiều nhau, tùy thuộc vào kỳ vọng lạm phát tăng hay giảm. Nắm giữ những vị trí đó có vẻ an toàn hơn nhiều so với việc nắm giữ các lựa chọn thay thế như tiền mặt, thứ sẽ mất giá trị trong môi trường lạm phát hoặc cổ phiếu, thứ sẽ sụp đổ trong thời kỳ suy thoái.
+Lúc đầu, thị trường đi ngược lại tôi. Nhưng kinh nghiệm của tôi với bạc và các giao dịch khác đã dạy tôi rằng tôi có một vấn đề kinh niên về thời gian, vì vậy tôi tin rằng mình còn sớm và những gì tôi mong đợi sẽ sớm xảy ra. Điều đó không mất nhiều thời gian để xảy ra. Vào mùa thu năm 1981, các chính sách thắt chặt của Fed đã có tác động tàn phá, các vụ cá cược trái phiếu của tôi bắt đầu được đền đáp, và những quan điểm lập dị của tôi bắt đầu có hiệu quả. Vào tháng 2 năm 1982, Fed tạm thời bổ sung thanh khoản để tránh khủng hoảng tiền mặt. Vào tháng 6, khi cuộc tranh giành thanh khoản gia tăng, Fed đã phản ứng bằng cách in tiền, tăng tính thanh khoản lên mức cao nhất kể từ khi Paul Volcker được bổ nhiệm. Nhưng nó vẫn chưa đủ.
+MÁY CƯA TUYỆT VỜI NHẤT BAO GIỜ
+Tháng 8 năm 1982, Mexico vỡ nợ. Đến lúc đó, hầu hết mọi người đều rõ ràng rằng một số quốc gia khác sắp làm theo. Đây là một thỏa thuận lớn, bởi vì các ngân hàng Hoa Kỳ đã cho các nước khác vay khoảng 250% vốn của họ cũng có nguy cơ rủi ro như Mexico. Hoạt động cho vay kinh doanh tại Hoa Kỳ tạm dừng.
+Bởi vì tôi là một trong số ít người nhìn thấy những điều này sắp xảy ra, nên tôi bắt đầu nhận được nhiều sự chú ý. Quốc hội đang tổ chức các phiên điều trần về cuộc khủng hoảng và mời tôi làm chứng; vào tháng 11, tôi là khách mời nổi bật trong Tuần lễ Wall $treet với Louis Rukeyser, chương trình phải xem đối với bất kỳ ai trong thị trường. Trong cả hai lần xuất hiện, tôi đều tự tin tuyên bố rằng chúng tôi đang rơi vào tình trạng trầm cảm và giải thích lý do tại sao.
+Sau khi Mexico vỡ nợ, Fed đã đối phó với sự sụp đổ kinh tế và vỡ nợ bằng cách cung cấp tiền dễ dàng hơn. Điều này khiến thị trường chứng khoán tăng vọt với số lượng kỷ lục. Mặc dù điều đó làm tôi ngạc nhiên, nhưng tôi hiểu đó là một phản ứng tức thời đối với động thái của Fed. Xét cho cùng, vào năm 1929, sau một đợt tăng giá 15%, giá cổ phiếu đã sụt giảm nghiêm trọng nhất mọi thời đại. Vào tháng 10, tôi đã đưa ra dự đoán của mình trong một bản ghi nhớ. Như tôi thấy, có 75% khả năng Fed sẽ
+
+những nỗ lực sẽ không thành công và nền kinh tế sẽ đi vào thất bại; 20% khả năng ban đầu nó sẽ thành công trong việc kích thích nền kinh tế nhưng cuối cùng vẫn thất bại; và 5% cơ hội nó sẽ cung cấp đủ kích thích để cứu nền kinh tế nhưng lại gây ra siêu lạm phát. Để phòng ngừa những khả năng tồi tệ nhất, tôi đã mua vàng và trái phiếu kho bạc tương lai dưới dạng chênh lệch so với đô la euro, đây là một cách đặt cược rủi ro hạn chế vào các vấn đề tín dụng ngày càng gia tăng.
+Tôi đã chết sai. Sau một thời gian trì hoãn, nền kinh tế đã đáp lại những nỗ lực của Fed, phục hồi theo cách không gây lạm phát. Nói cách khác, lạm phát giảm trong khi tăng trưởng tăng tốc. Thị trường chứng khoán bắt đầu một đợt tăng giá mạnh, và trong 18 năm tiếp theo, nền kinh tế Hoa Kỳ đã tận hưởng thời kỳ tăng trưởng phi lạm phát lớn nhất trong lịch sử của mình.
+Làm thế nào là có thể? Cuối cùng, tôi đã tìm ra nó. Khi tiền chảy ra khỏi các quốc gia vay mượn này và đổ vào Mỹ, nó đã thay đổi mọi thứ. Nó đẩy đồng đô la lên giá, tạo ra áp lực giảm phát ở Mỹ, cho phép Fed giảm lãi suất mà không làm tăng lạm phát. Điều này thúc đẩy một sự bùng nổ. Các ngân hàng được bảo vệ cả vì Cục Dự trữ Liên bang đã cho họ vay tiền mặt và các ủy ban chủ nợ và các tổ chức tái cơ cấu tài chính quốc tế như Quỹ Tiền tệ Quốc tế (IMF) và Ngân hàng Thanh toán Quốc tế đã sắp xếp mọi thứ để các quốc gia mắc nợ có thể trả nợ của họ từ các khoản vay mới. Bằng cách đó, mọi người có thể giả vờ rằng mọi thứ đều ổn và viết ra những khoản vay đó trong nhiều năm.
+Trải nghiệm của tôi trong giai đoạn này giống như một loạt cú đánh vào đầu bằng gậy bóng chày. Quá sai lầm—và đặc biệt là sai lầm một cách công khai—khiến tôi vô cùng khiêm tốn và khiến tôi phải trả giá bằng tất cả những gì tôi đã xây dựng ở Bridgewater. Tôi thấy rằng tôi đã từng là một kẻ kiêu ngạo, người hoàn toàn tin tưởng vào một quan điểm hoàn toàn sai lầm.
+Vì vậy, tôi đã ở đó sau tám năm kinh doanh, không có gì để thể hiện. Mặc dù tôi đã đúng nhiều hơn là sai, nhưng tôi vẫn luôn back để hình vuông một.
+Tại một thời điểm, tôi đã mất rất nhiều tiền đến mức không đủ khả năng trả cho những người làm việc với tôi. Từng người một, tôi phải để họ ra đi. Chúng tôi chỉ còn hai nhân viên—Colman và tôi. Rồi Colman phải đi. Nước mắt giàn giụa, gia đình anh thu dọn hành lý trở về Oklahoma. Bridgewater giờ chỉ còn một nhân viên: tôi.
+Mất đi những người mà tôi vô cùng quan tâm và gần như đánh mất ước mơ làm việc cho chính mình thật là tàn khốc. Để kiếm đủ sống, tôi thậm chí đã phải
+
+vay bố tôi 4.000 đô la cho đến khi chúng tôi bán được chiếc ô tô thứ hai. Tôi đã đứng trước ngã ba đường: Tôi có nên thắt cà vạt và nhận một công việc ở Phố Wall không? Đó không phải là cuộc sống mà tôi muốn. Mặt khác, tôi còn có một người vợ và hai đứa con nhỏ để hỗ trợ. Tôi nhận ra rằng mình đang đối mặt với một trong những bước ngoặt lớn của cuộc đời và những lựa chọn của tôi sẽ có ý nghĩa lớn đối với tôi và tương lai của gia đình tôi.
+TÌM ĐƯỜNG VƯỢT QUA VẤN ĐỀ ĐẦU TƯ BẤT NGỜ CỦA TÔI
+Kiếm tiền trên thị trường là khó khăn. Nhà giao dịch và đầu tư tài giỏi Bernard Baruch đã nói rất hay khi nói: “Nếu bạn sẵn sàng từ bỏ mọi thứ khác và nghiên cứu toàn bộ lịch sử và bối cảnh của thị trường cũng như tất cả các công ty chính có cổ phiếu trên bảng một cách cẩn thận như một sinh viên y khoa nghiên cứu giải phẫu - nếu bạn có thể làm được tất cả những điều đó và thêm vào đó bạn có thần kinh lạnh lùng của một tay cờ bạc, giác quan thứ sáu của một nhà thấu thị và lòng can đảm của một con sư tử, bạn sẽ có một cơ hội may mắn.”
+Nhìn lại, những sai lầm dẫn đến vụ tai nạn của tôi dường như rõ ràng một cách đáng xấu hổ. Thứ nhất, tôi đã quá tự tin và để cảm xúc chi phối mình. Tôi đã học được (một lần nữa) rằng dù tôi có biết bao nhiêu và làm việc chăm chỉ đến đâu, tôi cũng không bao giờ đủ chắc chắn để tuyên bố những điều giống như những gì tôi đã nói trên Wall $tree Week: “Sẽ không có cuộc hạ cánh êm ái. Tôi có thể nói điều đó một cách chắc chắn tuyệt đối, bởi vì tôi biết thị trường hoạt động như thế nào.” Tôi vẫn còn bị sốc và xấu hổ bởi sự kiêu ngạo của mình.
+Thứ hai, tôi lại thấy giá trị của việc học lịch sử. Rốt cuộc, những gì đã xảy ra là “một trong số đó”. Lẽ ra tôi phải nhận ra rằng các khoản nợ bằng đồng tiền của mình có thể được tái cơ cấu thành công với sự giúp đỡ của chính phủ, và khi các ngân hàng trung ương đồng thời cung cấp các biện pháp kích thích (như họ đã làm vào tháng 3 năm 1932, vào thời điểm thấp nhất của cuộc Đại suy thoái, và như họ đã làm một lần nữa năm 1982), lạm phát và giảm phát có thể cân bằng với nhau. Như năm 1971, tôi đã không nhận ra những bài học lịch sử. Nhận thức được điều đó đã khiến tôi cố gắng tìm hiểu mọi chuyển động trong tất cả các nền kinh tế và thị trường lớn trong vòng một trăm năm trở lại đây và đưa ra các nguyên tắc ra quyết định đã được thử nghiệm cẩn thận, mang tính phổ biến và vượt thời gian.
+Thứ ba, tôi được nhắc nhở về việc xác định thời điểm thị trường khó khăn như thế nào. Ước tính dài hạn của tôi về mức cân bằng không đủ tin cậy để đặt cược vào; quá nhiều
+
+mọi thứ có thể xảy ra giữa thời điểm tôi đặt cược và thời điểm (nếu có) mà ước tính của tôi đạt được.
+Nhìn chằm chằm vào những thất bại này, tôi nhận ra rằng nếu tôi muốn tiến lên phía trước mà không có khả năng cao sẽ bị đánh một lần nữa, tôi sẽ phải nhìn nhận bản thân một cách khách quan và thay đổi—bắt đầu bằng cách học cách tốt hơn để đối phó với tính hiếu chiến tự nhiên mà tôi luôn có. thể hiện trong việc theo đuổi những gì tôi muốn.
+Hãy tưởng tượng rằng để có một cuộc sống tuyệt vời, bạn phải vượt qua một khu rừng nguy hiểm. Bạn có thể an toàn ở nơi bạn đang ở và có một cuộc sống bình thường, hoặc bạn có thể mạo hiểm băng qua rừng rậm để có một cuộc sống tuyệt vời. Làm thế nào bạn sẽ tiếp cận sự lựa chọn đó? Hãy dành một chút thời gian để suy nghĩ về nó bởi vì đó là loại lựa chọn mà, dưới hình thức này hay hình thức khác, tất cả chúng ta đều phải thực hiện.
+Ngay cả sau vụ tai nạn, tôi biết mình phải theo đuổi cuộc sống tuyệt vời với tất cả những rủi ro của nó, vì vậy câu hỏi đặt ra là làm thế nào để “vượt qua khu rừng nguy hiểm” mà không bị giết. Nhìn lại, vụ tai nạn của tôi là một trong những điều tuyệt vời nhất từng xảy ra với tôi vì nó mang lại cho tôi sự khiêm tốn cần thiết để cân bằng tính hung hăng của mình. Tôi đã học được một nỗi sợ hãi lớn về việc sai lầm đã thay đổi lối suy nghĩ của tôi từ suy nghĩ “Tôi đúng” sang tự hỏi bản thân “Làm sao tôi biết mình đúng?” Và tôi thấy rõ rằng cách tốt nhất để trả lời câu hỏi này là tìm những người có suy nghĩ độc lập khác, những người có cùng sứ mệnh với tôi và những người nhìn mọi thứ khác với tôi. Bằng cách lôi kéo họ vào sự bất đồng có suy nghĩ, tôi có thể hiểu được lý lẽ của họ và để họ kiểm tra mức độ căng thẳng của tôi. Bằng cách đó, tất cả chúng ta có thể nâng cao xác suất đúng của mình.
+Nói cách khác, tôi chỉ muốn mình đúng—tôi không quan tâm câu trả lời đúng có đến từ tôi hay không. Vì vậy, tôi đã học cách cởi mở hoàn toàn để cho phép người khác chỉ ra những gì tôi có thể thiếu sót. Tôi thấy rằng cách duy nhất tôi có thể thành công là:
+1. Tìm kiếm những người thông minh nhất không đồng ý với tôi để tôi có thể cố gắng hiểu lý do của họ.
+2. Biết khi nào không nên có ý kiến.
+3. Phát triển, thử nghiệm và hệ thống hóa các nguyên tắc phổ quát và vượt thời gian.
+4. Cân bằng rủi ro theo cách giữ lợi nhuận lớn trong khi giảm rủi ro
+nhược điểm.
+Làm những điều này đã cải thiện đáng kể lợi nhuận của tôi so với rủi ro của tôi và các nguyên tắc tương tự cũng được áp dụng trong các khía cạnh khác của cuộc sống. Hầu hết
+
+quan trọng là kinh nghiệm này đã khiến tôi xây dựng Bridgewater như một chế độ trọng dụng nhân tài ý tưởng—chứ không phải một
+
+chế độ chuyên quyền trong đó tôi lãnh đạo và những người khác tuân theo, và không phải là một nền dân chủ trong đó lá phiếu của mọi người đều bình đẳng—mà là một chế độ trọng tài khuyến khích những bất đồng có suy nghĩ và khám phá cũng như cân nhắc ý kiến của mọi người tương xứng với thành tích của họ.
+Đưa những ý kiến trái ngược này ra công khai và khám phá chúng đã dạy tôi rất nhiều điều về cách mọi người suy nghĩ. Tôi nhận ra rằng điểm yếu lớn nhất của mọi người là mặt trái của điểm mạnh lớn nhất của họ. Ví dụ, một số người có xu hướng chấp nhận quá nhiều rủi ro trong khi những người khác lại quá sợ rủi ro; một số quá tập trung vào các chi tiết trong khi những người khác quá tập trung vào bức tranh lớn. Hầu hết là quá nhiều theo cách này và không đủ theo cách khác. Thông thường, bằng cách làm những gì đến với chúng ta một cách tự nhiên, chúng ta không tính đến những điểm yếu của mình, điều này khiến chúng ta sụp đổ. Điều gì xảy ra sau khi chúng tôi sụp đổ là quan trọng nhất. Những người thành công thay đổi theo cách cho phép họ tiếp tục phát huy thế mạnh của mình đồng thời bù đắp những điểm yếu còn những người không thành công thì không. Ở phần sau của cuốn sách, tôi sẽ mô tả các chiến lược cụ thể để thay đổi, nhưng điều quan trọng cần lưu ý ở đây là sự thay đổi có lợi bắt đầu khi bạn có thể thừa nhận và thậm chí chấp nhận những điểm yếu của mình.
+Trong những năm sau đó, tôi phát hiện ra rằng hầu hết những người thành công phi thường mà tôi từng gặp đều có những thất bại đau đớn lớn tương tự, những thất bại đó đã dạy cho họ những bài học mà cuối cùng giúp họ thành công. Nhìn lại việc bị Apple sa thải vào năm 1985, Steve Jobs nói: “Đó là một loại thuốc có mùi vị kinh khủng, nhưng tôi đoán bệnh nhân cần nó. Đôi khi cuộc sống ném một viên gạch vào đầu bạn. Đừng đánh mất niềm tin. Tôi tin rằng điều duy nhất giúp tôi tiếp tục là tôi yêu thích những gì mình đã làm.”
+Tôi thấy rằng để làm tốt một cách xuất sắc, bạn phải vượt qua giới hạn của mình và nếu bạn vượt quá giới hạn của mình, bạn sẽ sụp đổ và điều đó sẽ gây tổn thương rất nhiều. Bạn sẽ nghĩ rằng mình đã thất bại—nhưng điều đó sẽ không đúng trừ khi bạn bỏ cuộc. Tin hay không thì tùy, nỗi đau của bạn sẽ nguôi ngoai và bạn sẽ có nhiều cơ hội khác ở phía trước, dù có thể lúc đó bạn không nhìn thấy chúng. Điều quan trọng nhất bạn có thể làm là thu thập những bài học mà những thất bại này mang lại, đồng thời đạt được sự khiêm tốn và tinh thần cởi mở triệt để để tăng cơ hội thành công. Sau đó, bạn nhấn vào.
+Bài học cuối cùng của tôi có lẽ là bài học quan trọng nhất, bởi vì nó đã được áp dụng đi áp dụng lại trong suốt cuộc đời tôi. Lúc đầu, đối với tôi, dường như tôi phải đối mặt với sự lựa chọn được ăn cả ngã về không: Tôi có thể chấp nhận rất nhiều rủi ro để theo đuổi lợi nhuận cao (và đôi khi thấy mình bị hủy hoại) hoặc tôi có thể giảm rủi ro và chấp nhận lợi nhuận thấp hơn . Nhưng tôi cần phải có cả rủi ro thấp và rủi ro cao
+
+trở lại, và bằng cách thực hiện một sứ mệnh để khám phá xem làm thế nào tôi có thể làm được, tôi đã học được cách đi từ từ khi đối mặt với sự lựa chọn giữa hai thứ mà bạn cần có vẻ như trái ngược nhau. Bằng cách đó, bạn có thể tìm ra cách để có được càng nhiều thứ càng tốt. Hầu như luôn có một con đường tốt mà bạn chưa khám phá ra, vì vậy hãy tìm kiếm nó cho đến khi bạn tìm thấy nó thay vì chấp nhận sự lựa chọn mà bạn đã biết.
+Khó khăn như vậy, cuối cùng tôi cũng tìm ra cách để có được chiếc bánh của mình và ăn nó. Tôi gọi đó là “Chén thánh đầu tư” và đó là bí mật đằng sau thành công của Bridgewater.
