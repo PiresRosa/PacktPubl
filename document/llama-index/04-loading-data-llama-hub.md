@@ -125,7 +125,8 @@ index = VectorStoreIndex([node1, node2])
 
 # Llama Hub
 - Data connector ở Llama hub nhiều vl.
-![Llama hub](images/llamahub.png)
+![Llama hub](https://minhphong306.wordpress.com/wp-content/uploads/2024/06/llamahub.png)
+
 
 ## Cách dùng
 
