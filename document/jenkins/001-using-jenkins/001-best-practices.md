@@ -69,3 +69,15 @@ pipeline {
 - Trong project setting, có thể cấu hình nhiều Jenkinsfile (cho nhiều repo):
     - Ví dụ: repo1 có Jenkinsfile, repo2 có Jenkinsfile-m2
     - Truờng hợp repo có cả 2 Jenkinsfile match với điều kiện -> ưu tiên lấy theo nội dung file phía trên trước.
+
+### GitLab
+- Vào user -> create personal accestoken. Tick vào API.
+- Thêm SSH key (của Jenkins)
+- Vào global access credentials, add GitLab access token và SSH private key vào.
+- Vào configuration system -> GitaLab sections: 
+    - Chọn personal access token.
+    - Chọn manage webhook.
+    - Đổi đường dẫn của webhook vào.
+- New item -> GitLab group
+- Khi scan, Jenkins sẽ tự động update webhook của project về webhook đã cấu hình ở bước trên.
+- Các bước phía sau khá giống với GitHub phía trên.
