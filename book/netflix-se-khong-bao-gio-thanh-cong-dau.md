@@ -269,3 +269,12 @@
 - Netflix phát triển cơ chế Cinematch giúp người dùng lựa chọn đĩa DVD cho mình dễ dàng hơn và thật sự là số lượng người dùng phát triển kinh khủng.
 - Netflix tìm kiếm khoản đầu tư 80 triệu đô từ Deutsche Bank, nhưng do tác động từ sự đổ vỡ bong bóng dot com, ngân hàng đã không rải ngân và không phát hành được cổ phiếu.
 - Mặc dù tăng lượng người dùng, nhưng chi phí để aquire một user quá lớn dẫn tới việc các nhà sáng lập của Netflix nghĩ tới việc bán cho Blockbuster
+
+## Chap 16: Sụp đổ
+> Tháng 9 năm 2000
+- Netflix nhận được một lời mời họp gấp gặp với Blockbuster - một công ty băng đĩa nổi tiếng.
+- Ba người: Marc, Reed, Barry đang trong chuyến du lịch với công ty nên không mang đồ theo, ăn mặc hết sức buồn cười.
+- Việc bong bóng .com nổ ra khiến nguồn vốn đầu tư trở nên e dè hơn, Netflix gọi vốn cũng khó khăn hơn nhiều
+- Netflix đang trên con đường thua lỗ 50 triệu đô trong năm nay, nên rất mong chờ cuộc họp này với Blockbuster để bán mình, hoặc chí ít là hợp tác.
+- Reed đề nghị bán công ty với giá 50 triệu đô, nhưng Blockbuster cho rằng đây là một con số điên rồ. Netflix chỉ đang cố gắng đốt tiền mà thôi.
+- Ba người của Netflix quay về, chưa biết sẽ phải làm gì với các vấn đề mà công ty sắp phải đối mặt…
