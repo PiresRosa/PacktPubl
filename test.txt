@@ -1,0 +1,24 @@
+10 kí tự phân quyền\
+- 1: thư mục
+- 3: user
+- 3: group
+- 3: other
+
+rwx:
+- read
+-write
+- execute
+
+---
+ssh: 
+- private key: 
++ chỉ read bởi user
+- public key: 
++ chỉ read bởi user, group, other
+
+-->
+id_rsa: -r--------
+id_rsa.pub: -r--r--r
+
+---
+face mask
