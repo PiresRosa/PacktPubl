@@ -278,3 +278,15 @@
 - Netflix đang trên con đường thua lỗ 50 triệu đô trong năm nay, nên rất mong chờ cuộc họp này với Blockbuster để bán mình, hoặc chí ít là hợp tác.
 - Reed đề nghị bán công ty với giá 50 triệu đô, nhưng Blockbuster cho rằng đây là một con số điên rồ. Netflix chỉ đang cố gắng đốt tiền mà thôi.
 - Ba người của Netflix quay về, chưa biết sẽ phải làm gì với các vấn đề mà công ty sắp phải đối mặt…
+
+## Chap 17: Thắt lưng buộc bụng
+> 2000 - 2001
+- Sau khi bị Blockbuster từ chối mua lại, Netflix phải tìm cách tự mình vượt qua giai đoạn khó khăn này.
+- Ban giám đốc cân nhắc, và quyết định cắt giảm 40% nhân sự (~ 120 người)
+- Việc cắt giảm có nhiều vấn đề:
+    - Nên cắt giảm ai? Một nhân viên trẻ với năng lực làm việc tốt hay một nhân viên làm việc trung bình nhưng đang là trụ cột của gia đình?
+    - Nên cắt giảm một nhân viên lương cao hay giữ lại hai nhân viên lương trung bình?
+    - …
+- Một lập trình viên chăm chỉ, hiền lành và tử tế khi bị sa thải và quay lại nói với Marc:
+    - “Tôi muốn quay lại để biết chắc rằng anh ổn. Tôi biết chuyện này chắc rất khó khăn với anh”
+    - “Này, đè bẹp Blockbuster nhé”
