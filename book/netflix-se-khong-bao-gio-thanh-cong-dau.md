@@ -84,3 +84,38 @@
     - Alexandre - một nhân vật lớn trong ngành công nghệ băng hình DVD: ông này bảo ý tưởng ngáo vl, sắp dùng công nghệ streaming rồi còn đi cho thuê DVD
     - Steve: một gã cuồng công nghệ video đầu tư 25k$ miễn cưỡng do nể.
     - Mẹ tác giả: ko đề cập kĩ lắm, nhưng chắc khoảng 75k$ thì mới đủ 100k$ được.
+
+## Chap 6: Cảm giác khi đem gửi ngân hàng số tiền gần 2 triệu đô
+- Sau vài tuần, Reed đã kí séc để xuống tiền.
+- Tác giả đã từng đi gửi nhiều tiền, lớn hơn con số 1,9 triệu đô nhiều. Nhưng lần này mang một tâm thế khác. Ông háo hức lạ thường
+- Tác giả dành tiền để đầu tư vào đồ công nghệ: những chiếc laptop. Văn phòng thuê loại rẻ tiền, bàn ghế và vật dụng đa phần là tận dụng lại
+- Do nhà xa công ty, tác giả quyết định xuống tiền mua 1 căn nhà gần công ty ~ 1 triệu đô (tiền cá nhân, k phải của cty)
+- Một số vấn đề tác giả cần giải quyết:
+
+### Thiết lập văn phòng:
+- Trang trí phòng thế nào, thuê người ra sao.
+- Thời này mọi thứ vẫn còn rất sơ khai, không có sẵn gì hết. Cần làm mọi thứ từ đầu
+### Xây dựng đội ngũ:
+- Tác giả thuyết phục được Mitch Lowe - chuyên gia băng đĩa, chủ tịch VSDA ở chương trước gia nhập đội quân ô hợp của mình.
+- Corey Bridges: một cây bút tài ba, biết gieo những hạt giống cho Netflix bằng cách thâm nhập vào các diễn đàn phim, lấy được lòng tin của cộng đồng trước khi Netflix chính thức ra đời.
+- Kho Braun: một lập trình viên tài năng, kiệm lời. Giờ giấc làm việc hơi dị
+
+### Xây dựng những thứ cơ bản:
+- Tác giả thuyết phục được nhân viên làm việc cho mình, hứa sẽ có đền đáp xứng đáng, dù thời điểm hiện tại công ty không trả được lương cao, không có văn phòng đẹp, không có chế độ tốt
+- Xây dựng thư viện phim:
+- Có nhiều câu hỏi: nên mua bao nhiêu đĩa DVD cho 1 tựa phim? Nên sắp xếp các đĩa DVD thế nào cho dễ tìm và tra cứu.
+- Về mua bao nhiêu, nhờ kiến thức khổng lồ của Mitch về phim ảnh nên dễ dàng xử lý được (về sau được xử lý bằng thuật toán)
+- Về sắp xếp, Jim Cook đã xếp đi xếp lại cả trăm lần. Cuối cùng thì cũng thành hình.
+
+### Xây dựng bao bì:
+- Cần làm ra 1 cái bao bì có thể bảo vệ đĩa khi gửi qua bưu điện && tái sử dụng được
+- Bao bì lởm quá cũng không ổn; quá xịn, khối lượng tăng thì chi phí tăng cũng không ổn
+- “Tôi đã ở lại muộn để điều chỉnh các mẫu thử nghiệm, phác hoạ ý tưởng lên giấy ăn sau những bữa ăn. Có đôi lúc, vào ban đêm, tôi còn mơ về chúng nữa
+
+### Xây dựng trang web
+- Năm 1997 chưa có các dịch vụ tạo web. Bạn cần làm mọi thứ từ a-z: mua domain, máy chủ vật lí, lập trình web,…
+- Designer (Chris) vẽ ra trên giấy, rất chi tiết và làm việc cùng với đội Tech trong cả tháng trời để ra được trang web của Netflix
+
+- Lúc này tác giả cảm thấy niềm vui mà cha ông có được khi làm các đoàn tàu handmade:
+    - Sự thoả mãn khi sắp xếp các nhiệm vụ
+    - Tìm hiểu tất cả các vấn đề rồi nỗ lực giải quyết chúng
