@@ -148,3 +148,26 @@
     - Bưu điện đóng lúc 3h, nếu không làm kịp thì ngày hôm sau họ mới giao => ảnh hưởng tới experience của khách hàng.
     - Việc website sập trong ngày ra mắt thực sự là một thảm họa. Tuy nhiên thì nhìn theo chiều hướng tích cực, nó là một tín hiệu tốt: website có người truy cập, Netflix có đơn đặt hàng
 - Sau ngày ra mắt đầu tiên, đội ngũ Netflix đã làm việc cả đêm để đảm bảo website sẽ hoạt động tốt vào ngày hôm sau
+
+## Chap 9: Một ngày của cuộc sống sau khi ra mắt
+- Tiêu đề là một ngày, nhưng có vẻ là hai tháng sau khi ra mắt thì phải.
+- Doanh thu hàng tháng có tin vui:
+    - Đạt 93k$ ở mảng BÁN đĩa DVD
+    - Đạt 1k$ ở mảng CHO THUÊ đĩa DVD
+- Model của Netflix là cho thuê, không phải bán => rõ ràng đây là vấn đề lớn cần được giải quyết.
+- Corey tiếp tục tạo nhiều nick clone trên khắp các diễn đàn để seeding cho Netflix.
+- Tác giả tham gia một hội nghị triển lãm Điện tử Tiêu dùng - một triển lãm thương mại lớn nhất vào thời bấy giờ.
+- Tác giả cố gắng tiếp cận các công ty bán đầu đĩa DVD lớn thời bấy giờ: Sony, Toshiba, Panasonic và đưa ra một lời đề nghị hấp dẫn: ông sẽ đưa cho khách hàng ba lần thuê free khi mua đầu DVD thông qua 1 code ở trong đầu đĩa.
+    - Điều này sẽ giúp khách hàng ra quyết định nhanh hơn khi mua đầu đĩa DVD (vì có hàng free xem luôn).
+- Thằng cha làm cho Panasonic có vẻ khó chịu khi tác giả nói chuyện với Sony.
+- Các công ty lớn như Sony và Panasonic to vkl => mỗi lần có gì đó được đưa vào sản phẩm (VD như khuyến mãi của Netflix thì phải mất hàng năm trời nó mới được duyệt).
+- Đúng như dự đoán thì 2 tháng sau, Sony và Panasonic mất hút con mẹ hàng lươn.
+- May có ông Toshiba gọi điện nhưng đòi yêu cầu cao vãi: 3 lần thuê free, 5 cái đĩa tặng free nữa thì chơi, không thì lướt. Cuối cùng tác giả vẫn phải chấp nhận.
+- Lúc này có nhiều thứ áp lực dồn đến:
+    - Tiền học cho con?
+    - Vợ mệt mỏi, muốn dừng lại, sống 1 cuộc sống yên bình hơn.
+    - Thuyết phục các đơn vị kinh doanh DVD phối hợp nhưng bị từ chối.
+    - Tìm lập trình viên làm việc cho công ty.
+    - Chi phí bao bì tăng nhiều, cần thiết kế mẫu bao bì khác.
+- Quotes hay:
+    - “Ngay khoảnh khắc giấc mơ của bạn trở thành hiện thực, mọi thứ liền trở nên phức tạp. Đơn giản là bạn không thể biết mọi thứ sẽ diễn ra như thế nào cho đến khi bạn thật sự bắt tay vào làm. Cứ bắt đầu và viết ra kế hoạch đi, nhưng đừng đặt quá nhiều niềm tin vào đó. Cách chân chính duy nhất để tìm ra sự thật là hành động.”
