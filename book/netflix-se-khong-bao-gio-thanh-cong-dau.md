@@ -68,3 +68,19 @@
 - Mitch thân thiện, giản dị, là một mọt phim chính hiệu.
 - Tác giả mời Mitch vào công ty của mình, nhưng nhanh chóng bị ông từ chối.
 - Tuy vậy, Mitch vẫn support tác giả, đưa ra lời khuyên vào những bữa trưa mà tác giả mời Mitch.
+
+## Chap 5: Hãy cho tôi tiền
+- OPM - Other People's Money là một từ tiếng lóng nổi tiếng thường gặp ở Silicon Valley.
+- OPM ám chỉ việc: khi nói tới chuyện tìm vốn cho giấc mơ của bạn, hãy chỉ sử dụng tiền của người khác. Bạn hãy cống hiến cả đời mình cho ý tường, nhưng hãy để người khác cống hiến hầu bao của họ.
+- Reed cũng tin vào điều này. Ông quyết định chỉ đầu tư 1,9 triệu đô thay vì 2 triệu như ban đầu. Tác giả bắt buộc phải đi kêu gọi đầu tư thêm 100k$
+- Khi bạn nói ý tưởng, người ta khen bạn => đó có thể là 1 lời khen động viên thông thường (có thể người ta vẫn nghĩ ý tưởng của bạn là điên rồ)
+- Nhưng khi bạn mời người ta đầu tư và họ xuống tiền => ý tưởng của bạn sẽ có nhiều cơ hội hơn
+- Chưa kể khi nói đến tiền, người ta sẽ suy nghĩ nghiêm túc hơn => đưa ra nhiều góp ý có value hơn.
+- Tác giả kể lại trải nghiệm khi tham gia trại hè của một trường ngoại khóa khi là sinh viên: lột sạch ví tiền, điện thoại, đồng hồ, vứt ở ngã ba. Bạn phải sinh tồn trong 3 ngày
+    - Ở đây tác giả phải đi xin tiền người khác.
+    - Việc xin tiền khó nhất là ở giai đoạn mở mồm ra nói câu xin tiền đầu tiên.
+    - Khi bạn đã trải qua những chuyện như vậy thì việc hỏi xin một nhà đầu tư 25k$ chẳng là gì cả.
+- Để có được 100k$ còn lại, tác giả đi thuyết phục:
+    - Alexandre - một nhân vật lớn trong ngành công nghệ băng hình DVD: ông này bảo ý tưởng ngáo vl, sắp dùng công nghệ streaming rồi còn đi cho thuê DVD
+    - Steve: một gã cuồng công nghệ video đầu tư 25k$ miễn cưỡng do nể.
+    - Mẹ tác giả: ko đề cập kĩ lắm, nhưng chắc khoảng 75k$ thì mới đủ 100k$ được.
