@@ -1,1 +1,0 @@
-kubectl logs -n testnet -l app=service-game-graph-api --max-log-requests=11 -f
