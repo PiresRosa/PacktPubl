@@ -213,7 +213,7 @@
 - Lúc này tác giả suy nghĩ và đau đớn nhiều:
     - “Tôi biết Reed nói đúng. Nhưng nói đúng về công ty CỦA TÔI, ý tưởng CỦA TÔI, ước mơ CỦA TÔI”. 
     - Có thực tế không khi kỳ vọng ai đó có thể quyết định đúng mọi thứ? Liệu tôi có được phép làm theo cách của mình với những sai lầm không?
-    - Ông nghĩ tới việc có rất nhiều nhân viên bỏ qua cơ hội tốt hơn để tới làm việc cho mình
+    - Ông nghĩ tới việc có rất nhiều nhân viên bỏ qua cơ hội tốt hơn để tới làm việc cho mình. Sẽ tốt hơn và công bằng hơn với họ nếu công ty này ở trong tay một vị lãnh đạo tốt hơn.
 - Tối hôm đó, ông ngồi rất lâu trong phòng làm việc của mình, cho tới khi tất cả mọi người ra về hết và không bật đèn.
 - Cũng tối hôm đó, ông ngồi cùng vợ rất lâu. Tất nhiên là vợ ông thấy giận giữ và bất công cho ông
 —
