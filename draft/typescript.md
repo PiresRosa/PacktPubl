@@ -68,3 +68,16 @@ const addNonNull = (a: number, b?: number) => a+b!;
     - private: bên ngoài ko truy cập được
     - readonly: bên ngoài đọc được, nhưng k thay đổi được.
 
+
+## Part 3: Generic
+
+### Tuple
+- Giống kiểu gán cụ thể kiểu dữ liệu cho các phần tử trong mảng
+```
+const tup: [string, number, boolean] = ["Phong", 25, true]
+```
+
+### Generic
+```
+const lastT = <T>(arr: Array<T>) => arr[arr.length -1];
+```
