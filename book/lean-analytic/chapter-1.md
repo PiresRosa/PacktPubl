@@ -39,4 +39,14 @@
 - Sự ảo tưởng của bạn, không quan trọng là nó thuyết phục tới mức nào, sẽ khô héo dưới ánh sáng của dữ liệu.
 - Analytic là trọng số cần thiết cho sự dối trá, âm dương của sự cường điệu.
 - Hơn nữa, data-driven learning là nền tảng của một startup thành công.
-- Nó là cách mà bạn hiểu những gì đang diễn ra và lặp lại để hướng tới một sản phẩm thành công và thị trường phù hợp trước khi hết tiền 
+- Nó là cách mà bạn hiểu những gì đang diễn ra và lặp lại để hướng tới một sản phẩm thành công và thị trường phù hợp trước khi hết tiền
+
+- Chúng tôi không nói rằng bản năng là không tốt. Bản năng chính là cảm hứng và bạn cần phải lắng nghe "khúc ruột" của mình, dựa vào nó trong suốt chuyến hành trình startup của mình.
+- Bản năng là cảm hứng, dữ liệu là minh chứng.
+
+## The lean startup movement
+- Sự đổi mới là một công việc khó khăn. Khó hơn nhiều so với tưởng tượng.
+- Dù bạn có là 1 startup đơn độc đang cố gắng phá vỡ một ngành công nghiệp; hay bạn là một nhân viên bất hảo trong công ty nhà nước (đại khái nói về việc đổi mới trong một công ty đầy quan liêu)
+- Chúng tôi hiểu điều đó. Tinh thần kinh doanh là điên rồ, gần như là vô lí
+
+- Lean Startup cung cấp một framework
