@@ -241,3 +241,22 @@
     - Việc ra đi này là cần thiết khi công ty đang dần lớn lên.
 - Netflix link trang mua đĩa sang Amazon nhưng Amazon thì không mặn mà làm điều ngược lại.
 - Tình hình kinh doanh đang đi xuống, không có doanh thu nên đang tiêu dần vào tiền gọi vốn.
+
+## Chap 14: Chap 14: Không ai biết trước được điều gì
+> Mùa thu 1999, 1 năm rưỡi sau khi ra mắt.
+
+- Ý tưởng thử nghiệm cùng lúc 3 idea mang lại thành công vang dội cho đội ngũ Netflix; đặc biệt là ý tưởng cho phép người dùng subscription theo tháng  ( Netflix marquee) - một ý tưởng mà chưa trang web trực tuyến nào làm thời đó cả.
+    - Việc tự động charge tiền hàng tháng của user cũng mang lại nhiều tranh cãi.
+- Sau một thời gian, Netflix quyết định bỏ việc cho thuê đơn lẻ, chỉ tập trung vào thuê theo tháng.
+- Netflix cũng phải cân nhắc tới việc có nên mở rộng quy mô sang Canada để tăng 10% doanh thu hay không?
+- Netflix thử nghiệm tính năng giao hàng cực nhanh ở các vùng xa xôi nhằm mang lại trải nghiệm tốt nhất cho khách hàng.
+- Hãy tin tưởng trực giác của mình, nhưng đồng thwòi cũng phải thwủ nghiệm nó. Trước khi thực hiện một công việc cụ thể, hãy xem dữ liệu có đồng tình hay không.
+- Netflix nhận ra mình cần tìm ra long mạch: không thể chỉ phụ thuộc vào dịch vụ vận chuyển hay sản phẩm đơn thuần - bởi nếu như vậy, Netflix sẽ trở nên lạc hậu ngay khi công nghệ thay đổi.
+    - Họ thực sự focus vào trải nghiệm người dùng.
+- Marc loay hoay tới việc thiết kế một trang web hoàn hảo, có gợi ý thông minh, nhưng có thể mất rất lâu mới hoàn thiện
+    - Reed yêu cầu làm thật đơn giản và nhanh cho chạy trước đã. Sau đó thì hoàn thiện dần.
+
+- Quotes hay:
+    - “Chắc là em sai rồi nhỉ? Ý tưởng này sẽ thành công phải không anh?”
+    - “Thật sự thì anh nghĩ thế. Nhưng em đừng áy náy. Vài năm trước thì ý tưởng này cũng không khả quan đến thế. Và bên cạnh đó, không ai biết trước được điều gì.”
+    - “Sự tập trung. Đó chính là vũ khí bí mật của một doanh nhân khởi nghiệp. Hết lần này đến lần khác trong câu chuyện Netflix - từ bỏ việc bán đĩa DVD, từ bỏ mô hình cho thuê truyền thống, và cuối cùng là từ bỏ nhiều thành viên trong đội ngũ ban đầu - chúng tôi phải sẵn sàng từ bỏ những phần thuộc về quá khứ vì lợi ích của tương lai. Đôi khi, sự tập trung ở mức độ này có vẻ như rất tàn nhẫn - và thật sự thì nó cũng hơi tàn nhẫn một chút. Nhưng không chỉ có vậy. Sự tập trung đó gần giống với lòng can đảm.”
