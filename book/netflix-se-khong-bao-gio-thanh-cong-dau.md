@@ -171,3 +171,17 @@
     - Chi phí bao bì tăng nhiều, cần thiết kế mẫu bao bì khác.
 - Quotes hay:
     - “Ngay khoảnh khắc giấc mơ của bạn trở thành hiện thực, mọi thứ liền trở nên phức tạp. Đơn giản là bạn không thể biết mọi thứ sẽ diễn ra như thế nào cho đến khi bạn thật sự bắt tay vào làm. Cứ bắt đầu và viết ra kế hoạch đi, nhưng đừng đặt quá nhiều niềm tin vào đó. Cách chân chính duy nhất để tìm ra sự thật là hành động.”
+
+## Chap 10: Những ngày bình yên
+- Netflix được Amazon (lúc này đang là nền tảng bán sách online) để mắt tới, book 1 cuốc meet với tác giả và Reed.
+- Văn phòng Amazon trông bẩn bẩn và bừa bộn. Jeff Bezos cũng là một người nổi tiếng keo kiệt và bủn xỉn, với điệu cười (hơi) đểu.
+- Amazon đề xuất mức 15 triệu $ để mua lại Netflix.
+- Điều làm tác giả suy nghĩ:
+    - Nghĩ tới giấc mơ có 1 ngôi nhà  ở Montana, cho con đi học ở trường công thay vì trường tư như hiện tại
+    - Nghĩ tới việc Amazon nhảy vào thị trường bán đĩa online, Netflix sẽ chết.
+    - Nghĩ tới việc Reed sẽ thất vọng, vì ông ấy đang nắm 70% cổ phần. Việc bán công ty giá 15 triệu đô sẽ làm khoản đầu tư này sinh lời quá nhỏ.
+- Tác giả quyết định bỏ hẳn mảng bán đĩa online (doanh thu đang là 97%) để tập trung vào mảng cho thuê.
+- Sau đó, tác giả và Reed đi kêu gọi vốn cho vòng Series B. Các chỉ số của công ty như bòi, khả năng cao bị reject. Tuy nhiên cho Reed là người có tiếng tăm trong giới khởi nghiệp nên quỹ vẫn đầu tư cho Netflix 4 củ đô.
+- Quote hay:
+    - Nếu có một cơ hội gõ cửa, bạn không nhất thiết phải mở cửa. Nhưng ít nhất bạn phải dặn lòng rằng hãy nhìn qua lỗ khoá xem cơ hội ấy là gì.
+    - Nếu muốn trứng nở thành chim và khôn lớn bay đi, bạn sẽ cần một chút gió (sóng gió)
