@@ -87,6 +87,7 @@ docker rm es01
 docker rm kib01
 
 ```
+- http://0.0.0.0:5601/app/dev_tools#/console
 
 ## Lấy thông tin về cluster và nodes
 ```
@@ -6945,6 +6946,7 @@ GET favorite_candy/_doc/1
 - Xoá document:
 ```
 DELETE {index}/_doc/${id}
+```
 
 # Bài tập
 1. Tạo index `destination`
