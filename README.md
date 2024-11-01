@@ -10,6 +10,9 @@
 * [Một số resource hay](#Resources)
 
 
+### Javascript
+* [[Vue] Cơ bản Vue](javascript/vue/syntax.md)
+
 ### Linux
 * [Sinh SSH key](linux/generate_ssh_key.md)
 
@@ -23,7 +26,7 @@
 > Updating...
 
 ### Piano
-* [Luyện ngón từ chưa biết gì](music/finger_practice.md)
+* [Luyện ngón từ chưa biết gì](music/piano/finger_practice.md)
 
 ### Resources
 > Một số tài nguyên hay ho
