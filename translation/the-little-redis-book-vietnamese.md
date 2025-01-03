@@ -83,4 +83,4 @@ Nếu thích, bạn có thể tải ngay driver của ngôn ngữ mình thích �
 Điều gì khiến Redis trở nên đặc biệt? Kiểu vấn đề nào mà nó giải quyết? Dev cần chú ý gì khi sử dụng nó?
 Trước khi trả lời những câu hỏi này, chúng ta cần biết Redis là gì.
 
-Redis thường được hiểu là database trên RAM, lưu dạng key-value (in-memory persistent key-value store). 
+Redis thường được hiểu là database trên RAM, lưu dạng key-value (in-memory persistent key-value store). Tôi không nghĩ
