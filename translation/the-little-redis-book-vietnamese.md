@@ -1,4 +1,4 @@
-# The little redis book
+e-# The little redis book
 - Tác giả: Karl Seguin
 - Dịch tiếng Việt: Đỗ Minh Phong
 
