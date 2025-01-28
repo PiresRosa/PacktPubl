@@ -25,3 +25,18 @@
 ### Những nguyên lí của tôi, và cách tôi học chúng
 - Tôi học thông qua việc mắc nhiều sai lầm => ngồi tự nghiệm lại => cải thiện để không mắc phải lỗi tương tự + tăng tốc
 - Tôi tin rằng, thành công = cố gắng + thất bại vừa đủ. Thất bại vừa đủ là để có trải nghiệm, và không lớn tới mức bị loại ra khỏi cuộc chơi.
+- Hình:
+  Goal -> thất bại -> học được các nguyên lí -> cải thiện -> goal cao hơn.
+- Có những quyết định đáng tin cậy.
+- Vận hành bởi các nguyên lí: viết ra giấy, chia sẻ với đồng nghiệp, cải thiện nó.
+- Hệ thống hóa việc đưa ra quyết định: sử dụng cả 2 hệ thống đưa ra quyết định trong đầu và bằng máy tính => máy tính thường đưa ra quyết định ngon hơn, vì không bị chi phối bởi cảm xúc.
+- Việc hệ thống hóa vẫn quan trọng thứ nhì thôi. Quan trọng nhất vẫn là viết nó ra. Đặc biệt là khi là viêc với người khác. Cách này giúp tác giả giàu vkl và đạt được một số thành tích to vkl.
+- Tác giả lúc đầu cũng không chia sẻ các nguyên lí của mình, vì cho rằng như thế là tự phụ. Đến khi công ty tên là bridgewater thành công => ông viết 1 bài chém về các nguyên lí của mình => bất ngờ vì nhận được nhiều lời cảm ơn => viết 2 quyển sách là "Life and work principles" và "Economic and Investment principles".
+
+### Quyển sách này được sắp xếp thế nào?
+- Tác giả dành phần lớn thời gian vào việc kinh doanh và đầu tư => định viết quyển "Economic and investment principles" trước, nhưng nghĩ lại thấy nên viết quyển "Life and work principles" trước vì nó bao quát hơn. Mình nghĩ là tác giả văn vở để giới thiệu: bố mày còn quyển nữa hay vkl. Đọc đi =))
+- Phần 1: Tôi đến từ đâu: chém về các bài học của tác giả. Kể lể thôi, anh em bỏ qua cũng được.
+- Phần 2: Các nguyên lí cuộc sống: Hay vkl, nói về 5 bước giải quyết vấn đề, cách áp dụng trong cuộc sống
+- Phần 3: Các nguyên lí công việc: nói về việc vận dụng nguyên lí cuộc sống vào giải quyết công việc. Nói về việc suy nghĩ biệt lập, không phụ thuộc vào cảm xúc của từng cá thể trong tập thể. Một cây làm chẳng nên non, ba cây chụm lại nên hòn núi cao. Tác giả bảo còn hay hơn cả chương 2 nữa =))
+
+## Phần 1: Tôi đến từ đâu
