@@ -40,3 +40,15 @@
 - Phần 3: Các nguyên lí công việc: nói về việc vận dụng nguyên lí cuộc sống vào giải quyết công việc. Nói về việc suy nghĩ biệt lập, không phụ thuộc vào cảm xúc của từng cá thể trong tập thể. Một cây làm chẳng nên non, ba cây chụm lại nên hòn núi cao. Tác giả bảo còn hay hơn cả chương 2 nữa =))
 
 ## Phần 1: Tôi đến từ đâu
+>> Cuộc sống giống như dòng sông, đưa chúng ta đến gặp thực tế, bắt chúng ta đưa ra quyết định. Chúng ta không thể dừng di chuyển hoặc nhảy xuống dòng sông. Chúng ta chỉ có thể tiếp cận chúng một cách tốt nhất mà thôi. => đại ý là quất thôi.
+
+### Phần 1.1: My call to adventure 1949 - 1967(không biết dịch thế nào)
+- Tác giả sinh ra trong 1 gia đình bình thường, ông già làm nhạc sĩ, bà già ở nhà. Lúc còn nhỏ cũng có sở thích bình thường như bao bạn cùng trang lứa: chơi bời, phá phách, tán gái các thứ =))
+- Đi học thì tác giả học dốt vkl, trí nhớ cũng kém nữa. Nhiều lúc bà già cảm thấy xấu hổ, không biết có hay đấm cho trận không nữa.
+- Mẹ mất lúc ông 19 tuổi, bố ông mất ở tuổi 91.
+- Từ nhỏ (khoảng 8 tuổi) là ông đã đi làm thêm các việc vặt để kiếm tiền, tự lập tài chính => thời điểm này được học rất nhiều bài từ trường đời.
+- Khi nước Mỹ giàu mạnh, USD thành đồng tiền của thế giới thì việc đầu tư cổ phiếu cũng là trend lúc ấy.
+- 12 tuổi ông đi làm gì đó ở sân golf, lấy tiền làm thêm đầu tư cổ phiếu thì lãi gấp 3 lần => ông rút ra: ồ, kiếm tiền dễ vkl =))
+- Nhìn chung thời gian này tác giả kiếm tiền ngon, thoải mái ăn chơi, tư duy rằng đầu tư chứng khoán dễ vkl.
+
+### Phần 1.2: Crossing the threshold 1967 - 1979 (vượt qua ngưỡng cửa)
