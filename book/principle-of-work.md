@@ -52,3 +52,11 @@
 - Nhìn chung thời gian này tác giả kiếm tiền ngon, thoải mái ăn chơi, tư duy rằng đầu tư chứng khoán dễ vkl.
 
 ### Phần 1.2: Crossing the threshold 1967 - 1979 (vượt qua ngưỡng cửa)
+- Giai đoạn này kinh tế đi xuống. Tác giả vẫn dùng chiến thuật cũ => mất tiền
+- Đi học đại học. Bình thường học dốt, nhưng lên ĐH học giỏi, do tính ứng dụng cao.
+- Học thiền => giúp bình tĩnh, quyết định đúng đắn, sáng tạo.
+- Ông học chuyên ngành tài chính vì thích market. Học ngày học đêm, học thêm học chính =))
+- Ông quen 1 bạn học lớn tuổi người Việt Nam, nói với ông về việc buôn bán hàng hóa. Ông thích, vì cần ít tiền đầu tư.
+- Ông trốn nghĩa vụ quân sự trong cuộc chiến với VN. Nếu ông đi nghĩa vụ quân sự thì éo biết có quyển sách này không nữa :v
+- Tết Mậu Thân 1968, Mỹ thua chiến tranh. 
+// page 28
