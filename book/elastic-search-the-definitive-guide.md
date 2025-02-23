@@ -210,10 +210,88 @@ Các công việc trên được xử lý bởi analyzer. Analyzer là tập h�
 - Token filter: Chuẩn hóa các term: chuyển hoa -> thường; bỏ các stop word (từ nối, số từ như a, an, the)
 
 
-### Chap 8: Sorting & relevant
+## Chap 8: Sorting & relevant
 - Sort by field value => es sẽ 
 
 - Mặc định ES sẽ tự detect string field, gán cho nó analyzer mặc định
 => Không phải lúc nào chúng ta cũng muốn thế 
 => Lấy VD 1 số field trong ES product hiện tại.
 - Mapping không đúng có thể gây confuse cho kết quả. Thay vì việc đoán 1 field nào đó đang ở mapping nào. Hãy kiểm tra nó.
+
+## Chap 10: Index management
+- field _all lưu tất cả các field vào 1 string.
+- Phù hợp với việc ném đá dò đường, chưa biết dữ liệu sẽ có cấu trúc như nào, những kiểu nào.
+- Có thể tắt field _all đi
+PUT /my_index/mapping/my_type
+{
+	"my_type": {
+		"_all": {"enabled": false}
+	}
+}
+
+- Mặc định thì các field sẽ đều được tổng hợp vào field_all. Có thể custom để tắt đi, chỉ bật cho 1 số field thôi. VD
+PUT /my_index/mapping/my_type
+{
+	"my_type": {
+		"include_in_all": false,
+		"properties": {
+			"title": {
+				"type": "string",
+				"include_in_all": true
+			}
+		}
+	}
+}
+
+- Có thể config cho field id được lấy từ field nào trong document
+PUT /my_index
+{
+	"mappings": {
+		"my_type": {
+			"_id": {
+				"path": "doc_id"
+			},
+			"properties": {
+				"doc_id": {
+					"type": string,
+					"index": "not_analyzed"
+				}
+			}
+		}
+	}
+}
+
+- Làm trò trên thì kể cũng tiện. Nhưng ảnh hưởng tới performance khi update bulk (vì phải parse body ra để lấy doc_id) => hạn chế dùng thôi.
+
+### Dynamic mapping
+- Mặc định field mới thêm vào sẽ được ES nhận diện kiểu dữ liệu, tự động đánh mapping cho nó.
+- Tuy nhiên nếu không thích thì cũng có thể tắt đi:
++ strict: thêm field chưa định nghĩa sẽ bị lỗi
++ true: tự thêm field
++ false: ignore field chưa định nghĩa
+PUT /my_index
+{
+	"mappings": {
+		"my_type": {
+			"dynamic": "strict",
+			"properties": {
+				"title": {"type": "string"},
+				"stash": {
+					"type": "object",
+					"dynamic": true
+				}
+			}
+		}
+	}
+}
+
+=> trong vd trên thì thêm field mới vào record sẽ bị lỗi, thêm field vào trong object stash thì ko bị lỗi.
+
+- Customize mapping: có thể tắt tự detect 1 số loại dữ liệu cho từng index:
++ date_detection
+PUT /my_index
+{
+	"mappings": {
+		
+	}
+}
