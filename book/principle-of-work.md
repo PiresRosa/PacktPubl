@@ -59,4 +59,5 @@
 - Ông quen 1 bạn học lớn tuổi người Việt Nam, nói với ông về việc buôn bán hàng hóa. Ông thích, vì cần ít tiền đầu tư.
 - Ông trốn nghĩa vụ quân sự trong cuộc chiến với VN. Nếu ông đi nghĩa vụ quân sự thì éo biết có quyển sách này không nữa :v
 - Tết Mậu Thân 1968, Mỹ thua chiến tranh. 
-// page 28
+- Đoạn này nói về Mỹ định in nhiều tiền đô => nhiều ngân hàng quy đổi mẹ hết tiền sang vàng để khỏi bị trượt giá. Đại ý vậy. Đọc ko hiểu lắm.
+- Ông tốt nghiệp xuất cmn sắc => làm nhân viên bán hàng tại Havard Business School.
