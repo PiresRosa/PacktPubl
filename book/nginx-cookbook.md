@@ -405,3 +405,40 @@ location / {
     proxy_ssl_verify_depth 2;
     proxy_ssl_protocols TLSv1.2;
 }
+
+## Chap 14: HTTP Basic Authentication
+### 14.1: Creating user file
+- Tạo file theo format
+
+```
+name1:pass1
+name2:pass2
+name3:pass3
+```
+
+- Tool gen pass (dùng hàm crypt() của C) của openssl:
+$ openssl passwd MyPassword1234
+
+### 14.2: Using Basic Authentication
+location / {
+    auth_basic              "Private site";
+    auth_basic_user_file    conf.d/passwd;
+}
+
+## Chap 15: HTTP Authentication Subrequests
+- Kiểu dùng thêm 1 loại authen nữa đứng giữa
+
+location /private {
+    auth_request        /auth;
+    auth_request_set    $auth_status $upstream_status;
+}
+
+location = /auth {
+    internal;
+    proxy_pass                  http://auth-server;
+    proxy_pass_request_body     off;
+    proxy_set_header            Content-Length "";
+    proxy_set_header            X-Original-URI $request_uri;
+}
+
+## Chap 16: Secure links
