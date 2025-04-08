@@ -5,6 +5,7 @@
 ### HTTP load balancing
 - Cần cân bằng load giữa 2 server không cùng same resource: dùng weight để control, cái nào weight cao hơn thì vào nhiều request hơn.
 
+```
 upstream backend {
     server 10.10.12.45:90       weight=1;
     server app.example.com:80   weight=2;
@@ -15,12 +16,14 @@ server {
         proxy_pass http://backend;
     }
 }
+```
 
 => trong vd trên thì thằng số 2 sẽ ăn gấp đôi request của thằng số 1
 - Module upstream có thể định nghĩa 1 hoặc nhiều: unix socket, IP address, dns record, là danh sách các resource mà request có thể truy cập vào.
 
 ### TCP load balancing
 
+```
 stream {
     upstream mysql_read {
         server read1.example.com:3306   weight=5;
@@ -33,6 +36,7 @@ stream {
         proxy_pass mysql_read;
     }
 }
+```
 
 => load balance giữa 2 con read1, read2. Con backup là trong trường hợp 1 trong 2 con primary down thì sẽ gọi đến.
 
@@ -46,6 +50,7 @@ stream {
 + hash: routing theo custom param. Hữu ích trong trường hợp sử dụng cached data.
 
 ### Connection limiting (Nginx+)
+```
 upstream backend {
     zone backends 64k;
     queue 750 timeout=30s;
@@ -53,6 +58,7 @@ upstream backend {
     server web1.com max_conns=25;
     server web2.com max_conns=15;
 }
+```
 
 - max_conns reach => put request vào queue để processing
 
@@ -71,6 +77,8 @@ upstream backend {
 - Viết 1 cái api chỉ là trả về 200 OK để load balance biết là server còn sống là được.
 
 ### Slow start
+
+```
 slow_start là để khi server khởi động lên ổn định thì mới route request vào (vd cần time init redis, init database connection,...)
 
 upstream {
@@ -79,8 +87,10 @@ upstream {
     server s1.com slow_start=20s;
     server s2.com slow_start=15s;
 }
+```
 
 ### TCP Health check
+```
 stream {
     server {
         listen 3306;
@@ -88,6 +98,7 @@ stream {
         health_check interval=10 passes=2 fails=3;
     }
 }
+```
 
 - VD trên nginx 10s gửi request sau mỗi 10s 
 + pass ít nhất 2 request 200 ok mới là healthy
@@ -95,6 +106,7 @@ stream {
 
 
 ### TCP health check
+```
 http {
     server {
     ...
@@ -115,6 +127,7 @@ match welcome {
     header Content-Type = text/html;
     body ~ "Welcome to nginx!";
 }
+```
 
 - VD trên ở nginx thường, gửi request sang server mỗi 2s 1 lần.
 - Nginx+ có nhiều option ngon hơn...
@@ -141,12 +154,14 @@ match welcome {
 - Caching giúp response kể cả trường hợp upstream server bị fail
 
 ### Caching zones
+```
 proxy_cache_path    /var/nginx/cache
                     keys_zone=CACHE:60m
                     levels=1:2
                     inactive=3h
                     max_size=20g;
 proxy_cache CACHE;
+```
 
 - Lưu cache ở path /var/nginx/cache
 - Bộ nhớ cache 60MB, lưu ở namespace tên là CACHE
@@ -163,15 +178,18 @@ proxy_cache_bypass $http_cache_bypass
 ### Caching perfomance
 -Vấn đề: Bạn cần tăng perfomance caching bằng cách cache ở client side
 
+```
 location ~* \.(css|js)$ {
     expires 1y;
     add_header Cache-Control "public";
 }
+```
 
 ### Purging
 - Vấn đề: Cần invalidate cache
 - Solution: Dùng nginx+ feature gọi là proxy_cache_purge
 
+```
 map $request_method $purge_method {
     PURGE 1;
     default 0;
@@ -184,12 +202,14 @@ server {
         proxy_cache_purge $purge_method;
     }
 }
+```
 
 ## Chapter 6: Sophisticated Media Streaming
 - Nginx support stream media (flv, mp4) và live stream
 
 ### 6.1: MP4 & FLV
 
+```
 http {
     server {
         ...
@@ -203,11 +223,13 @@ http {
         }
     }
 }
+```
 
 ### 6.2: Streaming với HLS
 - HLS là http live streaming cho H.264/AAC-encoded content package trong MP4 files
 - Dùng Nginx+ HLS module
 
+```
 location /hls/ {
     hls;
 
@@ -218,6 +240,7 @@ location /hls/ {
     hls_mp4_buffer_size     1m;
     hls_mp4_max_buffer_size 5m;
 }
+```
 
 ### 6.3: Streaming với HDS
 - HDS = Adobe's HTTP Dynamic Streaming. Dùng để streaming FLV file. Có vẻ bỏ cmnr
@@ -226,11 +249,13 @@ location /hls/ {
 - Cần limit lại để cải thiện chất lượng xem
 - Sol: Dùng nginx+ bitrate limiting
 
+```
 location /videos/ {
     mp4;
     mp4_limit_rate_after    15s;
     mp4_limit_rate          1.2;
 }
+```
 
 => cho phép client download bình thường trong 15s trước khi dính rate limit
 => Trong config trên thì đang limit 1.2 => client download bằng tốc độ 120% so với tốc độ xem video (chỗ này cũng chưa hiểu kĩ lắm)
@@ -254,6 +279,7 @@ service nginx reaload
 ### 8.3: SRV record
 Đoạn này chưa hiểu lắm
 
+```
 http {
     resolver 10.0.0.2;
 
@@ -262,9 +288,11 @@ http {
         server api.intenal service=http resolve
     }
 }
+```
 
 ## Chap 9: UDP load balancing
 ### 9.1: Stream context
+```
 stream {
     upstream ntp {
         server ntp1.com:123 weight=2;
@@ -276,20 +304,25 @@ stream {
         proxy_pass ntp;
     }
 }
+```
 
 ### 9.2: Load balancing algorithm
 - Cũng có mấy thuật toán giống phần trước: ip_hash, round_robin, lest_conn
+```
 upstream dns {
     least_conn;
     server ns1.example.com:53;
     server ns2.example.com:53;
 }
+```
 
 ### 9.3: Health check
+```
 upstream ntp {
     server ns1.example.com:123 max_fails=3 fail_timeout=3s;
     server ns2.example.com:123 max_fails=3 fail_timeout=3s;
 }
+```
 
 
 ## Chap 10: Cloud-Agnostic Architecture
@@ -306,15 +339,17 @@ upstream ntp {
 ## Chap 11: Controlling Access
 
 ### 11.1: Access Based on IP Address
-
+```
 location /admin/ {
     deny 10.10.0.1;
     allow 10.10.0.0/20;
     allow 2001:odb8::/32
     deny all;
 }
+```
 
 ### 11.2: Allow Cross-Origin Resource Sharing
+```
 map $request_method $cors_method {
     OPTIONS  11;
     GET      1;
@@ -348,10 +383,12 @@ server {
         }
     }
 }
+```
 
 ## Chap 12: Limiting use
 
 ### 12.1: Limiting connection
+```
 http {
     limit_conn_zone $binary_remote_addr zone=limitbyaddr:10m;
     limit_conn_status 429;
@@ -362,8 +399,10 @@ http {
         ...
     }
 }
+```
 
 ### 12.2: Limiting Rate
+```
 http {
     limit_req_zone $binary_remote_addr
         zone=limitbyaddr:10m rate=1r/s;
@@ -374,17 +413,20 @@ http {
         limit_req zone=limitbyaddr burst=10 nodelay;
     }
 }
+```
 
 ### 12.3: Limitting bandwidth
-
+```
 location /download/ {
     limit_rate_after 10m;
     limit_rate 1m;
 }
+```
 
 ## Chap 13: Encrypting
 
 ### 13.1: Client-side encryption
+```
 http {
     server {
         listen              8433 ssl;
@@ -396,15 +438,17 @@ http {
         ssl_session_timeout 10m;
     }
 }
+```
 
 ### 13.2: Upstream encryption
-
+```
 location / {
     proxy_pass https://upstream.example.com;
     proxy_ssl_verify on;
     proxy_ssl_verify_depth 2;
     proxy_ssl_protocols TLSv1.2;
 }
+```
 
 ## Chap 14: HTTP Basic Authentication
 ### 14.1: Creating user file
@@ -420,14 +464,16 @@ name3:pass3
 $ openssl passwd MyPassword1234
 
 ### 14.2: Using Basic Authentication
+```
 location / {
     auth_basic              "Private site";
     auth_basic_user_file    conf.d/passwd;
 }
+```
 
 ## Chap 15: HTTP Authentication Subrequests
 - Kiểu dùng thêm 1 loại authen nữa đứng giữa
-
+```
 location /private {
     auth_request        /auth;
     auth_request_set    $auth_status $upstream_status;
@@ -440,5 +486,5 @@ location = /auth {
     proxy_set_header            Content-Length "";
     proxy_set_header            X-Original-URI $request_uri;
 }
-
+```
 ## Chap 16: Secure links
