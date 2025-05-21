@@ -103,3 +103,110 @@ docker start $AGENT_CID
 - Ở chương 5 sẽ được học về user defined error để tránh application runtime error
 - Build chương trình thì hạn chế các biến fixed thôi, để sau này dễ mở rộng.
 
+- Nếu build hệ thống có quá nhiều fixed code ⇒ khó thay đổi.
+- Để xây dựng một hệ thống phân tán hiệu quả ⇒ cần minimal dependency (giảm sự phụ thuộc) trước khi bắt đầu.
+### Building evironment-agnostic systems
+
+Docker có 3 tính năng giúp build feature trên
+
+- Read-only filesystems
+- Environment variable injection
+- Volumes
+
+#### Read-only filesystem
+
+Dùng read-only có 2 cái lợi
+
+- Container không thay đổi file bên trong nó
+- Attacker cũng ko thay đổi được (vì container còn éo thay đổi đc mà :v)
+
+VD chạy docker ở chế độ read-only
+
+```docker
+
+docker run -d --name wp --read-only wordpress:5.0.0-php7.2-apache
+```
+
+Docker inspect sẽ trả về meta data của container dạng JSON
+
+```docker
+docker inspect --format "{{.State.Running}}" wp
+```
+
+Ví dụ trên chạy sẽ bị fail sml. Lí do á, vì WP không tạo được lock file.
+- Có thể dùng `docker container diff <container_name>` để xem container tạo ra các file nào. (chi tiết hơn đọc ở chương 3)
+- Có thể cho container read-only, nhưng mount folder từ máy thật vào + cho 1 thư mục lưu ở in-memory (RAM)
+
+```
+docker run -d  --name wp \
+    --read-only \
+    -v /run/apache2 \ // Mount folder từ máy host vào
+    --tmpfs /tmp \ // Cho phép container lưu vào máy thật tmp file system (?)
+    wordpress:5.0.0-php7.2-apache
+```
+
+- Cài mysql
+```
+docker run -d --name wpdb \
+    -e MYSQL_ROOT_PASSWORD=ch2demo \
+    mysql:5.7
+```
+
+- Tạo 1 WP container khác link tới db mysql
+
+```
+docker run -d  \
+    --name wp3 \
+    --link wpdb:mysql \
+    -p 8000:80  \                   // map port 8000 của máy thật vào port 80 của container
+    --read-only \
+    -v /run/apache2/ \
+    --tmpfs /tmp \
+    wordpress:5.0.0-php7.2-apache
+```
+
+- Có thể viết script để tạo site WP + monitor như sau
+
+```
+#! /bin/sh
+DB_CID=$(docker create -e MYSQL_ROOT_PASSWORD=ch2_demo mysql:5.7)
+
+docker start $DB_CID
+
+MAILER_CID=$(docker create dockerinaction/ch2_mailer)
+docker start $MAILER_CID
+
+WP_CID=$(docker create \
+            --link $DB_CID:mysql -p 80 \
+            --read-only \
+            -v /run/apache2 \
+            --tmpfs /tmp \
+            wordpress:5.0.0-php7.2-apache)
+
+docker start $WP_CID
+
+AGENT_CID=$(docker create \
+                --link $WP_CID:insideweb \
+                --link $MAILER_CID:insidemailer \
+                dockerinaction/ch2_agent)
+
+docker start $AGENT_CID
+```
+
+#### Environment variable injection
+- VD thêm 1 environment variable và in ra các env var
+
+```
+docker run --env MY_ENV_VAR="this is a test" \
+        busybox:1.29 \
+        env
+```
+sẽ in ra
+
+```
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=6b9f6a3fd10f
+MY_ENVIRONMENT_VAR=this is a test
+```
+
+
