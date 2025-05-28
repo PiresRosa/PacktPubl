@@ -209,4 +209,89 @@ HOSTNAME=6b9f6a3fd10f
 MY_ENVIRONMENT_VAR=this is a test
 ```
 
+- `--env` hay `-e` là viết tắt cho biến môi trường.
+- Đoạn này có 1 câu hay: Suppose that the database administrator is a cat lover and hate strong password =))
+
+```
+docker create \
+    --env WORDPRESS_DB_HOST=<host_name> \
+    --env WORDPRESS_DB_USER=admin \
+    --env WORDPRESS_DB_PASSWORD=MeowMix42 \
+    wordpress:5.0.0-php7.2-apache
+```
+
+=> dùng cách này thì tách được dependency giữa WP container và MySQL container. Tuy nhiên có vấn đề khác: các con WP đều dùng db mặc định => trùng db
+=> sol: tạo cho mỗi con 1 db riêng, dùng biến môi trường `WP_DB_NAME`
+
+```
+docker create \
+    --link wpdb:mysql \
+    -e WORDPRESS_DB_NAME=clientA \
+    wordpress:5.0.0-php7.2-apache
+
+docker create \
+    --link wpdb:mysql \
+    -e WORDPRESS_DB_NAME=clientB \
+    wordpress:5.0.0-php7.2-apache
+```
+
+update bash script
+
+```
+#! /bin/sh
+
+if [! -n "$CLIENT_ID" ]; then
+    echo "$CLIENT_ID not set"
+    exit
+fi
+
+WP_CID=$(
+    docker create \
+        --link $DB_CID:mysql \
+        --name wp_$CLIENT_ID \
+        -p 80 \
+        --read-only \
+        -v /run/apache2 \
+        --tmpfs /tmp \
+        -e WORDPRESS_DB_NAME=$CLIENT_ID \
+        wordpress:5.0.0-php7.2-apache
+)
+
+docker start $WP_CID
+
+AGENT_CID=$(
+    docker create \
+        --name=agent_$CLIENT_ID \
+        --link $WP_CID:insideweb \
+        --link $MAILER_CID:insidemailer \
+        dockerinaction/ch2_agent
+)
+
+docker start $AGENT_CID
+```
+
+- Chạy: `CLIENT_ID=dockerinaction ./start-multi-wp.sh`
+- Về cơ bản đến đây đã có hệ thống có cả monitor OK rồi
+
+
+![Built system]](images/dockerinaction_4.jpg)
+
+- Tuy nhiên hệ thống trên có nhược điểm: Cần restart manual con agent => cần tìm hiểu docker restart policy để xử lý ngon hơn.
+
+#### Building durable container
+- Container có 6 trạng thái: created, running, restarting, paused, removing, existed
+- Docker cung cấp 1 số option cho --restart:
++ Never start (default)
++ Cố gắng restart khi có lỗi xảy ra
++ Cố gắng restart trong 1 khoảng thời gian khi có lỗi xảy ra
++ Luôn luôn restart (sử dụng exponential backoff strategy)
+
+- Docker không tự động restart vì có thể sẽ gây ra nhiều vấn đề hơn là giải quyết vấn đề.
+
+```
+docker run  -d \
+    --name backoff-detector \
+    --restart always \
+    busybox:1.29 date
+```
 
