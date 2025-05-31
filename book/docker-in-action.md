@@ -295,3 +295,115 @@ docker run  -d \
     busybox:1.29 date
 ```
 
+Trong lúc container đang thực hiện backoff exponential thì container đang không running ⇒ nếu chạy exec
+
+```docker
+docker exec backoff detector echo Just a test
+```
+
+sẽ ăn quả lỗi 
+
+```docker
+container <id> is restarting, wait util the container is running.
+```
+
+### Sử dụng PID 1 và init system
+
+Init system là chương trình dùng để launch và maintain state của chương trình khác.
+
+Process với PID 1 thì linux sẽ hiểu là process init của kernel
+
+Một số chương trình có thể sẽ được hiểu như là init system. (VD: `supervisord`)
+
+Docker có 1 image đầy đủ LAMP stack
+
+```docker
+docker run -d --name lamp-demo -p 80:80 tutum/lamp
+```
+
+Kiểm tra các process đang chạy 
+
+```docker
+docker top lamp-demo
+```
+
+List các process
+
+```docker
+docker exec lamp-demo ps
+```
+
+Kill 1 process
+
+```docker
+docker exec lamp-demo kill <PID>
+```
+
+Trong lampp có luôn supervisord rồi. Vì vậy nếu stop apache2 thì nó sẽ tự scale lên
+
+có vẻ là mặc định docker luôn chạy 1 file entry point
+
+```docker
+docker run wordpress:5.7.0-php-7.2-apache  cat /usr/local/bin/docker-entrypoint.sh
+```
+
+Ở part 2 sẽ nói rõ hơn về cái entry point này. Ở part này đại thể sẽ chém rằng có thể overwrite bằng cách dùng `--entrypoint`
+
+```docker
+docker run wordpress:5.7.0-php-7.2-apache \
+		--entrypoint="cat" \
+		/usr/local/bin/docker-entrypoint.sh
+```
+
+### Cleaning up
+
+Anh em không dùng thì có thể xoá image thừa đi
+
+```docker
+docker rm wp 
+```
+
+Nếu anh em remove 1 image mà đang có container running ⇒ ăn quả lỗi vào mồm
+
+Có 2 cách để xử lý:
+
+- Cách 1: `docker stop <container_name>` : docker send `SIG_HUB` vào container, container sẽ shutdown graceful
+- Cách 2: `docker rm -f <container_name>` : docker send `SIG_KILL` vào container để stop immidiately ⇒ có thể không đủ thời gian để thực hiện các action trước khi stop.
+- Chỉ nên dùng `docker kill` hoặc `docker rm -f` trong trường hợp quá trình remove mất > 30s thôi nhá
+
+## Chương 2: Software installation simplified
+
+Chương này sẽ nói về 3 vấn đề chính:
+
+- Làm thế nào để tôi nhận biết software nào cần cài?
+- Tôi tìm software cần cài ở đâu?
+- Những file nào đã được cài đặt và chúng tách biệt với nhau thế nào?
+
+### Nhận biết software cần cài
+
+- Dựa vào tên và tag:
+    - `<host>/<user/company>/<sort_name>` : cả cụm này còn gọi là repository name
+    - Tag là cái đằng sau dấu `:`. VD ở chương trước cài MySQL 5.7: `mysql:5.7`
+
+### Tìm software cần cài ở đâu
+
+- Dùng indexes (docker hub là 1 trang indexes)
+- Nếu bạn cài 1 private registry (tức là tự host 1 trang để lưu docker file ấy) thì có thể dùng `docker login` và `docker logout` để đăng nhập. Có thể đăng nhập nhiều host khác nhau bằng cách định nghĩa host
+- Có thể save image vào file và load lại ra dùng
+
+```docker
+docker pull busybox:latest
+docker save -o myfile.tar busybox:latest // lưu image ra file
+docker rmi buýbox         // Xoá cụ image đi
+docker load -i myfile.tar // Load lại image từ file
+docker images // list các image ra
+```
+
+- Chạy docker từ 1 docker file không phải là cài 1 image, mà thực chất là đang build image đấy lên rồi cài
+
+```docker
+git clone https://github.com/dockerinaction/ch3_dockerfile.git
+docker build -t ohvkl/dockerfile:latest ch3_dockerfile
+```
+
+Option `-t` chỉ ra path của file cần build
