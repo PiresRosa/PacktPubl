@@ -407,3 +407,20 @@ docker build -t ohvkl/dockerfile:latest ch3_dockerfile
 ```
 
 Option `-t` chỉ ra path của file cần build
+
+### Những file nào đã được cài đặt và chúng tách biệt với nhau thế nào?
+- Docker tách thành các layer để tối ưu
+- Layer có mối quan hệ cha-con để tạo thành 1 sơ đồ. VD pull 2 con image sau về
+
+```
+docker pull dockerinaction/ch3_myapp
+docker pull dockerinaction/ch3_myotherapp
+```
+- Con đầu tiên pull lâu, con sau pull nhanh vì các layer nặng nó cache cmnr, còn đâu có hơn 1MB nữa là cần pull thôi.
+- Hình dưới mô tả quan hệ
+
+![Quan he cac layer](images/dockerinaction_5.png)
+- TOREAD: Đoạn dưới nói cái éo gì mà MNT với chroot, chỗ này cần đọc lại khi kiến thức khủng hơn
+- Dùng cơ chế layer này giúp tiết kiệm dung lượng.
+- Dùng cơ chế layer có yếu điểm: khi dùng chung parent layer, có thể config của parent layer cần khác nhau giữa các image => dùng chung bị lỗi. Chi tiết ở chương 4.
+
