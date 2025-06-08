@@ -424,3 +424,69 @@ docker pull dockerinaction/ch3_myotherapp
 - Dùng cơ chế layer này giúp tiết kiệm dung lượng.
 - Dùng cơ chế layer có yếu điểm: khi dùng chung parent layer, có thể config của parent layer cần khác nhau giữa các image => dùng chung bị lỗi. Chi tiết ở chương 4.
 
+## Chap 4: Working with storage and volumes
+Chap này có gì?
+```
+- Giới thiệu mount points
+- Cách share data giữa host và container
+- Cách share data giữa các container
+- Sử dụng temporary, in-memory filesystems
+- Quản lý data với volumes
+- Storage nâng cao với volume plugins
+```
+- Từ đầU đến giờ bạn cũng chạy vài chương trình rồi.
+- Sự khác biệt với ngoài thực tế: thực tế chưƠng trình chạy với data.
+- Chap này sẽ nói về volumn và các chiến thuật quản lý dữ liệu với container
+- Ví dụ bạn chạy 1 container database đi. Bạn có thắc mắc dữ liệu lưu ở đâu không? Có phải 1 file trong container? Điều gì xảy ra nếu bạn stop container hoặc gỡ nó ra? Làm thế nào để di chuyển dữ liệu trong trường hợp muốn nâng cấp database? Điều gì xảy ra với dữ liệu ở cloud machine khi nó bị terminate?
+- Ví dụ khác, nếu bạn chạy vài con web container. Giờ muốn lưu log file thì lưu ở đâu? Lấy log ra thế nào? Cách dùng các analyze tool khác để xử lý các file log này thế nào?
+
+Tất cả sẽ có trong chương này =))
+
+### 4.1: File trees and mount points
+- Không giống các OS khác, Linux tập hợp tất cả các storage thành 1 tree thôi.
+- Một số device đặc biệt như USB, đĩa cứng ngoài sẽ được attach vào cái tree ban đầu 1 vị trí đặc biệt, như hình dưới
+
+![Mount point](images/dockerinaction_6.png)
+
+- Việc mount này giúp software sử dụng các system variable của linux mà không cần biết các file này thực tế được map ở đâu trong bộ nhớ.
+- Mỗi container đều có 1 thứ gọi là MNT namespace và 1 file tree root duy nhất (chi tiết ở chương 6)
+- Bây giờ tạm hiểu là mỗi image tạo ra đều mount tới 1 điểm gọi là container tree root
+=> rõ ràng có thể mount 2 image khác nhau vào chung 1 folder trên máy host để share dữ liệu
+- Chương này sẽ nói về 3 kiểu mount:
++ Bind mounts
++ In-memory storage
++ Docker volumes
+
+### 4.2: Bind mounts
+- Bind mounts = mount một phần của filesystem tree vào 1 vị trí khác.
+- Khi làm việc với containers, bind mounts mount 1 vị trí ở máy thật vào máy ảo (?)
+- Hình dưới ví dụ tạo 2 container: 1 web server & 1 log processing, dùng bind mount để share log với nhau
+![VD bind mount](images/dockerinaction_7.png)
+
+```
+touch ~/example.log
+cat >~/example.log <<EOF
+server {
+    listen 80;
+    server_name localhost;
+    access_log /var/log/nginx/custom.host.access.log main;
+    location / {
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+    }
+}
+EOF
+```
+
+```
+CONF_SRC=~/example.conf; \
+CONF_DST=/etc/nginx/conf.d/default.conf; \
+LOG_SRC=~/example.log; \
+LOG_DST=/var/log/nginx/custom.host.access.log; \
+docker run -d --name diaweb \
+    --mount type=bind,src=${CONF_SRC},dst=${CONF_DST} \
+    --mount type=bind,src=${LOG_SRC},dst=${LOG_DST} \
+    -p 80:80 \
+    nginx:latest
+```
+
