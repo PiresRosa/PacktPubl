@@ -490,3 +490,14 @@ docker run -d --name diaweb \
     nginx:latest
 ```
 
+### 4.4: Volume
+- Kiểu dùng mount point bị phụ thuộc vào máy host + dễ conflict
+- Volume kiểu tạo ra 1 thư mục riêng cho docker quản lý ấy.
+- Volume được docker support tận răng. Sau mà tạo nhiều cluster thì chắc sẽ có tool để sync up lại. Tiện vkl
+- Đoạn dưới có ví dụ:
++ tạo 1 volume lưu dữ liệu của cassandra
++ tạo 1 container, mount volume trên vào, gọi là cass1
++ tạo 1 ít dữ liệu nháp
++ Xoá cass1 đi
++ Tạo 1 container khác là cass2, mount volume trên vào
++ Thấy dữ liệu vẫn còn nguyên :v
