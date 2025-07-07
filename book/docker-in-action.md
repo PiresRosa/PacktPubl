@@ -490,6 +490,40 @@ docker run -d --name diaweb \
     nginx:latest
 ```
 
+Nếu muốn đảm bảo rằng không process nào trong container có thể thay đổi nội dung file được => dùng option readonly
+
+
+```
+CONF_SRC=~/example.conf; \
+CONF_DST=/etc/nginx/conf.d/default.conf; \
+LOG_SRC=~/example.log; \
+LOG_DST=/var/log/nginx/custom.host.access.log; \
+docker run -d --name diaweb \
+    --mount type=bind,src=${CONF_SRC},dst=${CONF_DST},readonly=true \ <--- Chú ý cái readonly này
+    --mount type=bind,src=${LOG_SRC},dst=${LOG_DST} \
+    -p 80:80 \
+    nginx:latest
+```
+
+Bind mount cũng có 1 vài nhược điểm:
+- Phụ thuộc vào host: vì mount từ host vào => giảm tính portable vì cần có host
+- Có thể gây ra conflict: VD start nhiều con Cassandra lên, cùng mount vào 1 folder. Con cassandra nào cũng cần 1 file lock => các container tạo ra chồng chéo nhau => lỗi.
+
+### 4.3: In-memory storage
+- TOREAD: Đoạn này không hiểu lắm, đại loại muốn write 1 số thứ vào buffer, không cần write xuống disk
+- Set option --mount type=tmpfs là được
+
+```
+docker run --rm \
+    --mount type=tmpfs,dst=/tmp \
+    --entrypoint mount \
+    alpine:latest -v
+```
+
+
+### 4.4: Docker volume1
+
+
 ### 4.4: Volume
 - Kiểu dùng mount point bị phụ thuộc vào máy host + dễ conflict
 - Volume kiểu tạo ra 1 thư mục riêng cho docker quản lý ấy.
@@ -501,3 +535,88 @@ docker run -d --name diaweb \
 + Xoá cass1 đi
 + Tạo 1 container khác là cass2, mount volume trên vào
 + Thấy dữ liệu vẫn còn nguyên :v
+
+Tạo volume dùng chung
+```
+docker volume create \
+    --driver local \
+    --label example=cassandra \
+    cass-shared
+```
+
+Chạy cassandra với volume trên
+
+```
+docker run -d \
+    --volume cass-shared:/var/lib/cassandra/data \
+    --name cass1 \
+    cassandra:2.2
+```
+
+Sử dụng cqlsh + tạo dữ liệu
+
+```
+docker run -it --rm \
+    --link cass1:cass \
+    cassandra:2.2 cqlsh cass
+
+
+create keyspace docker_hello_world
+with replication = {
+    'class': 'SimpleStrategy',
+    'replication_factor': 1
+};
+
+select * from system.schema_keyspaces
+where keyspace_name='docker_hello_world';
+
+quit
+
+docker stop cass1
+docker rm -vf cass1
+
+docker run -d \
+    --volume cass-shared:/var/lib/cassandra/data \
+    --name cass2 \
+    cassandra:2.2
+
+docker run -it --rm \
+    --lik cass2:cass \
+    cassandra:2.2 \
+    cqlsh cass
+
+select *
+from system_schema_keyspaces
+where keyspace_name = 'dockr_hello_world';
+
+quit
+docker rm -vf cass2 cass-shared
+```
+
+### 4.5: Shared mount points & sharing files
+- Đoạn đầu đưa ra ví dụ về việc dùng mount type=bind với type=volume, volume thì có ưu điểm hơn giống phần trên (có vẻ bị lặp)
+- Nếu không định nghĩa tên volume => docker tự tạo ra 1 anonymous volumn với name tự gen lằng ngoằng
+- Vì tên tự gen khó nhớ => có thể dùng option `--volumes-from` để hiểu là lấy volume từ container 
+
+```
+docker run --name=fowler \
+    --mount type=volume,dst=/library/PoEAA \
+    --mount type=bind,src=/tmp,dst=/library/DSL \
+    alpine:latest \
+    echo "Fowler collection created."
+
+docker run --name knuth \
+    --mount type=volume,dst=/library/taocp.vol1 \
+    --mount type=volume,dst=/library/taocp.vol2 \
+    --mount type=volume,dst=/library/taocp.vol3 \
+    --mount type=volume,dst=/libaray/taocp.vol4.a \
+    alpine:latest \
+    echo "Knuth collection created"
+
+docker run --name reader \
+    --volumes-from fowler \
+    --volumes-from knuth \
+    alpine:latest ls -l /library/
+
+    
+```
