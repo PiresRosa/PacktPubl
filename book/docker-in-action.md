@@ -9,7 +9,7 @@
 + Dùng phức tạp => người dùng hay config sai => gặp vấn đề về security
 
 - Hình minh hoạ docker
-![Anh so 1](images/dockerinaction_1.png)
+![Anh so 1](images/dockerinaction_1.PNG)
 - Image = shipable unit
 - Container là instance của image
 - Docker distribute (phân phối) các image này 1 cách dễ dàng thông qua `registries` và `indexes`. Có thể dùng luôn hàng có sẵn của docker là docker hub hoặc tự host 1 cái cho ngầu.
@@ -18,7 +18,7 @@
 + Tăng tính portable: vì dễ cài giống JVM
 + Bảo vệ máy tính đỡ rác, virus
 
-![Anh so 2](images/dockerinaction_2.png)
+![Anh so 2](images/dockerinaction_2.PNG)
 
 ### 1.2: Tại sao docker quan trọng?
 - Docker cung cấp giải pháp abtract (?)
@@ -419,7 +419,7 @@ docker pull dockerinaction/ch3_myotherapp
 - Con đầu tiên pull lâu, con sau pull nhanh vì các layer nặng nó cache cmnr, còn đâu có hơn 1MB nữa là cần pull thôi.
 - Hình dưới mô tả quan hệ
 
-![Quan he cac layer](images/dockerinaction_5.png)
+![Quan he cac layer](images/dockerinaction_5.PNG)
 - TOREAD: Đoạn dưới nói cái éo gì mà MNT với chroot, chỗ này cần đọc lại khi kiến thức khủng hơn
 - Dùng cơ chế layer này giúp tiết kiệm dung lượng.
 - Dùng cơ chế layer có yếu điểm: khi dùng chung parent layer, có thể config của parent layer cần khác nhau giữa các image => dùng chung bị lỗi. Chi tiết ở chương 4.
@@ -446,7 +446,7 @@ Tất cả sẽ có trong chương này =))
 - Không giống các OS khác, Linux tập hợp tất cả các storage thành 1 tree thôi.
 - Một số device đặc biệt như USB, đĩa cứng ngoài sẽ được attach vào cái tree ban đầu 1 vị trí đặc biệt, như hình dưới
 
-![Mount point](images/dockerinaction_6.png)
+![Mount point](images/dockerinaction_6.PNG)
 
 - Việc mount này giúp software sử dụng các system variable của linux mà không cần biết các file này thực tế được map ở đâu trong bộ nhớ.
 - Mỗi container đều có 1 thứ gọi là MNT namespace và 1 file tree root duy nhất (chi tiết ở chương 6)
@@ -461,7 +461,7 @@ Tất cả sẽ có trong chương này =))
 - Bind mounts = mount một phần của filesystem tree vào 1 vị trí khác.
 - Khi làm việc với containers, bind mounts mount 1 vị trí ở máy thật vào máy ảo (?)
 - Hình dưới ví dụ tạo 2 container: 1 web server & 1 log processing, dùng bind mount để share log với nhau
-![VD bind mount](images/dockerinaction_7.png)
+![VD bind mount](images/dockerinaction_7.PNG)
 
 ```
 touch ~/example.log
@@ -616,7 +616,177 @@ docker run --name knuth \
 docker run --name reader \
     --volumes-from fowler \
     --volumes-from knuth \
-    alpine:latest ls -l /library/
-
-    
+    alpine:latest ls -l /library/\
 ```
+
+- Option `--volumes-from` nhìn có vẻ xịn vậy nhưng vẫn có nhược điểm. Trong 3 TH sau sẽ không dùng được:
+- TH1: Muốn mount đến 1 đường dẫn khác. VD mount đến /school/library sẽ ko được vì `--volumes-from` sẽ lấy giống hệt như volume định nghĩa
+- TH2: Nếu volume của 2 thằng con trùng nhau => chỉ thằng cuối cùng được nhận. VD:
+
+```
+docker run --name chomsky --volume /library/ss \
+    alpine:latest echo "Chomsky collection created."
+
+docker run --name lamport --volume /library/ss \
+    alpine:latest echo "Lamport collection created."
+
+docker run --name student \
+    --volumes-from chmsky --volumes-from lamport \
+    alpine:latest ls -l /library
+```
+==> 2 thằng chomsky và lamport đều mount đến folder `/library/ss`, chỉ folder của thằng lamport (mount sau) là còn lại thôi.
+=> Điều này xảy ra khá phổ biến: VD khi chạy nhiều webserver, dùng 1 con log process để xử lý log duy nhất => bị thiếu.
+
+- TH3: Khi dùng volumes-from thì không change được permission của volume (vì volume copy giống hệt)
+
+### 4.6: Cleaning up
+- Dùng lệnh `docker volume remove <id>`
+- Có thể xóa nhiều
+```
+docker volume prune --filter example=cassandra
+```
+- Nếu có 1 container đang sử dụng volume thì sẽ báo lỗi. Muốn force thì thêm option `--force` vào
+```
+docker volume prune --filter example=cassandra -f
+```
+
+### 4.7: Advanced storage with volume plugins
+- Docker expose interface để các bên tích hợp, tự lưu, backup volume
+- 1 số cái tên: Ceph, vSphere
+
+## Chap 5: Single networking
+Chương này nói về
+- Background về networking
+- Tạo docker container network
+- Network-les và host-mode container
+- Publish services ở các ingress network
+- Container network caveats
+
+### 5.1: Networking background
+- Protocol: giao thức - cách giao tiếp
+- Network Interface: có 1 địa chỉ để biểu thị vị trí. Hình dung giống như cái hòm thư
+- Có 2 loại interface: Ethernet và loopback
++ Ethernet interface: thường thấy. Dùng để connect giữa các interface và processes
++ Loopback interface: ít thấy. Dùng để connect giữa các chương trình với nhau.
+- Port: Cổng. Giống như sender hay recipient. Cùng 1 address nhưng khác cổng có thể chạy các chương trình khác nhau: database, cache, webserver,..
+
+---
+- Interface chỉ là một điểm nhỏ trong mạng lưới network rộng lớn.
+- Thường thì msg sẽ không chạy trực tiếp từ người gửi A sang người B, mà qua 1 trạm chung chuyển
+- Trong chapter này sẽ bao gồm 2 network:
++ 1 cái là máy tính bạn đang connect đến
++ 1 cái là 1 mạng ảo mà docker tạo ra để connect tất cả các running container => gọi là bridge
+
+### 5.2: Docker container networking
+- Command: `docker network ls`
+- Mặc định docker có 3 networks
++ bridge: network cho phép các container trong cùng 1 máy tính giao tiếp với nhau.
++ host: network của máy thật
++ none: không có network nào cả
+
+- Scope của network có 3 giá trị: local, global, swarm
++ local: chỉ máy hiện tại
++ global: tất cả các máy trong cluster
++ swarm: tất cả các host có trong docker swarm (?)
+
+- Cái bridge chỉ dùng trong legacy (cũ) docker thôi. Nó không sử dụng được các tính năng mới như: service discovery, load balancing
+
+
+#### 5.2.1: Tạo 1 user-defined bridge network
+- Sơ đồ bên dưới mô tả 1 network của docker
+![Docker networks](images/dockerinaction_8.jpg)
+- Command tạo 1 network
+
+```
+docker network create \ 
+    --driver bridge \
+    --label project=dockerinaction \
+    --label chapter=5 \
+    --attachable \
+    --scope local \
+    --subnet 10.0.42.0/24 \
+    --ip-range 10.0.42.128/25 \
+    user-network
+```
+- Giải thích:
++ Label để sau dễ nhận diện network
++ Attachable: để sau có thể attach, detach giữa các container
++ subnet, ip-range để custom cho network (...)
+
+- Chạy container sử dụng network
+
+```
+docker run -it \
+    --network user-network \
+    --name network-explorer \
+    alpine: 3.8 \
+    sh
+```
+
+- list các ip address v4 available ở trong container:
+```
+ip -f inet -4 -o addr
+```
+
+=> Thấy two device connect đến với IPv4
+
+- Tạo thêm 1 network nữa 
+
+```
+docker network create \
+    --driver bridge \
+    --label project=dockerinaction \
+    --label chapter=5 \
+    --attachable \
+    --scope local \
+    --subnet 10.0.43.0/24 \
+    --ip-range 10.0.43.128/25 \
+    user-network2
+```
+- Connect network mới vào existing container
+
+```
+docker network connect \
+    user-network2 \
+    network-explorer
+```
+
+- Đoạn dưới nói về tạo tạo thêm 1 container nữa, attach vào user-network2, sau đó dùng package nmap để check network gì đó.
+- TOREAD: nói về cơ chế service discovery hoạt động.
+
+### 5.3 Special network: host & none
+- Host = dùng chung network với máy thật
+- None = không có network => con này là isolate + an toàn nhất. Nếu tình huống ko cần dùng network thì nên để là none cho an toàn.
+
+### 5.4: Handling inbound traffic with NodePort publishing
+- Bình thường gõ `-p` là viết tắt cho `--publish`, không phải port đâu :v
+- Có 3 cách publish port:
++ 0.0.0.0:8080:8080/tcp
++ 8080:8080/tcp
++ 8080:8080
+
+```
+docker run --rm \
+    -p 8080 \
+    alpine:3.8 echo "Forward ephemeral TCP -> container TCP 8080"
+
+docker run --rm \
+    -p 8088:8080/udp \
+    alpine:3.8 echo "host UDP 8088 -> container UDP 8080"
+
+docker run --rm \
+    -p 127.0.0.1:8080:8080/tcp \
+    -p 127.0.0.1:3000:3000/tcp \
+    alpine:3.8 echo "forward multiple TCP ports from localhost"
+```
+- Có thể dùng lệnh `docker port <container_name>` để list ra danh sách các port đang publish đến host machine
+
+```
+docker run -d -p 8080 --name listener alpine:3.8 sleep 300
+docker port listener
+
+docker run -d -p 8080 -p 3000 -p 7500 --name multi-listener alpine:3.8 sleep 300
+docker port multi-listener 3000
+```
+
+### 5.5: Container networking caveats and customizations
