@@ -101,7 +101,7 @@ docker start $AGENT_CID
 - Lỗi vì sao: vì link bản chất là dùng IP address. Container mà chưa run thì chưa có IP address để link chứ sao nữa.
 (docker check các container dependency trước để tránh lỗi application runtime error)
 - Ở chương 5 sẽ được học về user defined error để tránh application runtime error
-- Build chương trình thì hạn chế các biến fixed thôi, để sau này dễ mở rộng.
+- Build chương trình    1thì hạn chế các biến fixed thôi, để sau này dễ mở rộng.
 
 - Nếu build hệ thống có quá nhiều fixed code ⇒ khó thay đổi.
 - Để xây dựng một hệ thống phân tán hiệu quả ⇒ cần minimal dependency (giảm sự phụ thuộc) trước khi bắt đầu.
@@ -394,7 +394,7 @@ Chương này sẽ nói về 3 vấn đề chính:
 ```docker
 docker pull busybox:latest
 docker save -o myfile.tar busybox:latest // lưu image ra file
-docker rmi buýbox         // Xoá cụ image đi
+docker rmi busybox         // Xoá cụ image đi
 docker load -i myfile.tar // Load lại image từ file
 docker images // list các image ra
 ```
@@ -519,11 +519,6 @@ docker run --rm \
     --entrypoint mount \
     alpine:latest -v
 ```
-
-
-### 4.4: Docker volume1
-
-
 ### 4.4: Volume
 - Kiểu dùng mount point bị phụ thuộc vào máy host + dễ conflict
 - Volume kiểu tạo ra 1 thư mục riêng cho docker quản lý ấy.
