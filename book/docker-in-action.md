@@ -790,3 +790,141 @@ docker port multi-listener 3000
 ```
 
 ### 5.5: Container networking caveats and customizations
+TOREAD: Đoạn này nói về custom network gì đó. Chưa hiểu lắm.
+
+## Chap 6: Limiting risk with resource controls
+Trong chap này có:
+- Setting resource limit
+- Sharing container memory
+- Setting users, permission & administrative privilleges
+- Granting access to specific Linux Features
+- Working with SELinux and AppArmor
+
+ 
+ ### 6.1: Setting resource limit
+ - Có thể setting ngay trong lúc tạo/ run container
+ - Cú pháp set resource limit:
+```
+<number><optional_unit>
+```
+- Các unit hợp lệ là: b(byte), k(kilobytes), m(megabytes), g(gigabytes)
+
+
+ ```
+ docker container run -d --name ch6_mariadb \
+    --memory 256m \
+    --cpu-shares 1024 \
+    --cap-drop new_raw \
+    -e MYSQL_ROOT_PASSWORD=test \
+    mariadb:5.5
+
+docker container run -d -P --name ch6_wordpress \
+    --memory 512m \
+    --cpu-shares 512 \
+    --cap-drop net_raw \
+    --link ch6_mariadb:mysql \
+    -e WORDPRESS_DB_PASSWORD=test
+    wordpress:5.0.0-php7.2-apache
+```
+- `cpu-shares` quyết định trọng số của các container
+=> trong ví dụ trên thì `cpu-shares` của wordpress = 1/2 của mariadb => cứ 2 cycle của mariadb mới đến 1 cycle của wordpress.
+
+TOREAD: đoạn sau nói về phân quyền, user các thứ. Giờ chưa cần lắm, Tạm thời skip qua part 2 trước vậy.
+
+# Part 2: Packaging software for distribution
+- Không phải lúc nào image cũng có sẵn trên mạng để cho bạn dùng => cần tự tạo 1 image chứa các phần mềm mà bạn cần dùng.
+
+## Chapter 7: Packaging software in images
+Chap này có:
+```
+- Manual image construction và practices
+- Images from a packaging perspective
+- Working with flat images
+- Image versioning best practice
+```
+
+- Bạn có thể tạo image bằng 2 cách: sửa image có sẵn ở trong 1 container hoặc tạo Dockerfile rồi build từ đấy.
+### 7.1: Build docker image từ container
+```
+docker container run --name hw_container \
+    ubuntu:latest \
+    touch /HelloWorld // -> thay đổi file trong container
+
+docker container commit hw_container hw_image // Commit change vào image mới
+
+docker container rm -vf hw_container
+
+docker container run --rm \
+    hw_image \
+    ls -l /HelloWorld // Tạo container mới từ image vừa sửa + list file để chứng mình là có file vừa được tạo ra.
+```
+
+```
+docker container run -it --name iamge-dev ubuntu:latest /bin/bash
+apt-get update
+apt-get -y install git
+git version
+exit
+```
+
+- Xem có file nào thay đổi không
+```
+docker container diff <container_name>
+```
+
+- Đoạn dưới này ông tác giả commit change cái image ubuntu chứa git phía trên
+
+```
+docker container commit -a "@dockerinaction" -m "Added git" \
+    image-dev ubuntu-git
+```
+- Nếu run
+```
+docker container run --rm ubunt-git git version"
+```
+thì sẽ in ra version của git.
+- Tuy nhiên thì đây là image `ubuntu-git`, đúng ra khi run lên mặc định nên in ra git version cho nó uy tín => lúc này dùng entry-point thì lại hợp lí
+- Entrypoint là chương trình mà sẽ được tự đỘng chạy khi container start. Nếu entrypoint được set, default comand và arg sẽ được pass vào entrypoint như argument.
+
+```
+docker container run --name cmd-git --entrypoint git ubuntu-git
+docker container commit -m "Set CMD git" \
+    -a "@dockerinaction" cmd-git ubuntu-git
+
+docker container rm -vf cmd-git
+docker container run --name cmd-git ubuntu-git version
+```
+- Khi 1 commit 1 container, có nhiều thứ đi theo commit đấy: env variable, working directory, các port được expose, volume defination, container entrypoint, command & arg
+- Mỗi lần commit sẽ tạo ra 1 layer
+
+```
+docker container run --name rich-image-example \
+    -e ENV_EXAMPLE1=Rich -e ENV_EXAMPLE2=Example \
+    busybox:latest
+
+docker container commit rich-image-example rie
+
+docker container run --rm rie \
+/bin/sh -c "echo \$ENV_EXAMPLE1 \$ENV_EXAMPLE2" // Output sẽ ra Rich Example
+```
+- Có thể đưa luôn mấy command vào image
+
+```
+docker container run --name rich-image-example-2 \
+    --entrypoint "/bin/sh" \
+    rie \
+    -c "echo \$ENV_EXAMPLE1 \$ENV_EXAMPLE2"
+
+docker container commit rich-image-example-2 rie
+
+docker container run --rm rie
+```
+
+### 7.2: Sâu hơn về images và layer
+- Filesystem provided by the image it start from
+- Filesystem được implement từ 1 tập hợp các filesystem
+- Mỗi khi có thay đổi trong hệ thống file system, 1 layter mới được tạo ra, phía trên các layer cũ.
+![He thong images docker](images/dockerinaction_10.PNG)
+- Khi đọc 1 file từ file system, hệ thống sẽ đọc từ trên xuống. Nếu layer trên không tạo/thay đổi file này -> sẽ fallback xuống layer bên dưới
+![Thu tu doc image](images/dockerinaction_11.PNG)
+
