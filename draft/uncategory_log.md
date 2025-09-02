@@ -11,3 +11,8 @@ Current version:  1.2.12
 ==
 - Headless cms dung gi?
 -
+https://searchsecurity.techtarget.com/definition/role-based-access-control-RBAC
+https://blog.plainid.com/role-explosion-unintended-consequence-rbac
+https://blog.plainid.com/role-explosion-policy-based-access-control-rescue
+https://blog.plainid.com/the-advantage-of-pbac-over-the-traditional-abac
+https://dzone.com/articles/acl-rbac-abac-pbac-radac-and-a-dash-of-cbac
