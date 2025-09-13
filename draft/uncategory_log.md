@@ -67,5 +67,8 @@ Task khó đã từng làm là gì? Vượt qua như thế nào?
 Đã từng dựng project chưa? Một số module quan trọng khi dựng project front-end là gì?
 React specific question: React context có phải state management solution không? Có thì tại sao, dùng như nào? Không thì nó là gì?
 
+===
+- Cách dùng casbin -> ok
+- Check cơ chế API gw + xem có cần update gì ko
 
 
