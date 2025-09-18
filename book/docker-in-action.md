@@ -851,7 +851,7 @@ docker container rm -vf hw_container
 
 docker container run --rm \
     hw_image \
-    ls -l /HelloWorld // Tạo container mới từ image vừa sửa + list file để chứng mình là có file vừa được tạo ra.
+    ls -l /HelloWorld // Tạo container mới từ image vừa sửa + list file để chứng minh là có file vừa được tạo ra.
 ```
 
 ```
@@ -922,4 +922,61 @@ docker container run --rm rie
 ![He thong images docker](images/dockerinaction_10.PNG)
 - Khi đọc 1 file từ file system, hệ thống sẽ đọc từ trên xuống. Nếu layer trên không tạo/thay đổi file này -> sẽ fallback xuống layer bên dưới
 ![Thu tu doc image](images/dockerinaction_11.PNG)
+
+#### Giới thiệu thêm về image, tag
+- Đại khái khi commit image sinh ra 1 cái id => khó nhớ => docker sinh ra 1 cái gọi là repository name cho dễ nhớ. 
+
+VD: docker.io/dockerinaction/ch3_hello_registry
+=> cả đoạn trên gọi là repository name
+=> docker.io: registry host
+=> dockerinaction: user or org name
+=> ch3_hello_registry: short name.
+
+- Mặc định không chỉ định tag => pull tag latest
+- Có thể pull tất cả các version bằng option: --all-tags
+
+#### Quản lý image size & layer limit
+- Đoạn dưới lấy VD về thằng ubuntu-git
+- Ubuntu-git là image có sẵn git vào ubuntu image
+
+```
+docker image tag ubuntu-git:latest ubuntu-git:2.7 // Tạo tag mới là 2.7
+
+docker container run --name image-dev2 \
+    --entrypoint /bin/bash \
+    ubuntu-git:latest -c "apt-get remove -y git"
+
+docker container commit image-dev2 ubuntu-git:removed
+
+docker image tag ubuntu-git:removed ubuntu-git:latest
+
+docker image ls
+```
+
+- Đoạn này sẽ hiển thị dạng
+
+```
+REPOSITORY TAG IMAGE ID CREATED VIRTUAL SIZE
+ubuntu-git latest 826c66145a59 10 seconds ago 226.6 MB
+ubuntu-git removed 826c66145a59 10 seconds ago 226.6 MB
+ubuntu-git 2.7 3e356394c14e 41 hours ago 226 MB
+...
+```
+- => rõ ràng gỡ bỏ git đi mà image lại nặng thêm
+- => thực tế UFS của docker không xoá đi, mà thêm vào 1 layer nữa.
+- => Cần có cách xử lý để tránh tình trạng dư thừa này.
+
+#### Flatten image
+- Cách xử lý gọi là flatten image, đại khái là đưa image về trạng thái original rồi làm lại các bước.
+VD: Khi xoá git thì đưa về trạng thái chưa install git.
+- Đoạn này có nói về cách branching, versioning best practice nữa. TOREAD quay lại đọc để viết bài.
+
+## Chap 8: Build image automatically with docker file
+Chap này gồm có:
+
+- Tự động đóng gói image với dockerfile
+- Metadata và filesystem instruction
+- Tạo ra image maintainable build với arg và multiple stage
+- Packaging for multiprocess và durable container
+- Giảm thiểu the image attack surface và building trust.
 

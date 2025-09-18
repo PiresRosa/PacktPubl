@@ -1,0 +1,2 @@
+- Bình thường dùng iterm2 khi di chuyển giữa các từ rất chậm => mất thời gian
+- Anh em có thể config lại để dùng 

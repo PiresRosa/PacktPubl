@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document test vuejs
+    </title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <p>Computed vs. Method vs. Watch</p>
+            <input type="text" v-model="modelEx1"/>
+            <button @click="increase"></button>
+        </div>
+        <hr>
+        <h2>Test Two way binding</h2>
+            <input type="text" v-model="twoWaymodel"/>
+            <p>value: {{ twoWaymodel }} </p>
+        <hr>
+        <h2>Test 01</h2>
+        <ul>
+            <li v-for="(rent, city) in averageRent">Avg rent at {{ city }} is {{ rent }}</li>
+        </ul>
+
+        <hr>
+        <ul>
+            <li v-for="rent in averageRent">Avg rent is {{ rent }}</li>
+        </ul>
+
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+   <script>
+        new Vue({
+        el: '#app',
+        created() {
+
+        },
+
+        data: {
+            averageRent: {
+                london: 1000,
+                newyork: 2000,
+                vietnam: 3000
+            },
+            twoWaymodel: 'oh my god',
+        }
+    
+    });
+    </script>
+</body>
+</html>
