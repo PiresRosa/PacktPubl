@@ -297,3 +297,140 @@ this.$refs.myCanvas.
 });
 </script>
 ```
+- Có 8 bé life cycle quan trọng:
++ beforeCreate: trước khi instance khởi tạo
++ created: instance đã được khởi tạo
++ beforeMount: khi element đã sẵn sàng được add vào DOM (?)
++ mounted: khi element created (nhưng chưa chắc đã được add vào DOM. Dùng nexttick cho củ chắc)
++ beforeUpdate: khi có 1 change xảy ra
++ updated: khi change đã được updated vào DOM
++ beforeDestroy: trước khi component bị destroy
++ destroyed: khi component đã bị destroy.
+- Nhìn thì là 8, nhưng thực tế chỉ cần nhớ 4 rồi suy ra 4 thằng còn lại là được :))
+
+
+## Custom directive
+- Có thể tự chế directive giống v-if, v-for
+- VD: v-blink để nhấp nháy
+
+```
+Vue.directive('blink', {
+  bind(el) {
+    let isVisible true;
+
+    setInterval(()=> {
+      isVisible !isVisible;
+      el.style.visibility = isVisible ? 'visible' : 'hidden'
+    }, 1000);
+  }
+})
+```
+- Directive cũng có hook. Hơi khác với component tí:
++ bind: call khi directive được bound vào element
++ inserted: call khi element được insert vào parent elem. Tương tự như mounted, có thể nó chưa được insert vào DOM => dùng nextTick cho củ chắc
++ update: khi parent component được update (chưa chắc thằng child đã update xong)
++ componentUpdated: Giống update hook, khác ở chỗ tất cả các child component đã updated.
++ unbind: call khi directive bị unbind khỏi component.
+
+- Mấy cái hook trên để cho vui thôi. Thích thì dùng, ko thích thì thôi cũng được.
+- Có thể dùng chung cả bind và update như này:
+
+```
+   Vue.directive('my-directive', (el) => {
+     // This code will run both on "bind" and "update"
+});
+```
+
+- Có thể truyền argument vào directive nha
+
+```
+Vue.directive('blink', {
+bind(el, binding) {
+       let isVisible = true;
+       setInterval(() => {
+         isVisible = !isVisible;
+         el.style.visibility = isVisible ? 'visible' : 'hidden';
+       }, binding.value || 1000);
+} });
+```
+## Transition & animation
+// Chưa quan trọng lắm, đọc sau vậy
+
+# Chap 2: Component in Vuejs
+## Component basics
+- Easy vlin
+
+```
+<div id="app">
+     <custom-button></custom-button>
+   </div>
+   <script>
+     const CustomButton = {
+       template: '<button>Custom button</button>'
+};
+ 
+new Vue({
+       el: '#app',
+       components: {
+         CustomButton
+} });
+</script>
+```
+- Có thể regist global cũng được:
+
+```
+Vue.component('custom-button', {
+     template: '<button>Custom button</button>'
+});
+```
+
+- Pass data vào component dùng props
+
+```
+<div id="app">
+     <color-preview color="red"></color-preview>
+     <color-preview color="blue"></color-preview>
+   </div>
+   <script>
+     Vue.component('color-preview', {
+       template: '<div class="color-preview" :style="style"></div>',
+       props: ['color'],
+       computed: {
+         style() {
+           return { backgroundColor: this.color };
+} }
+});
+     new Vue({
+       el: '#app'
+});
+</script>
+```
+
+- Prop cũng có validation. Nếu không match type khai báo => vue throw ra warning
+
+```
+Vue.component('price-display', {
+     props: {
+       price: Number,
+       unit: String,
+       price2: {
+         type: [Number, String, Price],
+         required: true,
+         default: '$'
+       }
+     }
+});
+```
+- Cứ định nghĩa ở trong script kiểu camelCase, sang bên html có thể dùng kiểu `kebab-case`
+- Lưu ý: nếu truyền string thì k cần v-bind, nhưng kiểu khác thì cần
+VD:
+
+```
+<price-display percentage-discount="20%"></price-display> => k cần
+<display-number v-bind:number="number"></display-number> => cần (do đang bind model)
+<display-number v-bind:number="10"></display-number> => cần (do đang bind number)
+```
+
+## Data flow & .sync modifier
+- Bình thường data chỉ update từ cha => con (gọi là oneway data binding)
+- 

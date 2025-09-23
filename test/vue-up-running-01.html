@@ -7,12 +7,17 @@
     <title>Document test vuejs
     </title>
 </head>
-<body>
+<body style="margin: 10% 20%;">
+    <h1>Demo Vue learning</h1>
     <div id="app">
         <div>
-            <p>Computed vs. Method vs. Watch</p>
-            <input type="text" v-model="modelEx1"/>
-            <button @click="increase"></button>
+            <h2>Component</h2>
+            <oh-my-god v-bind:initial-num="100"></oh-my-god>
+        </div>
+        <hr>
+        <div>
+            <h2>Custom directive</h2>
+            <p v-blink>Oh my god. Blink now</p>
         </div>
         <hr>
         <h2>Test Two way binding</h2>
@@ -32,6 +37,39 @@
     </div>
     <script src="https://unpkg.com/vue"></script>
    <script>
+       Vue.directive('blink', {
+           bind(el) {
+               let vis = true;
+
+               setInterval(() => {
+                   vis = !vis
+
+                   el.style.visibility = vis ? 'visible' : 'hidden';
+               }, 200)
+           }
+       });
+
+       Vue.component('oh-my-god', {
+           template: '<p> the number is: {{number}} </p>',
+           props: {
+               initialNum: {
+                   type: Number,
+                   required: true,
+               }
+           },
+           data() {
+               return {
+                   number: this.initialNum
+               }
+           },
+
+           mounted() {
+            //    setInterval(() => {
+            //        this.number++;
+            //    }, 1000)
+           }
+       });
+
         new Vue({
         el: '#app',
         created() {
