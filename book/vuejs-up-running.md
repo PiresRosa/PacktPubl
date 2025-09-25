@@ -209,6 +209,7 @@ deep: true }
 ```
 
 ## Filter
+- Lưu ý: Vue3 bỏ filter vì nó gần giống chức năng method => bỏ mẹ đi, dùng method cho được việc.
 - Dùng filter để format tiền hay gì đấy thì lại là hợp lí
 
 - VD: code gốc
@@ -276,7 +277,7 @@ this.$refs.myCanvas.
 ```
  <form @keyup.27="handleEscape">...</form>
  <form @keyup.shift-left="handleShiftLeft">...</form>
-<input @keydown.enter.exact="handleEnter">
+<input @keydown.enter.exact="handleEnter"> -> chỉ key enter được press, không bao gồm cả key khác.
 ```
 
 ## Life cycle hook
@@ -354,7 +355,53 @@ bind(el, binding) {
 } });
 ```
 ## Transition & animation
-// Chưa quan trọng lắm, đọc sau vậy
+### CSS transition
+- Đại khái dùng transition thì đưa vào cặp thẻ <transition></transition>
+- Vue sẽ tự thêm 1 số class, anh em tự định nghĩa CSS cho nó nhá. 
++ trong đó cái {name} là tên effect (VD: fade,...)
+```
+{name}-enter
+{name}-enter-active
+{name}-enter-to
+{name}-leave
+{name}-leave-active
+{name}-leave-to
+```
+
+Ví dụ:
+```
+<div id="app">
+     <button @click="divVisible = !divVisible">Toggle visibility</button>
+     <div v-if="divVisible">This content is sometimes hidden</div>
+   </div>
+```
+- Bình thường click sẽ tắt cái bụp. Giờ bao cái div vào cặp thẻ <transition>, thêm css là ngon
+
+```
+<transition name="fade">
+  <div v-if="divVisible">This content is sometimes hidden</div>
+</transition>
+
+-- css:
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+opacity: 0; }
+```
+
+### JS transition
+- Có 1 số hook để anh em nhảy vào custom lại animation
+- Performance cho animation của JS thấp hơn CSS -> chỉ dùng JS khi thật sự cần
+
+```
+<transition
+  v-on:before-enter="handleBeforeEnter"
+  v-on:enter="handleEnter"
+  v-on:leave="handleLeave>
+  <div v-if="divVisible">...</div>
+</transition>
+```
 
 # Chap 2: Component in Vuejs
 ## Component basics
@@ -414,8 +461,14 @@ Vue.component('price-display', {
        price: Number,
        unit: String,
        price2: {
-         type: [Number, String, Price],
+         type: [Number, String],
          required: true,
+         valiator (value) {
+           return value >= 0;
+         }
+       },
+       unit: {
+         type: String,
          default: '$'
        }
      }
@@ -432,5 +485,79 @@ VD:
 ```
 
 ## Data flow & .sync modifier
-- Bình thường data chỉ update từ cha => con (gọi là oneway data binding)
-- 
+- Bình thường data chỉ update từ cha => con (gọi là oneway data binding) (do sync từ con sang cha có nhiều vấn đề, VD: cha có nhiều con, con nào cũng update thì biết lấy từ con nào??)
+- Ví dụ nhỏ về việc update
+```
+Vue.component('updated-children', {
+    template: '<p> The number is: {{number}} </p>',
+    props: {
+        number: {
+            type: Number,
+            required: true
+        }
+    },
+    mounted() {
+        setInterval(() => {
+            this.$emit('update:number', this.number + 1);
+        }, 1000)
+    }
+})
+
+<updated-children
+  :number="displayNum"
+  @update:number="val => displayNum = val">
+</updated-children>
+
+```
+- Có thể dùng .sync cho gọn (.sync ~ @update:number="val => displayNum = val")
+
+```
+<updated-children
+  :number.sync="displayNum">
+
+</updated-children>
+```
+
+- Thật ra để ý kĩ ví dụ trên, giá trị `number` bên trong component update-children không hề thay đổi ở hàm `setInterval`, mà nó emit lên thằng cha, thằng cha thay đổi gía trị local của mình và pass xuống thằng con.
+
+### Custom input & v-model
+- Thử tạo 1 cái input không cho nhập chữ hoa
+
+```
+<lower-input v-model="inputName"/></lower-input>
+
+Vue.component('lower-input', {
+  template: '<input :value="value" @input="handleInput"/>',
+  props: {
+      value: {
+          type: String,
+          required: true
+      }
+  },
+  methods: {
+      handleInput(e) {
+          const value = e.target.value.toLowerCase();
+
+          this.$emit('input', value)
+      }
+  }
+})
+```
+- Để ý sẽ thấy v-model có tác dụng tương tự .sync, v-model thường để binding cho input
+- Ví dụ trên có issue: nếu gõ chữ hoa => con trỏ sẽ về cuối input (chắc do hàm toLower). Để khắc phục => lưu vị trí cũ con trỏ, sau đó set lại. [Chỗ này viết thành 1 bài blog đc nhể]
+
+### Passing content to component using slot
+```
+Vue.component('custom-button', {
+     template: '<button class="custom-button"><slot></slot></button>'
+});
+```
+- Có thể để content mặc định trong cặp <slot> để nếu không truyền slot vào thì có fallback content
+
+```
+Vue.component('custom-button', {
+     template: `<button class="custom-button">
+       <slot><span class="default-text">Default button text</span></slot>
+     </button>`
+});
+```

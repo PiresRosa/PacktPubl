@@ -1,12 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo difference computed, watch, method and data</title>
+    <title>Demo component</title>
 </head>
+
 <body>
-    
+    <div id="app">
+        <color-preview :color="currentColor"></color-preview>
+        <div>
+            <input v-model="inputColor" type="text">
+            <button @click="updateColor">Change color now</button>
+        </div>
+
+        <updated-children
+            :number="displayNum"
+            @update:number="val => displayNum = val">
+
+        </updated-children>
+        <hr>
+        <hr>
+        <lower-input v-model="inputName"/></lower-input>
+    </div>
+
+
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        Vue.component('color-preview', {
+            template: '<div class="color-preview" :style="style"></div>',
+            props: ['color'],
+            computed: {
+                style() {
+                    return {
+                        backgroundColor: this.color,
+                        width: '100%',
+                        height: '20px'
+                    }
+                }
+            }
+
+        });
+
+        Vue.component('updated-children', {
+            template: '<p> The number is: {{number}} </p>',
+            props: {
+                number: {
+                    type: Number,
+                    required: true
+                }
+            },
+            mounted() {
+                setInterval(() => {
+                    this.$emit('update:number', this.number + 1);
+                }, 1000)
+            }
+        })
+
+        Vue.component('lower-input', {
+            template: '<input :value="value" @input="handleInput"/>',
+            props: {
+                value: {
+                    type: String,
+                    required: true
+                }
+            },
+            methods: {
+                handleInput(e) {
+                    const value = e.target.value.toLowerCase();
+
+                    e.target.value = value;
+
+                    this.$emit('input', value)
+                }
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    currentColor: 'red',
+                    inputColor: '',
+                    displayNum: 1000,
+                    inputName: ''
+                }
+            },
+
+            methods: {
+                updateColor() {
+                    this.currentColor = this.inputColor
+                }
+            }
+        })
+    </script>
 </body>
+
 </html>

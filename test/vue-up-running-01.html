@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,28 +8,30 @@
     <title>Document test vuejs
     </title>
 </head>
+
 <body style="margin: 10% 20%;">
     <h1>Demo Vue learning</h1>
     <div id="app">
         <div>
-            <h2>Component</h2>
-            <oh-my-god v-bind:initial-num="100"></oh-my-god>
+            <h2>Demo transition</h2>
+            <button @click="tranVisible = !tranVisible">Toggle visible</button>
+            <transition name="fade">
+                <div v-if="tranVisible">Dòng này dùng để demo. Click button phía trên để ẩn cmn đi</div>
+            </transition>
         </div>
-        <hr>
         <div>
             <h2>Custom directive</h2>
             <p v-blink>Oh my god. Blink now</p>
         </div>
         <hr>
         <h2>Test Two way binding</h2>
-            <input type="text" v-model="twoWaymodel"/>
-            <p>value: {{ twoWaymodel }} </p>
+        <input type="text" v-model="twoWaymodel" />
+        <p>value: {{ twoWaymodel }} </p>
         <hr>
         <h2>Test 01</h2>
         <ul>
             <li v-for="(rent, city) in averageRent">Avg rent at {{ city }} is {{ rent }}</li>
         </ul>
-
         <hr>
         <ul>
             <li v-for="rent in averageRent">Avg rent is {{ rent }}</li>
@@ -36,56 +39,47 @@
 
     </div>
     <script src="https://unpkg.com/vue"></script>
-   <script>
-       Vue.directive('blink', {
-           bind(el) {
-               let vis = true;
+    <style>
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity .5s;
+        }
 
-               setInterval(() => {
-                   vis = !vis
+        .fade-enter,
+        .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+    <script>
+        Vue.directive('blink', {
+            bind(el) {
+                let vis = true;
 
-                   el.style.visibility = vis ? 'visible' : 'hidden';
-               }, 200)
-           }
-       });
+                setInterval(() => {
+                    vis = !vis
 
-       Vue.component('oh-my-god', {
-           template: '<p> the number is: {{number}} </p>',
-           props: {
-               initialNum: {
-                   type: Number,
-                   required: true,
-               }
-           },
-           data() {
-               return {
-                   number: this.initialNum
-               }
-           },
-
-           mounted() {
-            //    setInterval(() => {
-            //        this.number++;
-            //    }, 1000)
-           }
-       });
+                    el.style.visibility = vis ? 'visible' : 'hidden';
+                }, 200)
+            }
+        });
 
         new Vue({
-        el: '#app',
-        created() {
+            el: '#app',
+            created() {
 
-        },
-
-        data: {
-            averageRent: {
-                london: 1000,
-                newyork: 2000,
-                vietnam: 3000
             },
-            twoWaymodel: 'oh my god',
-        }
-    
-    });
+
+            data: {
+                averageRent: {
+                    london: 1000,
+                    newyork: 2000,
+                    vietnam: 3000
+                },
+                twoWaymodel: 'oh my god',
+                tranVisible: true,
+            }
+        });
     </script>
 </body>
+
 </html>
