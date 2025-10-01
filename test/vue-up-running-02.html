@@ -24,6 +24,14 @@
         <hr>
         <hr>
         <lower-input v-model="inputName"/></lower-input>
+        <hr>
+        <hr>
+        <h2>Slot scoped</h2>
+        <div>
+            <user-item>
+                <div slot-scope="user" class="parent-class"> {{ item.user.firstName }} </div>
+            </user-item>
+        </div>
     </div>
 
 
@@ -78,6 +86,15 @@
             }
         })
 
+        Vue.component('user-item', {
+            template: '<p><slot :user="user"> {{ user.lastName }}</slot></p>',
+            props: {
+                user: {
+                    required: true
+                }
+            }
+        })
+        
         new Vue({
             el: '#app',
             data() {
@@ -85,7 +102,11 @@
                     currentColor: 'red',
                     inputColor: '',
                     displayNum: 1000,
-                    inputName: ''
+                    inputName: '',
+                    user: {
+                        firstName: 'Teo',
+                        lastName: 'Alexander'
+                    }
                 }
             },
 

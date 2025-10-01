@@ -561,3 +561,143 @@ Vue.component('custom-button', {
      </button>`
 });
 ```
+- Named slot
+
+```
+<section class="blog-post">
+    <header>
+    <slot name="header"></slot>
+    <p>Post by {{ author.name }}</p>
+    </header>
+    <main>
+      <slot></slot>
+    </main>
+</section>
+
+// Truyền vào
+<blog-post :author="author">
+  <h2 slot="header">Blog post title</h2>
+  <p>Blog post content</p>
+  <p>More blog post content</p>
+</blog-post>
+
+// Gen ra
+
+<section class="blog-post">
+     <header>
+       <h2>Blog post title</h2>
+       <p>Post by Callum Macrae</p>
+     </header>
+     <main>
+       <p>Blog post content</p>
+       <p>More blog post content</p>
+     </main>
+</section>
+```
+
+- Slot scope & slot scope destructuring
+
+##  Mixins
+- Kiểu method dùng chung, viết 1 lần, import vào các component dùng tiếp
+
+```
+const userMixin = {
+     methods: {
+       getUserInformation(userId) {
+         return fetch(`/api/user/${userId}`)
+           .then((res) => res.json);
+       }
+} };
+
+import userMixin from './mixins/user';
+  Vue.component('user-admin', {
+    mixins: [userMixin],
+    template: '<div v-if="user">Name: {{ user.name }}</div>',
+    props: {
+      userId: {
+        type: Number
+} }
+    data: () => ({
+      user: undefined
+    }),
+    mounted() {
+      this.getUserInformation(this.userId)
+        .then((user) => {
+          this.user = user;
+        });
+} });
+```
+- Mixin có thể viết thêm cả mounted,... cũng đc. Hiểu nó giống 1 component, khi dùng import vào 
+- Dùng mixin thì tiện, nhưng lúc debug thì cũng mệt phết.
+
+### Merge mixin và component
+- Nếu cả component và mixin cùng có 1 method => biết chọn cái nào? => tuỳ vào kiểu
++ Với life cycle hook (VD: mounted, created) => run cả 2
++ Với còn lại => của component sẽ overwrite.
+
+- Vì mixin dùng dễ bị trùng => Vue Style Guide khuyên dùng cách đặt tên:
++ Dùng $MixinName trước tên thật.
++ VD: $_loggingMixin2_log()
+
+- Pattern trên đặc biệt nên dùng trong plugin, tránh bị conflict name với user defined
+
+## Vue loader & vue file
+- Viết component vào cặp thẻ HTML trông chuối vkl, khó maintain.
+- Vue cho phép viết trong file .Vue, dùng `vue-loader` của webpack để compile ra cho dễ nhìn.
+
+## Non-prop attribute
+- Tức là mấy cái thuộc tính không phải prop, sẽ bị override
+- VD:
+
+```
+<div id="app">
+     <custom-button type="submit">Click me!</custom-button>
+   </div>
+   <script>
+     const CustomButton = {
+       template: '<button type="button"><slot></slot></button>'
+};
+     new Vue({
+       el: '#app',
+       components: {
+         CustomButton
+} });
+</script>
+```
+- Trong VD trên, component custom button có type="button", nhưng từ component cha lại truyền vào type=submit => sẽ bị thằng con override lại
+
+```
+  <button type="submit">Click me!</button>
+```
+
+- Đa phần các thuộc tính khác đều bị override như vậy, trừ `style` và `class` sẽ merge vào với nhau: nếu trùng nhau thì ưu tiên thằng con
+
+```
+<div id="app">
+     <custom-button
+       class="margin-top"
+       style="font-weight: bold; background-color: red">
+       Click me!
+     </custom-button>
+   </div>
+<script>
+     const CustomButton = {
+       template: `
+           <button
+             class="custom-button"
+             style="color: yellow; background-color: blue">
+             <slot></slot>
+           </button>`
+     };
+     new Vue({
+       el: '#app',
+       components: {
+         CustomButton
+} });
+</script>
+```
+
+
+
+
+## Component & v-for
