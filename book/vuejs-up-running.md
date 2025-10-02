@@ -701,3 +701,386 @@ import userMixin from './mixins/user';
 
 
 ## Component & v-for
+- Khi dùng v-for generate 1 array, nếu arr thay đổi thì vue chỉ gen lại phần thay đổi đấy:
++ Nếu push item vào cuối arr => chỉ gen thêm phần tử mới push
++ Nếu push item vào giữa arr => chỉ gen từ vị trí mới push về cuối.
+
+HTML:
+```
+<h2>V-for khong co key</h2>
+<color-item v-for="(item, i) in items1" @click.native="items1.splice(i, 1)">
+    {{ item }}
+</color-item>
+
+<h2>V-for co key</h2>
+<color-item v-for="(item, i) in items1" @click.native="items1.splice(i, 1)"
+    :key="item">
+    {{ item }}
+</color-item>
+
+<script src="https://unpkg.com/vue"></script>
+<script>
+    const randomColor = () => `hsl(${Math.floor(Math.random() * 360)}, 75%, 85%)`;
+
+    Vue.component('color-item', {
+        template: '<p :style="{ backgroundColor: color }"><slot></slot></p>',
+        data: () => ({
+            color: randomColor()
+        })
+    });
+
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                items1: ['one', 'two', 'three', 'four', 'five']
+            }
+        }
+    })
+</script>
+```
+
+# Chap 3: Styling with Vue
+- Dùng v-bind:class để xử lý class
+VD:
+
+```
+<div
+  v-bind:class=['my-class', classFromVariable, {'conditionalClass': hasClass}]
+></div>
+```
+
+- Dùng v-bind:style để xử lý inline style
+```
+<div v-bind:style="{fontWeight: 'bold', color: 'red'}"></div>
+<div :style="[baseStyles, moreStyles]">...</div>
+```
++ lưu ý là thuộc tính dùng camelCase nha, tự động vue sẽ chuyển về kebab-case
+
+## Scoped CSS with vue-loader
+- Khi define CSS trong component, vue sẽ tự gen thêm thuộc tính để tránh class này ảnh hưởng tới code của các component khác. VD:
+
+```
+<template>
+     <p>The number is <span class="number">{{ number }}</span></p>
+</template>
+<script>
+     export default {
+       props: {
+         number: {
+           type: Number,
+           required: true
+} }
+};
+</script>
+<style>
+     .number {
+       font-weight: bold;
+}
+</style>
+```
+- Khi gen ra sẽ thành ntn:
+
+```
+<p data-v-e0e8ddca>The number is <span data-v-e0e8ddca class="number">10
+     </span></p>
+   <style>
+   .number[data-v-e0e8ddca] {
+     font-weight: bold;
+   }
+</style>
+```
+
+
+
+## CSS module with vue loader
+- Concep có vẻ giống scoped CSS. Khác cái là dùng $style.
+```
+<template>
+     <p>The number is <span :class="$style.number">{{ number }}</span></p>
+</template>
+   <style module>
+     .number {
+       font-weight: bold;
+}
+</style>
+```
+
+## Preprocessor
+- Nếu dùng SCSS hay 1 loại ngôn ngữ trung gian nào đó để viết CSS => cần làm 2 bước:
++ B1: Dùng yarn hoặc npm install `sass-loader` hoặc `node-sass`
++ B2: Add lang="scss" vào thẻ style
+```
+<style lang="scss" scoped>
+     $color: red;
+     .number {
+       font-weight: bold;
+       color: $color;
+}
+</style>
+```
+
+# Chap 4: Render Function & JSX
+- Bình thường dùng thuộc tính template/ cặp thẻ <template> </template>
+- JSX là 1 giải pháp khác cho việc render.
+
+# Chap 5: Client-side routing with vue-router
+## Install
+
+```
+<script src="https://unpkg.com/vue-router"></script>
+
+npm install --save vue- router
+```
+
+```
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);
+```
+
+## Basic usage
+
+```
+
+   import PageHome from './components/pages/Home';
+   import PageAbout from './components/pages/About';
+   const router = new VueRouter({
+     routes: [
+       {
+         path: '/',
+         component: PageHome
+}, {
+         path: '/about',
+         component: PageAbout
+       }
+] });
+
+
+import router from './router';
+   new Vue({
+     el: '#app',
+     router: router
+});
+```
+
+- Sau khi import xong, đặt cặp thẻ <router-view/> ở vị trí bạn muốn router hiển thị ra
+```
+<div id="app">
+  <h1>Site title</h1>
+  <main>
+    <router-view />
+</main>
+  <p>Page footer</p>
+</div>
+<script>
+  const PageHome = {
+    template: '<p>This is the home page</p>'
+  };
+  const PageAbout = {
+    template: '<p>This is the about page</p>'
+  };
+  const router = new VueRouter({
+    routes: [
+      { path: '/', component: PageHome },
+      { path: '/about', component: PageAbout }
+    ]
+});
+  new Vue({
+    el: '#app',
+    router,
+});
+</script>
+```
+
+
+
+## Dynamic Routing
+- Đưa param vào trong path
+```
+ const router = new VueRouter({
+     routes: [
+       {
+         path: '/user/:userId',
+         component: PageUser
+} ]
+});
+```
+
+- Trong component có thể access vào current router bằng cách `this.$route`
+
+## Reacting to Route Updates
+- Router cung cấp 1 hook là `beforeRouteUpdate(to, from, next)` để lắng nghe trước khi router chuyển.
+```
+<template>
+  <div v-if="state === 'loading'">
+    Loading user...
+</div> <div>
+    <h1>User: {{ userInfo.name }}</h1>
+... etc ...
+  </div>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    state: 'loading',
+    userInfo: undefined
+  }),
+  mounted() {
+    this.init();
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.state = 'loading';
+    this.init();
+    next();
+}, methods: {
+  init() {
+    fetch(`/api/user/${this.$route.params.userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        this.userInfo = data;
+      });
+} }
+};
+</script>
+```
+
+## Passing Params to Components as Props
+- Code gốc, dùng $router.params.userId => dính dáng đến router => không clean
+
+```
+const PageUser = {
+     template: '<p>User ID: {{ $route.params.userId }}</p>'
+};
+   const router = new VueRouter({
+     routes: [
+       {
+         path: '/user/:userId',
+         component: PageUser
+} ]
+});
+```
+
+- Code mới decoupling được router ra khỏi component => trông ngon hơn.
+
+```
+const PageUser = {
+  props: ['userId'],
+  template: '<p>User ID: {{ userId }}</p>'
+};
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/user/:userId',
+      component: PageUser,
+      props: true
+    }]
+});
+```
+
+## Nested Routes
+```
+const router = new VueRouter({
+     routes: [
+      {
+        path: '/settings',
+          component: PageSettings,
+          children: [
+            {
+              path: 'profile',
+              component: PageSettingsProfile,
+            },{
+            path: 'email',
+            component: PageSettingsEmail,
+          }
+        ]
+      }]
+});
+```
+
+## Redirect and Alias
+- Redirect => sẽ chuyển về router redirect
+VD: truy cập settings sẽ redirect về preferences
+```
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/settings',
+      redirect: '/preferences'
+  }]
+});
+```
+
+- Alias => truy cập được cả 2
+```
+const router = new VueRouter({
+     routes: [
+       {
+         path: '/settings',
+         alias: '/preferences',
+         component: PageSettings
+} ]
+});
+```
+
+## Navigation
+
+### The output tag
+- Dùng <router-link> để sinh ra thẻ <a>
+- Có thể dùng thẻ khác cũng được
+
+```
+<router-link to="/user/1234" tag="li">Go to user #1234</router-link>
+
+sẽ gen ra
+
+<li>Go to user #1234</li>
+```
+- Tuy nhiên không nên làm thế, vì mất đi tính native của browser:
++ Khi hover, click vào ko thể hiện được đấy là link
++ Không click phải chuột, open new tab được.
+
+- Có thể fix bằng cách táng thẻ <a> vào bên trong
+
+```
+<router-link to="/user/1234" tag="li"><a>Go to user #1234</a></router-link>
+
+sẽ sinh ra
+<li><a href="/user/1234">Go to user #1234</a></li>
+```
+
+
+### Active class
+- Một link được gọi là active khi path của <router-link> trỏ tới trang hiện tại.
+- Mặc định vue sẽ thêm class `router-link-active` vào. Tuy nhiên có thể chủ động config lại cho phù hợp
+
+```
+<ul class="nav navbar-nav">
+  <router-link to="/blog" tag="li" active-class="active">
+    <a>Blog</a>
+  </router-link>
+  <router-link to="/user/1234" tag="li" active-class="active">
+    <a>User #1234</a>
+  </router-link>
+</ul>
+```
+
+### Native events
+- Cần thêm .native vào @click trong router link thì mới work.
+- Lí do: router link về cơ bản cũng là 1 component => chỉ lắng nghe những gì trong component thôi.
+```
+<router-link to="/blog" @click.native="handleClick">Blog</router-link>
+```
+
+### Programmatic navigation (navigate bằng code)
+- Mặc định thì browser dùng HTML5 api `history.pushState()`, `history.replaceState()`, `history.go()`
+- Vue thì dùng `router.push('')` (hoặc `$.router.push('')` đối với component)
+- Khi bạn click vào <router-link> thì vue cũng làm tương tự `router.push('')`
+- Có 2 cái: `router.push('')` và `router.replace('')`
++ Push => thêm cái mới vào => có cửa back lại
++ Replace => thay thế cái hiện tại => không có cửa back lại đâu :))
+- Có cả hàm router.go nữa: `router.go(-1)`
+
+## Navigation guard

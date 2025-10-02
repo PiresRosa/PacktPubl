@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo component & v-for example</title>
+</head>
+
+<body>
+    <div id="app">
+        <div
+            v-for="n in 10"
+            v-bind:style="{ backgroundColor: getColor(n) }"
+        > oh no</div>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    items1: ['one', 'two', 'three', 'four', 'five']
+                }
+            },
+            methods: {
+                getColor(n) {
+                    return `hsl(${(n - 1) * 30}, 100%, 75%)`;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

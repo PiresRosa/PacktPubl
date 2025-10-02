@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo component & v-for example</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue-router"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Site title</h1>
+        <main>
+          <router-view />
+      </main>
+        <p>Page footer</p>
+      </div>
+      <script>
+        const PageHome = {
+          template: '<p>This is the home page</p>'
+        };
+        const PageAbout = {
+          template: '<p>This is the about page</p>'
+        };
+        const router = new VueRouter({
+          routes: [
+            { path: '/', component: PageHome },
+            { path: '/about', component: PageAbout }
+          ]
+      });
+        new Vue({
+          el: '#app',
+          router,
+      });
+      </script>
+</body>
+</html>
