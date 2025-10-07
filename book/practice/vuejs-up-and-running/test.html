@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo component & v-for example</title>
+    <title>Test vue</title>
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/vue-router"></script>
 </head>
@@ -17,8 +17,13 @@
         <p>Page footer</p>
       </div>
       <script>
-        const PageHome = {      
-          template: '<p>This is the home page</p>'
+        const PageHome = {
+          template: '<p>This is the home page</p>',
+          data() {
+            return {
+              
+            }
+          },
         };
         const PageAbout = {
           template: '<p>This is the about page</p>'
@@ -32,7 +37,7 @@
         new Vue({
           el: '#app',
           router,
-      });       
+      });
       </script>
 </body>
 </html>

@@ -1084,3 +1084,37 @@ sẽ sinh ra
 - Có cả hàm router.go nữa: `router.go(-1)`
 
 ## Navigation guard
+- Vue cung cấp hook `beforeEach` cho router để xử lý mỗi khi chuyển router
+- Trong VD dưới đây, path nào start bởi /account thì cần authen rồi, nếu chưa redirect về login
+```
+router.beforeEach((to, from, next) => {
+  if (to.path.startsWith('/account') && !userAuthenticated()) {
+    next('/login');
+  } else {
+    next(); 
+  }
+});
+```
+- Nhớ gọi hàm `next()`, không gọi là coi chưa chưa được resolve => lỗi
+- Check auth kiểu startWith hơi nông dân => router cung cấp cái gọi là meta field, để định nghĩa xem có phải router cần auth ko.
+```
+const router = new VueRouter({
+     routes: [
+       {
+         path: '/account',
+         component: PageAccount,
+         meta: {
+           requiresAuth: true
+         }
+} ]
+});
+   router.beforeEach((to, from, next) => {
+     if (to.meta.requiresAuth && !userAuthenticated()) {
+       next('/login');
+     } else {
+next(); }
+});
+```
+- trong ví dụ trên thì dùng cái gọi là `requiresAuth`, anh em đặt gì tuỳ ý cũng được.
+
+# Chap 6: State management with VueX

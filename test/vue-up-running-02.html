@@ -28,8 +28,8 @@
         <hr>
         <h2>Slot scoped</h2>
         <div>
-            <user-item>
-                <div slot-scope="user" class="parent-class"> {{ item.user.firstName }} </div>
+            <user-item slot-scope="user">
+                <div  class="parent-class"> {{ item.user.firstName }} </div>
             </user-item>
         </div>
     </div>
