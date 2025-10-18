@@ -704,6 +704,7 @@ import userMixin from './mixins/user';
 - Khi dùng v-for generate 1 array, nếu arr thay đổi thì vue chỉ gen lại phần thay đổi đấy:
 + Nếu push item vào cuối arr => chỉ gen thêm phần tử mới push
 + Nếu push item vào giữa arr => chỉ gen từ vị trí mới push về cuối.
+- => không nên dùng key là index nha.
 
 HTML:
 ```
@@ -1118,3 +1119,364 @@ next(); }
 - trong ví dụ trên thì dùng cái gọi là `requiresAuth`, anh em đặt gì tuỳ ý cũng được.
 
 # Chap 6: State management with VueX
+## Install
+```
+<script src="https://unpkg.com/vuex"></script>
+
+npm install --save vuex
+
+
+import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);
+```
+
+- Định nghĩa 1 store
+```
+import Vuex from 'vuex';
+   export default new Vuex.Store({
+     state: {}
+});
+```
+- Import store vào code:
+
+```
+import Vue from 'vue';
+   import store from './store';
+   new Vue({
+     el: '#app',
+     store,
+     components: {
+       App
+    } });
+```
+## Concept
+- State dùng để các component share state với nhau
+- Bình thường component viết như này
+
+```
+const NotificationCount = {
+     template: `<p>Messages: {{ messageCount }}</p>`,
+     data: () => ({
+       messageCount: 'loading'
+     }),
+     mounted() {
+       const ws = new WebSocket('/api/messages');
+       ws.addEventListener('message', (e) => {
+         const data = JSON.parse(e.data);
+         this.messageCount = data.messages.length;
+}); }
+};
+```
+- => cái nào mouted cũng gọi đến 1 cái socket endpoint như trên thì hơi toang
+- Với vuex thì dùng chung state => để 1 thằng handle get message thôi
+```
+const NotificationCount = {
+  template: `<p>Messages: {{ messageCount }}</p>`,
+      computed: {
+        messageCount() {
+          return this.$store.state.messages.length;
+        }
+      }
+      
+      mounted() {
+        this.$store.dispatch('getMessages');
+  } };
+```
+- Trong store làm thế này:
+
+```
+
+let ws;
+   export default new Vuex.Store({
+     state: {
+       messages: [],
+     },
+     mutations: {
+       setMessages(state, messages) {
+         state.messages = messages;
+       }
+}, actions: {
+       getMessages({ commit }) {
+         if (ws) {
+return; }
+         ws = new WebSocket('/api/messages');
+         ws.addEventListener('message', (e) => {
+           const data = JSON.parse(e.data);
+           commit('setMessages', data.messages);
+}); }
+} });
+```
+- => ws chỉ init 1 lần duy nhất, mỗi khi có msg sẽ push msg list
+
+## State & state helper
+```
+import Vuex from 'vuex';
+   export default new Vuex.Store({
+     state: {
+       messageCount: 10
+     }
+});
+
+
+const NotificationCount = {
+     template: `<p>Messages: {{ messageCount }}</p>`,
+     computed: {
+       messageCount() {
+         return this.$store.state.messageCount;
+} }
+};
+```
+- => nhìn this.$store.state.messageCount trông hơi dài dòng => sinh ra 1 thằng state helper gọi là mapState
+
+```
+import { mapState } from 'vuex';
+   const NotificationCount = {
+     template: `<p>Messages: {{ messageCount }}</p>`,
+     computed: mapState(['messageCount'])
+};
+```
+- Để ý chỗ `computed: mapState(['messageCount'])` là viết tắt của:
+
+```
+computed: mapState({
+     messageCount: (state) => state.messageCount
+})
+```
+- Có thể viết như sau cũng được
+
+```
+computed: mapState({
+     messageCount: 'messageCount'
+})
+```
+- => Vậy khi nào, nên dùng kiểu nào?
++ Nếu chỉ map 1-1, không thay đổi gì => dùng dạng array cho mượt
++ Nếu có thay đổi => dùng dạng object để modify.
+VD: trong state có arr `messages`, trong component chỉ muốn lấy ra count:
+
+```
+computed: mapState({
+  msgCount: (state) => state.messages.length,
+  something: 'something'
+})
+```
+
+- nếu ko thích dùng ES6 style thì dùng kiểu func thông thường cũng được:
+
+```
+computed: mapState({
+  msgCount (state) {
+    return state.message.length
+  }
+})
+```
+
+- 1 common error là move tất cả vào state => ko nên. Cái nào dùng chung thì move vào state dùng chung, còn ko thì để local cũng được.
+- Nếu muốn map cả state và dùng local computed thì có thể dùng toán tử `...` (spread operator)
+- Lưu ý là nếu dùng `...` thì cần transpiler như babel để support tất cả các device nha.
+
+
+```
+computed: {
+     doubleFoo() {
+       return this.foo * 2;
+     },
+     ...mapState({
+          messageCount: (state) => state.messages.length,
+          somethingElse: 'somethingElse'
+}) }
+```
+
+## Getter
+- Để thay đổi data trả về mặc định. VD: nhiều lúc chỉ cần lấy count, ko cần lấy cả list msg => dùng getter
+
+```
+import Vuex from 'vuex';
+   export default new Vuex.Store({
+     state: {
+       messages: [...]
+     },
+     getters: {
+       unreadFrom: (state) => state.messages
+         .filter((message) => !message.read)
+         .map((message) => message.user.name)
+     }
+});
+```
+
+- Tương tự state, getter cũng có helper
+```
+computed: mapGetters(['unread', 'unreadFrom'])
+```
+
+- Cái này tương đương với
+```
+computed: {
+     unread() {
+       return this.$store.getters.unread;
+     },
+     unreadFrom() {
+       return this.$store.getters.unreadFrom;
+}, }
+```
+
+- Dùng object syntax cũng được
+```
+computed: mapGetters({
+     unreadMessages: 'unread',
+     unreadMessagesFrom: 'unreadFrom'
+})
+```
+
+## Mutation
+- Mutation (nghĩa là thay đổi) là func để modify data.
+- LƯU Ý: CHỈ DÙNG MUTATION VỚI SYNCHRONOUS ACTION (đồng bộ). Muốn dùng async => dùng action.
+- Định nghĩa state:
+
+```
+import Vuex from 'vuex';
+   export default new Vuex.Store({
+     state: {
+       messages: []
+     },
+     mutations: {
+       addMessage(state, newMessage) {
+         state.messages.push(newMessage);
+       }
+} });
+```
+
+- Gọi mutation
+```
+ const SendMessage = {
+     template: '<form @submit="handleSubmit">...</form>',
+     data: () => ({
+       formData: { ... }
+     }),
+     methods: {
+       handleSubmit() {
+         this.$store.commit('addMessage', this.formData);
+       }
+} };
+```
+
+- Dùng object syntax cũng được
+
+```
+this.$store.commit({
+     type: 'addMessage',
+     newMessage: this.formData
+});
+```
+
+- Mutation cũng có helper
+
+```
+methods: mapMutations(['addMessage'])
+```
+
+- Tương đương với
+```
+methods: {
+     addMessage(payload) {
+       return this.$store.commit('addMessage', payload);
+     },
+}
+```
+- Dùng kiểu object để map sang name khác
+```
+methods: mapMutations({
+     addNewMessage: 'addMessage'
+})
+```
+
+- Giống với
+```
+ methods: {
+     addNewMessage(payload) {
+       return this.$store.commit('addMessage', payload);
+     },
+}
+```
+
+## Action
+- Dùng để update async change. Ví dụ:
+
+```
+import Vuex from 'vuex';
+   export default new Vuex.Store({
+     state: {
+       messages: []
+     },
+     mutations: {
+       addMessage(state, newMessage) {
+         state.messages.push(newMessage);
+       },
+       addMessages(state, newMessages) {
+         state.messages.push(...newMessages);
+} },
+     actions: {
+       getMessages(context) {
+         fetch('/api/new-messages')
+           .then((res) => res.json())
+           .then((data) => {
+             if (data.messages.length) {
+               context.commit('addMessages', data.messages);
+} });
+} }
+});
+```
+- Ví dụ khác
+
+```
+
+   import { mapState } from 'vuex';
+   const NotificationCount = {
+     template: `<p>
+       Messages: {{ messages.length }}
+       <a @click.prevent="handleUpdate">(update)</a>
+     </p>`,
+     computed: mapState(['messages']),
+     methods: {
+       handleUpdate() {
+         this.$store.dispatch('getMessages');
+} }
+};
+```
+- Trong này dùng hàm `dispatch` để gọi đến action
+- Action helper
+
+```
+methods: {
+     // Maps this.getMessage() to this.$store.dispatch('getMessage')
+     ...mapActions(['getMessage'])
+     // Maps this.update() to this.$store.dispatch('getMessages')
+     ...mapActions({
+       update: 'getMessages'
+}) }
+```
+### Destructuring
+- Destructuring là khái niệm phân giải object ra.
+- VD: obj = {name: "phong", age: 20} -> destructuring: const {name} = obj
+- Bình thường viết action sẽ có 1 param là context, sau đó commit thì gọi context.commit như này:
+```
+actions: {
+  getMessages(context) {
+    // other logic...
+    context.commit('addMessages', data.messages);
+  }
+}
+```
+- Có thể viết gọn hơn như sau:
+
+```
+actions: {
+  getMessages({commit}) {
+    // other logic...
+    commit('addMessages', data.messages)
+  }
+}
+```
+- Promise and actions
+
