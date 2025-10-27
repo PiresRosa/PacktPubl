@@ -46,4 +46,50 @@ Your style > user style > user agent style
 
 ### 1.1.3. Source order
 - Nếu cùng độ ưu tiên => thằng nào khai báo sau thì thằng đấy ăn
-- 
+
+### 1.1.4. 2 điều cần lưu ý
+- Tránh dùng ID selector
+- Tránh dùng !important
+
+## 1.2 Inhenritance
+- Thường thì css sẽ được inhenritance từ cha. 
+- Không phải tất cả đều thừa kế nha, chủ yếu là:
+    -  các thuộc tính từ text như: `color, font, font-family, font-size, font-weight, font-variant, font-style, line-height, letter-spacing, text-align, text-indent, text-transform, white-space, and word-spacing`
+    - các thuộc tính là list property: `list-style, list-style -type, list-style-position, and list-style-image`
+    - table border: `border-collapse and border-spacing`
+
+## 1.3. Special value
+- `inherit` và `initial`
+- inherit thì là kế thừa
+- initial là giá trị mặc định. Giống như reset css vậy.
+
+## 1.4. Shorthand prop
+- Short hand là dạng ngắn gọn, vd: font thay cho font-family, font-weight...
+- Cẩn thận short-hand sẽ ghi đè giá trị của bạn. VD:
+```
+p {
+  font-weight: bold;
+}
+.title {
+  font: 32px Helvetica, Arial, sans-serif;
+}
+
+<p class="title">Oh my god</p>
+```
+- Ở trên định nghĩa font-weight là `bold` rồi, tuy nhiên bên dưới chỉ dùng short hand là `font`, ko định nghĩa bold => bị ghi đè về normal
+- Thực tế là định nghĩa sẽ trở thành như này:
+```
+h1 {
+  font-weight: bold;
+}
+.title {
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: normal;
+  font-size: 32px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+```
+- Thứ tự của short hand prop là top, right, bottom, left (ghi nhớ là TRouBLe)
