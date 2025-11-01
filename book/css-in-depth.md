@@ -9,6 +9,7 @@
 - Cũng ko phải design tool, nhưng cần 1 chút sáng tạo
 - Chữ C trong CSS là cascade
 
+# Chap 1: Cascade, specificity, inhenritance
 ## 1.1: Cascade (nghĩa là dòng chảy)
 -  Về cơ bản, CSS là định nghĩa ra các rule.
     - VD: nếu X là con Y, apply style này; 
@@ -93,3 +94,146 @@ h1 {
 }
 ```
 - Thứ tự của short hand prop là top, right, bottom, left (ghi nhớ là TRouBLe)
+
+# Chap 2: Working with unit
+
+## 2.1: Power of relative value
+- Trước đây mọi người thường làm việc với absolute unit như pixel (hay còn gọi là pixel perfect design)
+- Dần công nghệ phát triển, absolute ko còn phù hợp nữa
+- Pixel, point và pica
+    - 1 inch = 2.54 cm = 6 pc = 72 pt = 96 px
+
+## 2.2: Em & rem
+- `em` là đơn vị đi theo font-size
+
+```
+<span class="box box-small">Small</span>
+<span class="box box-large">Large</span>
+
+
+.box {
+  padding: 1em;
+  border-radius: 1em;
+  background-color: lightgray;
+}
+.box-small {
+  font-size: 12px
+}
+.box-large {
+  font-size: 18px;
+}
+```
+
+### 2.2.1. Sử dụng `em` để định nghĩa font-size
+- bình thường `em` tính theo font-size
+- => định nghĩa font-size = 1.2em nghĩa là to gấp 1.2 font-size được inherit từ element phía trên
+
+#### Lưu ý: Sử dụng em cho thuộc tính khác ngoài font-size có thể xảy ra vấn đề
+![Em problem](images/cssindepth-em-problem.png)
+
+- Trong VD trên thì `.slogan` có font-size = 1.2em = 19.2px
+- padding sẽ lấy giá trị theo fontsize của phần tử hiện tại => tức là 1.2 x 19.2 = 23.04
+- Một ví dụ khác đối với list
+
+```
+body {
+  font-size: 16px;
+}
+ul {
+  font-size: .8em;
+}
+```
+![Shrink problem](images/cssindepth-shrink-problem.png)
+- ul đầu tiên = 0.8em, ul thứ 2 = 0.8em của ul trước đó,... tương tự vậy nên nó giảm size => nhỏ vkl.
+- Tóm lại là shriking xảy ra khi có nhiều thằng tính bằng đơn vị em nằm nested nhau.
+- Có 1 cách để fix là set cha của nó về 1em (bằng đúng cha)
+```
+ul {
+  font-size: .8em;
+}
+ul ul {
+  font-size: 1em;
+}
+```
+- Cách trên thì cũng xử lý được, nhưng không hay lắm.
+- Hạn chế override CSS bằng cách tăng cấp độ của selector lên
+- Rõ ràng em cũng hay, nhưng khi nested thì phức tạp phết => tìm hiểu về rem đi
+
+### 2.2: Sử dụng rem
+- rem = root em = size của phần tử `:root` (hay `html`)
+- Phía trên dùng `em` gặp vấn đề là do list phụ thuộc vào thằng cha => thằng cha nhỏ đi => thằng con nhỏ đi.
+- => dùng rem giải quyết được vấn đề này
+
+### 2.3: Stop thinking pixel
+- Một số pattern thường thấy trước đây: reset page font-size về 62.5%
+```
+html {
+    font-size: .625em;
+}
+```
+- Mục đích pattern: reset font size về 10px cho dễ tính thằng khác (62.5% của 16 là 10).
+- VD: 14px là 1.4 rem
+- Cái này có nhiều bất lợi:
+    - Viết nhiều duplicate style (do reset cmn về 10px => những thằng thẻ p, span,... đi theo sẽ nhỏ đi => cần viết lại cho nó to ra thì mới đọc được)
+    - Vẫn đang nghĩ theo cách tính pixel.
+
+- Thật ra 16px vẫn hơi to thật, nhưng set về thằng nào vừa phải hơn thì hợp lí hơn. Thường set về 14px:
+
+```
+:root {
+    font-size: 0.875em;
+}
+```
+- VD code 1 cái panel
+
+```
+<div class="panel">
+  <h2>Single-origin</h2>
+  <div class="panel-body">
+    We have built partnerships with small farms around the world to
+    hand-select beans at the peak of season. We then carefully roast
+    in <a href="/batch-size">small batches</a> to maximize their
+    potential.
+</div>
+</div>
+
+
+.panel {
+  padding: 1em;
+  border-radius: 0.5em;
+  border: 1px solid #999;
+}
+.panel > h2 {
+  margin-top: 0;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+```
+- Có thể dùng @media để làm responsive
+
+```
+:root {
+  font-size: 0.75em;
+}
+@media (min-width: 800px) {
+  :root {
+    font-size: 0.875em;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+      font-size: 1em;
+  }
+}
+```
+- Có thể resizing 1 component bằng cách add thêm class vào cho nó
+
+```
+.panel.large {
+  font-size: 1.2rem;
+}
+```
+
+### 2.4: Viewport relative unit
