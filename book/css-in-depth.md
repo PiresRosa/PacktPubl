@@ -159,12 +159,12 @@ ul ul {
 - Hạn chế override CSS bằng cách tăng cấp độ của selector lên
 - Rõ ràng em cũng hay, nhưng khi nested thì phức tạp phết => tìm hiểu về rem đi
 
-### 2.2: Sử dụng rem
+### 2.2.3: Sử dụng rem
 - rem = root em = size của phần tử `:root` (hay `html`)
 - Phía trên dùng `em` gặp vấn đề là do list phụ thuộc vào thằng cha => thằng cha nhỏ đi => thằng con nhỏ đi.
 - => dùng rem giải quyết được vấn đề này
 
-### 2.3: Stop thinking pixel
+## 2.3: Stop thinking pixel
 - Một số pattern thường thấy trước đây: reset page font-size về 62.5%
 ```
 html {
@@ -236,4 +236,222 @@ html {
 }
 ```
 
-### 2.4: Viewport relative unit
+## 2.4: Viewport relative unit
+- Viewport = vùng màn hình hiển thị (không tính address bar, statusbar,...)
+- Quy đổi:
+```
+- vh = 1/100 viewport height
+- vw = 1/100 viewport width
+- vmin = 1/100 của chiều nhỏ hơn (không phải lúc nào dài cũng > rộng, do user xoay ngang màn hình chẳng hạn)
+- vmax = 1/100 của chiều lớn hơn
+```
+- Ví dụ
+```
+.square {
+  width: 90vmin;
+  height: 90vmin;
+  background-color: #369;
+}
+```
+
+![View port](images/cssindepth-viewport.png)
+- Như hình thì lúc nào hình vuông cũng chỉ = 90% của chiều nhỏ nhất (vmin mà)
+
+- Một chút note về CSS3:
+    - Một số đơn vị trong quyển sách này không support ở các version trước đó của CSS (VD: vh, vw, rem,...)
+    - Khoảng giữa những năm 90 và 2000, CSS2 ra đời
+    - 1998, CSS 2.1 ra đời
+    - Khoảng 2013 gì đấy thì CSS3 ra đời
+    - ... nói cái gì đấy xiaolin, ko hay lắm nên ko đọc tiếp
+
+### 2.4.1: Sử dụng vw cho font-size
+- Dùng vw cho font-size khá hay, VD màn 1200px -> font= 2vw = 2% = 24px; màn nhỏ cũng tự co về
+- Tuy nhiên 24px thì hơi to, còn với màn có vw nhỏ như iphone6 thì 2vw lại bé quá -> dùng hàm calc()
+
+### 2.4.2: Sử dụng calc() cho font-size
+- Dùng remix giữa các đơn vị luôn. VD:
+```
+:root {
+  font-size: calc(0.5em + 1vw);
+}
+```
+- Trong VD trên thì 0.5em gần vừa mắt với người dùng. 1vw vừa đủ để tăng linh hoạt khi viewport thay đổi.
+
+## 2.5: Unitless numbers and line height
+- Một số thuộc tính ko cần unit (VD: line-height, z-index, font-weight)
+- Trong trường hợp = 0 thì ko cần unit (do 0px hay 0% thì có khác mẹ gì nhau đâu :v)
+- line height khá đặc biệt, nó accept cả có unit và ko có unit
+    - Có unit => tính toán ra luôn giá trị
+    - Không unit => giá trị tuỳ thuộc vào phần tử con của nó
+- VD:
+
+```
+<style>
+    body {
+        line-height: 1.2em;
+    }
+    .about-us {
+        font-size: 2em;
+    }
+</style>
+
+<body>
+    <!-- <p class="title">Oh my god</p> -->
+    <p class="about-us">
+        We have built partnerships with small farms around the world to
+        hand-select beans at the peak of season. We then carefully roast in
+        small batches to maximize their potential. We then carefully roast in
+        small batches to maximize their potential. We then carefully roast in
+        small batches to maximize their potential.
+    </p>
+</body>
+```
+- Như trên sẽ bị lỗi, dòng mau di dít vào với nhau như này
+![line-height problem](images/cssindepth-line-height.png)
+- Lí do: để đơn vị line-height = 1.2em => tính luôn = 1.2 x 16 = 19.2px. Font size của thẻ p là 2em = 32px => 32px mà giãn dòng có 19.2 thì nó mau là đúng rồi.
+- Cách fix: bỏ đơn vị đi
+
+```
+<style>
+    body {
+        line-height: 1.2;
+    }
+    .about-us {
+        font-size: 2em;
+    }
+</style>
+```
+- Bỏ đơn vị đi thì nó chỉ tình là 1.2 lần, khi vào đến thẻ p có class about-us => 1.2 lần của 32px = 38.4
+
+
+## 2.6: Custom property (aka CSS variable)
+- Có thể anh em làm SASS hay LESS đã có variable từ lâu rồi => coi thường mục này
+- ĐỪNG. variable này có thể làm được nhiều thứ mà SASS hay LESS làm được. Hồi sau sẽ rõ :v
+
+- Khai báo custom prop
+
+```
+:root {
+  --main-font: Helvetica, Arial, sans-serif;
+}
+```
+- Dùng custom prop: dùng hàm `var()`
+```
+:root {
+  --main-font: Helvetica, Arial, sans-serif;
+}
+
+p {
+  font-family: var(--main-font);
+}
+```
+- Hàm var() dùng thêm đối thứ 2 là fallback cũng được
+
+```
+:root {
+    --main-font: Helvetica, Arial, sans-serif;
+    --brand-color: #369;
+}
+p{
+    font-family: var(--main-font, sans-serif); color: var(--secondary-color, blue);
+}
+```
+
+- Lưu ý là nếu value không hợp lệ => sẽ set về initial value
+- VD: padding mà value lại là color => set về gía trị 0
+
+```
+padding: var(--brand -color)
+```
+
+### 2.6.1: Change custom property dynamically
+- Custom prop đơn thuần chỉ là giúp bạn không phải viết quá nhiều duplicate code
+- Điều đặc biệt hơn: nó chảy xuống (cascade) và kế thừa (inherit)
+- VD về việc thay đổi custom property để làm dark mode
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo css darkmode, css in depth</title>
+    <style>
+        :root {
+            --main-bg: #fff;
+            --main-color: #000;
+        }
+
+        .panel {
+            font-size: 1rem;
+            padding: 1em;
+            border: 1px solid #999;
+            border-radius: 0.5em;
+            background-color: var(--main-bg);
+            color: var(--main-color);
+        }
+
+        .panel > h2 {
+            margin-top: 0;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .dark {
+            margin-top: 2em;
+            padding: 1em;
+            background-color: #999;
+            --main-bg: #333;
+            --main-color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="panel">
+    <h2>Single origin</h2>
+    <div class="body">
+        We have built partnerships with small farms
+        around the world to hand-select beans at the
+        peak of season. We then careful roast in
+        small batches to maximize their potential.
+    </div>
+</div>
+
+<aside class="dark">
+    <div class="panel">
+        <h2>Single origin</h2>
+        <div class="body">
+            We have built partnerships with small farms
+            around the world to hand-select beans at the
+            peak of season. We then careful roast in
+            small batches to maximize their potential.
+        </div>
+    </div>
+</aside>
+</body>
+</html>
+```
+### 2.6.2: Change custom property với javascript
+```
+<script type="text/javascript">
+  var rootElement = document.documentElement;
+  var styles = getComputedStyle(rootElement);
+  var mainColor = styles.getPropertyValue('--main-bg');
+  console.log(String(mainColor).trim());
+
+
+  var rootElement = document.documentElement;
+rootElement.style.setProperty('--main-bg', '#cdf');
+</script>
+```
+
+### 2.6.3: Experimenting with custom property
+- Custom property này cũng mới, nên chưa được dùng nhiều lắm
+- Tin rằng tương lai sẽ rất hữu hiệu
+- Khi dùng tốt nhất cứ thêm fallback vào nha ae
+```
+color: black;
+color: var(--main-color);
+```
+
+``
