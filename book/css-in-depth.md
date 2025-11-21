@@ -454,4 +454,84 @@ color: black;
 color: var(--main-color);
 ```
 
-``
+# Chap 3: Mastering the box model
+## 3.1: Difficulty with element width
+- Mặc định kích thước phần tử không bao gồm padding & border
+- Cần dùng `box-sizing: border-box` để bao gồm luôn cho dễ tính
+- Dùng * để reset cho all element
+
+```
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+```
+- Tuy nhiên nếu reset hết -> có thể conflict CSS với third party (do third party không reset css mà tính dựa trên box-sizing: content-box) -> nên viết CSS như bên dưới, inherit dựa trên parent
+
+```
+:root {
+  box-sizing: border-box;
+}
+*,
+::before,
+::after {
+  box-sizing: inherit;
+}
+```
+- Mặc định thì box-sizing nó ko inherit -> nếu css của third party bị conflict, có thể chủ động set lại cho component cha thì những css bên trong không bị lỗi
+```
+.third-party-component {
+  box-sizing: content-box;
+}
+```
+- VD muốn add 1 khoảng trống nhỏ giữa 2 element, có thể dùng calc cho chuẩn
+
+```
+.main {
+  float: left;
+  width: 70%;
+  background-color: #fff;
+  border-radius: .5em;
+}
+
+.sidebar {
+  float: left;
+  width: calc(30% - 1.5em);
+  margin-left: 1.5em;
+  padding: 1.5em;
+  background-color: #fff;
+  border-radius: .5em;
+}
+```
+
+## 3.2: Difficulty with element heigh
+- Làm việc với heigh thì khó hơn width
+- Lí do thì thường content chỉ tính theo chiều ngang, chiều dọc sẽ là infinity, tuỳ độ dài của content
+
+### 3.2.1: Control overflow behavior
+- VD set heigh cho 1 cái box, mà nội dung nó tràn ra ngoài gọi là overflow
+![Overflow](images/cssindepth-overflow.png)
+- Over flow có 4 giá trị:
+  - visible (mặc định): tất cả content đều visible, kể cả tràn ra khỏi content box
+  - hidden: Content mà bị tràn là cắt liền
+  - scroll: scroll được add vào container. Một số hệ điều hành thì content box sẽ được add mặc định vào, kể cả content có tràn hay không. Trường hợp content ko tràn thì cái scroll nó xám (disable đi) 
+  - auto: chỉ add scroll trong trường hợp content overflow
+![overflow values](images/cssindepth-overflow-values.png)
+
+- Hãy dùng scroll 1 cách khôn ngoan. Nếu có 2 scroll trong 1 màn hình: 1 scroll cho toàn trang, 1 scroll cho 1 box nhỏ; nếu người dùng đang scroll cả trang xuống mà con trỏ chuột chạy vào box nhỏ => dừng scroll toàn trang mà chỉ scroll trong box nhỏ => user bực bội.
+- Horizontal overflow:
+  - Kể cả chiều ngang cũng có overflow, ko chỉ là chiều dọc => nhiều khi xuất hiện kết quả không mong muốn (VD: chỉ muốn overflow chiều dọc thôi, ko thích ngang)
+  - => dùng `overflow-x` và `overflow-y` sẽ chỉ overflow theo 1 chiều nào đó thôi.
+
+### 3.2.2: Applying alternative to percentage-based heights
+- Tính heigh theo % có vấn đề:
+  - % dựa trên chiều cao của thằng cha chứa nó
+  - Chiều cao của thằng cha chứa nó lại phụ thuộc vào thằng con
+=> nó cứ bị vòng tròn luẩn quẩn => browser ignore cmnl
+- Lí do mà thích dùng % là muốn vừa với screen
+- Cách tốt nhất là ae dùng vh (viewport-heigh) đã chém trong chương 2 ý
+
+- Chia những cột có chiều cao = nhau đã từng là vấn đề của những năm 2000. Những năm này dùng table để chia :v
+- Giờ xịn hơn rồi, có thể dùng mấy cái mới như: display: table, flex box
+- 
