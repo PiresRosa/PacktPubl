@@ -534,4 +534,159 @@ color: var(--main-color);
 
 - Chia những cột có chiều cao = nhau đã từng là vấn đề của những năm 2000. Những năm này dùng table để chia :v
 - Giờ xịn hơn rồi, có thể dùng mấy cái mới như: display: table, flex box
+- VD dùng table thì set container cha là `display: table`, mấy thằng con là `display: table-cell`
+
+
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo CSS
+    </title>
+    <style>
+        :root {
+            box-sizing: border-box;
+        }
+
+        *,
+        ::before,
+        ::after {
+            box-sizing: inherit;
+        }
+
+        body {
+            background-color: #eee;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+
+        header {
+            color: #fff;
+            background-color: #0072b0;
+            border-radius: .5em;
+
+        }
+
+        main {
+            display: block;
+        }
+
+        .container {
+            display: table;
+            width: 100%;
+        }
+
+        .main {
+            display: table-cell;
+            width: 70%;
+            background-color: #fff;
+            border-radius: .5em;
+        }
+
+        .sidebar {
+            display: table-cell;
+            width: 30%;
+            margin-left: 1.5em;
+            padding: 1.5em;
+            background-color: #fff;
+            border-radius: .5em;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Franklin Running Club</h1>
+    </header>
+    <div class="container">
+        <main class="main">
+            <h2>Come join us!</h2>
+            <p>
+                The Franklin Running club meets at 6:00pm every Thursday
+                at the town square. Runs are three to five miles, at your
+                own pace.
+            </p>
+        </main>
+        <aside class="sidebar">
+            <div class="widget"></div>
+            <div class="widget"></div>
+        </aside>
+    </div>
+</body>
+
+</html>
+```
+- Chạy lên sẽ thấy bị mất khoảng trống do margin không work với display table
+- Có thể fix bằng cách: thêm `border-spacing: 1.5em 0` vào container. Tuy nhiên nó sẽ thêm vào cả 2 phía => trông bên trái bị thừa 1 khoảng
+- Lại fix bằng cách thêm 1 thẻ `<div class="wrapper">` bao quanh container. Sau đó dùng margin âm để lùi về phía tay trái
+```
+.wrapper {
+  margin-left: -1.5em;
+  margin-right: -1.5em;
+}
+
+.container {
+  display: table;
+  width: 100%;
+  border-spacing: 1.5em 0;
+}
+```
+
+- Có thể ae đã nghe rằng HTML table là bad practice cho layout. Đúng là như vậy. Anh em nên dùng float, flexbox, inline-block thay vì table.
+
+#### Flexbox
+- Lưu ý: không support IE9 đổ về trước
+```
+.container {
+  display: flex;
+}
+
+.main {
+  width: 70%;
+  background-color: #fff;
+  border-radius: 0.5em;
+}
+
+.sidebar {
+  width: 30%;
+  padding: 1.5em;
+  margin-left: 1.5em;
+  background-color: #fff;
+  border-radius: .5em;
+}
+```
+- Như trên thì chỉ cần apply display: flex cho container, ko cần set display ở mấy thằng con.
+- Flex khá hay, kể cả set tổng width > 100% thì nó vẫn tự căn lại cho mình. Chi tiết hơn sẽ nói ở chương 5
+
+### 3.2.3: Using min-heigh and max-height
+- Thay vì set fixed, có thể dùng `min-height` và `max-height` để set cho element dịch chuyển trong khoảng đó.
+- VD set `min-height` thôi thì:
+  - Khi elem ko đủ cao bằng `min-height` thì vẫn tự động cao = `min-height`
+  - Nếu elem cao hơn `min-height` => tự động được giãn thêm, ko bị overflow
+- Max height cũng tương tự nha
+![Min height, max height](images/cssindepth-min-height-max-height.png)
+
+### 3.2.4: Vertically centering content (căn giữa content theo chiều dọc)
+- Căn giữa theo chiều ngang còn dễ, theo chiều dọc khó vkl.
+- Một số thanh niên dùng `vertical-align: middle` nhưng ko work. Vì nó chỉ work với display: table thôi nha
+- Cách khá hay để căn giữa content là dùng padding top và bottom bằng nhau => nó tự căn giữa trên khung của nó.
+- Tuy nhiên thì ko phải lúc nào cũng dùng padding được. Có trường hợp bạn muốn child element nó sát vào phần tử cần căn. Nếu set padding thì thằng child nó sẽ xa cmn rời thằng mẹ luôn.
+- Lúc này solution ngon nhất là dùng CSS tables hoặc flexbox nha;
+
+#### Cách hay nhất để vertically centering
+- Dựa trên 1 số điều kiện để định hình xem tình huống của bạn là gì
+- ... đoạn này nói linh tinh gì đó.
+
+## 3.3: Margin âm
+- Không giống như padding hay border, margin có thể âm.
+- Margin âm đưa phần tử tiến về phía bị âm 1 khoảng
+
+![](images/cssindepth-negative-margin.png)
+
+- Chưa hiểu thằng margin âm này làm cái mẹ gì cho đời :v
+
+## 3.4: Collapsed margin
 - 
