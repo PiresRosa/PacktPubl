@@ -689,4 +689,192 @@ color: var(--main-color);
 - Chưa hiểu thằng margin âm này làm cái mẹ gì cho đời :v
 
 ## 3.4: Collapsed margin
-- 
+- Collapsed margin đại khái là hiện tượng bị đè margin.
+- VD: 
+  - thẻ <p> mặc định có margin 1 em top và bottom, nhưng 2 thẻ <p> cạnh nhau ko phải là 2 em mà vẫn là 1em
+  - Trường hợp có nhiều margin khác nhau nằm cạnh nhau => lấy margin lớn nhất.
+- Vài cách để stop collapsed margin:
+  - Dùng overflow: auto (hoặc giá trị nào khác visible cũng đc)
+  - Thêm padding hoặc border
+  - Margin ko collapse bên ngoài đối với container float. Chỉ collapsed với inline, block, absolute, fixed position.
+  - Flex và grid cũng ko collapsed nha
+  - Element `table-cell`, `table-row` ko có margin => ko bị collapsed. `table`, `table-inline`, `table-caption` thì vẫn bị collapsed (?)
+
+## 3.5: Spacing element within container
+// TOREAD: Đoạn này hơi lú, quay lại note sau vậy
+
+# Part 2: Mastering layout
+
+# Chap 4: Making sense of float
+- Part 1 nói về element & sizing rồi, part2 sẽ nói về tổ chức layout.
+- Chúng ta sẽ đi qua 3 cách quan trọng nhất để tạo layout cho trang web: float, flexbox, grid layout. Sau đó nói về positioning - cách để sắp xếp element chồng lên nhau (stacking)
+- Flex và grid mới xuất hiện, nhưng nó trở thành công cụ không thể thiếu rồi. Còn float thì có từ lâu nhưng vẫn có những hiểu nhầm.
+## 4.1: Mục đích của float
+- Float kéo element về 1 phía của container. Nếu có nhiều thành phần float thì sẽ nằm liên tiếp, kề nhau.
+![](images/cssindepth-float01.png)
+- Nhiều khi bạn tự hỏi:
+  - Flex ra đời rồi có cần học float ko?
+  - => câu trả lời là có, vì:
+    - VD code cần support browser cũ (IE10, IE11) => chỉ dùng đc float thôi pa
+    - Fix code cũ => cần hiểu float mới fix được
+    - Float là cách duy nhất để viết đoạn văn tràn xung quanh image/
+## 4.2: Container collapsing & clearfix
+### 4.2.1: Understanding container collapsing
+- VD đoạn code sau (xem ở trang practices/css-in-depth/03.html cũng được)
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo CSS
+    </title>
+    <style>
+        :root {
+            box-sizing: border-box;
+        }
+
+        *,
+        ::before,
+        ::after {
+            box-sizing: inherit;
+        }
+
+        body {
+            background-color: #eee;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+
+        body *+* {
+            margin-top: 1.5em;
+        }
+
+        header {
+            padding: 1em 1.5em;
+            color: #fff;
+            background-color: #0072b0;
+            border-radius: .5em;
+            margin-bottom: 1.5em;
+        }
+
+        .main {
+            padding: 0 1.5em;
+            background-color: #fff;
+            border-radius: .5em;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .media {
+            float: left;
+            width: 50%;
+            padding: 1.5em;
+            background-color: #eee;
+            border-radius: 0.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Franklin Running Club</h1>
+        </header>
+        <main class="main clearfix">
+            <h2>Running tips</h2>
+            <div>
+                <div class="media">
+                    <img class="media-image" src="../../images/runner.png">
+                    <div class="media-body">
+                        <h4>Strength</h4>
+                        <p>
+                            Strength training is an important part of
+                            injury prevention. Focus on your core&mdash;
+                            especially your abs and glutes.
+                        </p>
+                    </div>
+                </div>
+                <div class="media">
+                    <img class="media-image" src="../../images/shoes.png">
+                    <div class="media-body">
+                        <h4>Cadence</h4>
+                        <p>
+                            Check your stride turnover. The most efficient
+                            runners take about 180 steps per minute.
+                        </p>
+                    </div>
+                </div>
+                <div class="media">
+                    <img class="media-image" src="../../images/shoes.png">
+                    <div class="media-body">
+                        <h4>Change it up</h4>
+                        <p>
+                            Don't run the same every time you hit the
+                            road. Vary your pace, and vary the distance
+                            of your runs.
+                        </p>
+                    </div>
+                </div>
+                <div class="media">
+                    <img class="media-image" src="../../images/runner.png">
+                    <div class="media-body">
+                        <h4>Focus on form</h4>
+                        <p>
+                            Run tall but relaxed. Your feet should hit
+                            the ground beneath your hips, not out in
+                            front of you.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
+```
+
+- Khi run lên trình duyệt trông sẽ như này:
+![](images/cssindepth-float02.png)
+- Lí do là vì mặc định thì float sẽ không add height cho phần tử cha
+- Nhìn thì có vẻ là lỗi, nhưng thực tế không phải vậy. 
+- Float sinh ra để text nằm xung quanh nó. VD có 1 cái image float, text sẽ nằm xung quanh nó như này:
+![](images/cssindepth-float.png)
+- Anh em để ý sẽ thấy mặc dù set background cho thẻ main
+```
+.main {
+  padding: 0 1.5em;
+  background-color: #fff;
+  border-radius: .5em;
+}
+```
+- Nhưng chỉ có mỗi cái title có bg trắng thôi.
+- Lí do vì float không tính vào height của phần tử.
+- Trong thẻ main chỉ có mỗi thằng title là ko float => chiều cao của thằng main = chiều cao thẻ title.
+
+- Cách fix thì ae thêm dòng sau vào gần cuối thẻ main
+
+```
+<main>
+...
+<div style="clear: both"></div>
+</main>
+```
+- `clear: both` sẽ kéo độ dài của container xuống vị trí có chứa đoạn css này.
+- Làm cách trên cũng được, nhưng mà đang add thừa 1 thẻ HTML vào. Có thể dùng cách pseudo element (element ảo after, before) để xử lý.
+
+### 4.2.2: Understanding clearfix
+- pseudo element là ::after và ::before đó.
+- CSS sẽ như này:
+```
+.clearfix::after {
+  display: block;
+  content: " ";
+  clear: both;
+}
+```
