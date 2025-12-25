@@ -41,6 +41,12 @@
             border-radius: .5em;
         }
 
+        .clearfix::after {
+            display: block;
+            content: " ";
+            clear: both;
+        }
+
         .container {
             max-width: 1080px;
             margin: 0 auto;
@@ -48,10 +54,31 @@
 
         .media {
             float: left;
-            width: 50%;
+            margin: 0 1.5em 1.5em 0;
+            width: calc(50% - 1.5em);
             padding: 1.5em;
             background-color: #eee;
             border-radius: 0.5em;
+            margin: 0 1.5em 1.5em 0;
+            width: calc(50% - 1.5em);
+        }
+
+        .media:nth-child(odd) {
+            clear: left;
+        }
+
+        .media-image {
+            float: left;
+            margin-right: 1.5em;
+        }
+
+        .media-body {
+            margin-top: 0;
+            overflow: auto;
+        }
+
+        .media-body h4 {
+            margin-top: 0;
         }
     </style>
 </head>
@@ -107,8 +134,6 @@
                         </p>
                     </div>
                 </div>
-
-                <div style="clear:both"></div>
             </div>
         </main>
     </div>

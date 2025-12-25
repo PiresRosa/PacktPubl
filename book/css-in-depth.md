@@ -878,3 +878,50 @@ color: var(--main-color);
   clear: both;
 }
 ```
+- Lưu ý là clearfix phải được apply vào phần tử chứa floats. Một số ông apply lung tung là sai sml (VD như apply vào phần tử float hay phần tử không phải container)
+- Chỗ content có nội dung là 1 khoảng trắng để fix lỗi trên 1 số trình duyệt opera cũ.
+- Trông thì có vẻ fix được rồi, nhưng vẫn còn vấn đề với clearfix margin:
+ - Margin của floated element bên trong không collapsed
+ - Margin của non-floated element thì vẫn collap bình thường.
+- Trong ví dụ trên chính là cái thẻ `<h2>Running tips</h2>` bị dính vào `<main>` do bị collapsed.
+- Cách fix thì dùng display table cho cả before và after để không bị margin collapsing
+```
+.clearfix::before,
+.clearfix::after {
+  display: table;
+  content: " ";
+}
+
+
+.clearfix::after { // Chỉ after cần clear float
+  clear: both;
+}
+```
+
+- TOREAD: Chỗ này có cái nói về clearfix & display table khá hay. Có thể đọc lại và viết thành 1 bài (trang 127)
+
+## 4.3: Float catching không mong muốn
+![](images/cssindepth-float-catching.png)
+- Anh em thấy không, cái số 2 ngắn hơn số 1 -> còn khoảng trống -> cái số 3 bay vào ngay dưới cái số 2.
+- Cái này gọi là hiện tượng bị "float catching"
+- Vì mong muốn 2 item/ hàng => ý tưởng là clear left ở mỗi thằng đầu tiên (thằng lẻ)
+
+```
+.media {
+  float: left;
+  width: 50%;
+  padding: 1.5em;
+  background-color: #eee;
+  border-radius: 0.5em;
+}
+.media:nth-child(odd) {
+  clear: left;
+}
+```
+- Cái trên là anh em có 2 cháu/ 1 hàng. Giả sử 3 cháu cần thay đổi bí kíp thành: `.media:nth-child(3n+1)`
+- Lưu ý là anh em chỉ dùng được cách này khi biết chính xác số cột thôi. Nếu mà số cột dựa trên những thứ như tỉ lệ % (tức là ko cố định) => dùng flexbox hay inline-block element.
+
+## 4.4: Media object & block formatting context
+- TOREAD. Đoạn này buồn ngủ quá, đọc éo hiểu gì cả
+
+## 4.5: Grid system
