@@ -98,3 +98,40 @@ sadd friends:leto ghanima paul chani jessica
 - Chap tiếp theo nói về việc giảm extra round trip (kiểu số lần query)
 
 ## Round trip & pipelining
+- pipelining: Redis support pipelining, tức là input vào 1 loạt request, đợi redis xử lý xong rồi response cả thể. Làm thế này tiết kiệm được 1 ít network latency (kiểu thay vì mỗi lần chạy ra chợ mua đc 1 món đồ, thì ra chợ mua luôn 1 danh sách rồi về. Tránh được thời gian chờ)
+
+## Transaction 
+- Redis support transaction dùng lệnh multi
+
+```
+multi
+hincrby groups:1percent balance -9000000000
+hincrby groups:99percent balance 9000000000
+exec
+```
+
+# Chap 4: Beyond data structure
+- Phần này sẽ làm quen với vài command không liên quan đến data structure: info, select, flushdb, multi, exec, discard, watch, keys.
+
+## Expiration
+- `expire <key> <time_second>`: set expire time
+- `expireat <key> <timestamp>`: tương tự, nhưng dùng timestamp
+- `ttl <key>`: check expire time
+- `persist <key>`: xoá expire time
+- `setex <key> <second> <value>`: vừa set value, vừa set expire time
+
+
+## Publication & Subcription
+- subscribe ohmygod
+- publish ohmygod msg
+- Có thể subscribe nhiều channel: subscribe channel1, channel2,...
+- Có thể subscribe theo pattern: psubscribe warning:*
+
+## Monitor & Slow log
+- Gõ lệnh `monitor` để monitor toàn bộ cmd đang execute
+- Slow log để config xem application có thằng nào đang chậm không: `config set slowlog-log-slower-than 0`
+- `slow log get`: show toàn bộ slow log ra. Trả về 4 param:
+    - auto increment id
+    - timestamp cmd bắt đầu chạy
+    - time để execute (in microsecond)
+    - cmd & parameters
