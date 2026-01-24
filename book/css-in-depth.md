@@ -925,3 +925,7 @@ color: var(--main-color);
 - TOREAD. Đoạn này buồn ngủ quá, đọc éo hiểu gì cả
 
 ## 4.5: Grid system
+- Grid system thường 12 cột vì 12 chia hết cho 2, 3, 4, 6 - là các số layout thường dùng.
+
+
+# Chapter 5: Flexbox
