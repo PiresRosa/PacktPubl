@@ -1,6 +1,7 @@
 # Elastic Search - The definitive guide
->> Mình note lại những ý chính mà mình đọc hiểu được. Recommend bạn nên đọc bản gốc của tác giả để có 1 góc nhìn đầy đủ hơn.
->> Bản mình đọc ở version khá cổ đại (1.4) => cân nhắc cập nhật kiến thức hiện tại trước khi áp dụng
+> Mình note lại những ý chính mà mình đọc hiểu được. Recommend bạn nên đọc bản gốc của tác giả để có 1 góc nhìn đầy đủ hơn.
+
+> Bản mình đọc ở version khá cổ đại (1.4) => cân nhắc cập nhật kiến thức hiện tại trước khi áp dụng
 
 - Elastic search sử dụng thư viện Lucene, đơn giản hóa việc dùng thư viện Java bằng việc sử dụng RESTful api
 - Tại sao phương thức GET của ES lại support cả body?
@@ -8,6 +9,7 @@
 ES support thêm method POST cho vui thôi.
 
 Relational DB ⇒ Databases ⇒ Tables ⇒ Rows ⇒ Columns
+
 Elasticsearch ⇒ Indices ⇒ Types ⇒ Documents ⇒ Fields
 
 - search lite:

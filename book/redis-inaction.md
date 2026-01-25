@@ -38,4 +38,40 @@
 ## 1.2. What Redis data strutures look like
 - Có 5 loại: string, list, set, sorted set, hash
 - Có vài shared command: del, type, rename
+
+## 1.3.  Hello Redis
+- Cùng xem 1 vài bài toán thực tế với Redis
+
+### 1.3.1. Voting articles
+- Giả sử có khoảng 1000 bài viết được đăng mỗi ngày
+- Trong 1000 bài này, cần đưa ra top 50 bài viết hay (có ít nhất 200 lượt vote mỗi bài)
+- Tổ chức cũng khá dễ:
+    - Lưu nội dung article vào hashmap `article:<id>` -> {title, link, poster, time, votes}
+    - Lưu 2 sorted set (zset): time-base (theo thời gian tạo) và score-base (theo điểm)
+    - Lưu 1 set những user đã vote cho article này: `vote:<id>` -> {user_ids}
+- Các bài toán gặp phải:
+    - Vote thế nào?
+    - Post bài mới thế nào?
+    - Fetch bài về thế nào?
+    - Group bài thế nào?
+        - Group khá hay: Giả dụ có:
+            - Set group programming
+            - zset by score
+            - Giờ cần lấy ra zset by score của group programing?
+            - => dùng ZINTERSTORE để lưu vào 1 key trung gian, set expire 60s (do ko phải lúc nào cũng có người vào group này)
+    - Bài tập ứng dụng làm tính năng downvote
+        - Gợi ý: 
+            - Khi user upvote => sadd vào set
+            - Khi user downvote => smove vào set khác
+
+- Tóm lại cái hay của chương này:
+    - Redis có nhiều kiểu dữ liệu mà thằng khác không có
+    - Redis là in-memory => fast
+    - Redis hỗ trợ remote
+    - Redis hỗ trợ persistence (lưu xuống đĩa, lưu dữ liệu khi reboot)
+    - Redis scaleable (master/slave)
+
+# Chap 2: Anatomy of Redis web application
+- HTTP request là stateless, ko lưu lại thông tin của các request cũ
 - 
+- Trong chap 
