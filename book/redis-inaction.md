@@ -73,5 +73,62 @@
 
 # Chap 2: Anatomy of Redis web application
 - HTTP request là stateless, ko lưu lại thông tin của các request cũ
-- 
-- Trong chap 
+- Trong chap này giả sử đang làm việc với 1 chuỗi web bán lẻ:
+    - 100 triệu truy cập 1 ngày
+    - ~ 5 triệu user mỗi ngày
+    - 100.000 item được mua mỗi ngày
+- Con số này khá lớn. Tuy nhiên nếu lớn còn giải quyết được => nhỏ có cái mẹ gì đâu :v
+
+## 2.1. Login & cookie caching
+- Cookie có 2 loại:
+    - Signed cookie: Lưu luôn info người dùng vào cookie + kèm chữ kí. Lên server parse ra rồi dùng.
+        - Ưu điểm: 
+            - Thông tin được lưu hết trong cookie rồi
+            - Thêm thông tin cũng dễ
+        - Nhược:
+            - Việc kí vào thông tin implement khá phức tạp.
+            - Dễ quên việc kí/ kiểm tra tính hợp lệ của dữ liệu (VD lưu thông tin user, mà thông tin user bị thay đổi)
+    - Token cookie: là 1 cái token, server lấy để query vào db => information
+        - Ưu điểm:
+            - Nhỏ => device như mobile req cũng nhanh
+            - Dễ dàng thêm thông tin (?)
+        - Nhược điểm:
+            - Thông tin lưu trữ nhiều ở server
+            - Nếu dùng relational db để query info dựa trên cookie => là 1 expensive thao tác.
+- Trong bài này chọn token cookie để implement.
+- Dùng hmap để lưu trữ
+- Để check token, dùng `hget <key> <field>`
+    - VD: `hget login: {token}`
+- Để update token, recent view:
+    - hset login: token user
+    - zadd recent: token timestamp
+    - Nếu user view 1 item nào đó, thêm vào list recent view, trim lấy 25 thằng ngon nhất thôi:
+        - zadd viewed:{token} item timestampt
+        - zremrangebyrank viewed:{token} 0 -26
+- Nếu lưu tất cả token vào set => có ngày đầy sml do hết bộ nhớ
+- => chỉ lưu 10 triệu record thôi
+- => mỗi giây check 1 lần, hoặc 60s check 1 lần, remove bớt đi
+
+```
+QUIT = False
+LIMIT = 10 000 000
+
+def clean_sessions(conn):
+    while not QUIT:
+        size = conn.zcard('recent:')
+        if size < LIMIT:
+            time.sleep(1000)
+            continue
+
+        end_index = min(size - LIMIT, 100) // delete 100 cái một thôi cho đỡ lag hệ thống
+        tokens = conn.zrange('recent:', 0, end_index - 1)
+
+        session_keys = []
+        for token in tokens:
+            session_keys.append('viewed:' + token)
+        
+        conn.delete(*session_keys)
+        conn.hdel('login:', *tokens)
+        conn.zrem('recent:', *tokens)
+```
+
