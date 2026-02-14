@@ -132,3 +132,18 @@ def clean_sessions(conn):
         conn.zrem('recent:', *tokens)
 ```
 
+## 2.2. Shopping cart
+- Những năm 90, đội Netscape đã lưu cart của người dùng trong cookie. Tuy nhiên cart to dẫn tới req chậm
+- Có thể dùng redis để implement. Khá đơn giản:
+    - Dùng hmap: `cart:{session} item count`
+- Cũng ko có gì đặc biệt lắm, ko note thêm nữa
+
+## 2.3. Web page caching
+- Ý là bình thường sẽ gen HTML + data.
+- Giờ cache cmn cả HTML lại => tốc độ nhanh hơn.
+- Chú ý tới expire time là đc
+
+## 2.4. Database row caching
+- Cache các row lại để đỡ query db thui mà
+- Nên cache JSON vào cho dễ xài.
+
