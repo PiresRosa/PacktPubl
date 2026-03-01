@@ -33,4 +33,11 @@
 - u: undo 1 thao tác trước đó
 - U: undo cả dòng hiện tại
 
-# Bài 3: Put command
+# Bài 3 
+## 3.1: Put command
+- Gõ dd để xoá dòng. Sau đó gõ `p` để paste dòng vừa xoá ở dòng tiếp theo của dòng chứa con trỏ hiện tại
+
+## 3.2: Replace command
+- Gõ r, sau đó gõ kí tự cần replace vào là xong.
+- ce: change tới end của word
+- cc: change cả line
