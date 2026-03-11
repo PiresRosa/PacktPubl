@@ -147,3 +147,25 @@ def clean_sessions(conn):
 - Cache các row lại để đỡ query db thui mà
 - Nên cache JSON vào cho dễ xài.
 
+# Part 2: Core concepts
+# Chap 3: Commands in redis
+- Phần này cũng đọc khá kĩ ở quyển the little redis book. Không note thêm nữa.
+
+# Chap 4: Keeping data safe & ensure performance
+- Chương này gồm:
+    - Ghi data xuống đĩa
+    - Replica data vào 1 machine khác
+    - Dealing với system failure
+    - Redis transaction
+    - Non-transaction pipeline
+    - Diagnosing performance issue
+
+## 4.1: Persistence option
+- 2 option:
+    - Snapshot: lưu xuống disk khi 1 trong các command sau được gọi:
+        - BGSAVE
+        - SAVE
+        - SAVE 60 10000: tự động trigger bgsave nếu có 10k write trong 60s
+        - SHUTDOWN -> khi có cmd shutdown, tự động gọi cmd save
+        - SYNC: khi command sync được chạy (sync để kết nối master - slave) => khi nào sync xong thì BGSAVE sẽ tự động được chạy.
+        
