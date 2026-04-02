@@ -85,3 +85,104 @@ POST /{index}/{type}/
 PUT /{index}/{type}/{id}?op_type=create
 PUT /{index}/{type}/{id}/_create
 ```
+
+## Delete document
+```
+DELETE {index}/{type}/{id}
+
+exist -> 200
+not exist -> 404
+```
+- Lưu ý là khi delete thì version response về vẫn tăng nha.
+
+## Dealing with conflict
+- Có 2 cách:
+ - Lock resource lại
+ - Optimize lại luồng concurrency: cung cấp cơ chế detect conflict
+
+- Trong es dùng version để detect (truyền current version vào)
+```
+PUT /{index}/{type}/{id}?version=xxx
+
+- Dùng external version:
+    - Trong case dùng DB khác làm DB chính, sync sang es để search thôi
+    - => khi sync từ A => B, multiple process có thể làm data bị sai
+    - => dùng version bằng time updated_at (unix) cho nó chuẩn
+
+```
+PUT /{index}/{type}/{id}?version={version_from_external}&version_type=external
+
+# Chap 4: Distributed document store
+// TOREAD & TONOTE
+
+# Chap 5: Searching - The Basic Tool
+## Empty search
+- Trả về tất cả các document trong cluster
+```
+GET /_search
+```
+- Có mấy thông số quan trọng:
+    - hit: tổng số document
+    - took: thời gian search
+    - shards: số shard tham gia vào quá trình search; bao nhiêu success, bao nhiêu fail
+    - timeout: true/false - có bị timeout ko.
+- Có thể định nghĩa timeout vào
+```
+GET /_search?timeout=10ms
+```
+## Multi-index, multitype
+
+```
+/_search - search all
+/gb/_search - search ở index gb
+/gb,us/_search - search ở index gb,us
+/g*,u*/_search - search ở index bắt đầu bằng g và u
+/gb/user/_search - search ở index gb và type user
+/gb,us/user,tweet/_search - search ở index gb
+/_all/user,tweet/_search
+```
+
+## Pagination
+
+```
+/gb/_search?size=5&from=10
+```
+- Kết quả được sort ở mỗi shard, sau đó return về trung tâm để kết quả chính xác => lượng kết quả nhiều vkl => nên limit khoảng 10,000 thôi.
+
+## Search lite
+
+```
+GET /_all/tweet/_search?q=tweet:elasticsearch
+```
+Có thể dùng + cho must, - cho must not
+
+```
+GET /_search?q=+name:john
+GET /_search?q=-name:john
+```
+
+### _all field
+- Mặc định ES sẽ convert giá trị tất cả các field thành string, sau đó đưa vào field `_all` chứa metadata.
+- Đầu tiên mới build app, bạn cũng méo biết cần dùng field nào => cái _all này thật sự là hữu ích.
+- Sau khi app bạn chạy ngon rồi, bạn search đúng chính xác field thì sau đó disable field _all này đi cũng chưa muộn
+
+### Query phức tạp hơn
+- Query lite có thể query phức tạp hơn tí. Nhưng bt người ta méo làm thế đâu, search trong body cho khoẻ. Biết cho vui thôi.
+- VD muốn search:
+    - field `name` bao gồm john hoặc mary
+    - field `date` lớn hơn `2021-09-09`
+    - field `_all` bao gồm từ phong hoặc daicaphong
+
+```
+?q=+name:(mary john) +date:>2021-09-09 +(phong daicaphong)
+```
+
+# Chap 6: Mapping & analysis
+- Lấy ví dụ với việc có 12 document có chứa text: `2021-09-09`
+- Lúc search ra kết quả khác nhau:
+```
+GET /_search?q=2021             // 12 result
+GET /_search?q=2021-09-09       // 12 result
+GET /_search?q=date:2021-09-09  // 1 result
+GET /_search?q=2021             // 0 result
+GET /_search?q=2014
