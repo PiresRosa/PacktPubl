@@ -186,3 +186,64 @@ GET /_search?q=2021-09-09       // 12 result
 GET /_search?q=date:2021-09-09  // 1 result
 GET /_search?q=2021             // 0 result
 GET /_search?q=2014
+```
+- Mặc định ES sẽ đoán kiểu dữ liệu, sau đó tạo mapping (trường hợp mapping chưa có)
+
+## Exact value vs full text
+- Exact value = value chính xác (VD: Foo khác với foo)
+- Full text hay còn gọi là textual data, viết ở human language.
+- Full text thường được gọi là unstructured data, thường xuất hiện trong ngôn ngữ tự nhiên.
+- Full text thường phức tạp nên khó để máy tính parse đúng.
+ - VD: `May is fun but June bores me`. => nói về tháng hay tên người ?
+
+- Exact value thì query dễ, giống WHERE trong MySQL vậy:
+```
+WHERE name    = "John Smith"
+      AND user_id = 2
+      AND date    > "2014-09-15"
+```
+
+- Full text value thì query khó hơn:
+ - chúng ta không chỉ muốn tìm document có match query không, mà còn muốn tìm document match query thế nào nữa.
+ - Ngoài ra ta còn muốn nó hiểu ý định của chúng ta nữa:
+  - Search `UK` thì trả về cả doc nói về United Kingdom nữa.
+  - Search `jump` thì trả về cả doc liên quan đến jumped, jumps, jumping...
+
+- Để đáp ứng điều này, elasticsearch đầu tiên phân tích text, dùng kết quả để build `inverted index` và `analysis process`
+
+## Inverted index
+- Dịch ra là index ngược.
+- ES map `word` -> documents (tức là từ này xuất hiện ở những document nào)
+- Ví dụ có 2 câu sau: 
+ - The quick brown fox jumped over the lazy dog
+ - Quick brown foxes leap over lazy dogs in summer
+
+- Các bước ES làm:
+ - Tách các từ riêng biệt ra (gọi là `term` hay `token`)
+ - Sắp xếp lại các từ riêng biệt này
+ - Lên danh sách các document mà từ này xuất hiện
+
+![Inverted index 01](images/es-definitive-guide-inverted-index-01.png)
+
+- Khi search  `quick brown`, dễ dàng tìm được các document mà 2 từ này xuất hiện
+![Inverted index 01](images/es-definitive-guide-inverted-index-02.png)
+- Cả 2 document đều match, nhưng rõ ràng là thằng 1 match nhiều hơn.
+- Khi áp dụng thuật toán similarity (đếm số lượng khớp) thì rõ ràng kết luận luoon thằng 01 match nhiều hơn.
+- Tuy nhiên có vài vấn đề với inverted index hiện tại:
+ - `Quick` và `quick` xuất hiện là 2 term riêng biệt, nhưng user thì nghĩ chúng giống nhau.
+ - `fox` và `foxes`, `dog` và `dogs` là giống nhau (vì cùng từ gốc)
+ - `jump` và `leap` không cùng từ gốc nhưng lại là từ đồng nghĩa.
+
+- Để giải quyết điều này, ES dùng 1 kĩ thuật gọi là normalize:
+ - Lowercase hết đi -> `quick` và `Quick` giống nhau
+ - Đưa về từ gốc -> `foxes` và `fox` giống nhau
+ - Đưa về từ gốc kể cả là đồng nghĩa -> `jump` và `leap` giống nhau
+
+Lúc này cái inverted index trông sẽ như sau:
+![Inverted index 02](images/es-definitive-guide-inverted-index-03.png)
+
+- Quá trình `tokenize` và `normalization` này gọi là `analysis`, sẽ discuss ở chapter tiếp theo.
+- 
+
+ 
+ 
