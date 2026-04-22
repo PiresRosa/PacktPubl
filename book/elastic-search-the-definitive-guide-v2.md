@@ -243,7 +243,99 @@ Lúc này cái inverted index trông sẽ như sau:
 ![Inverted index 02](images/es-definitive-guide-inverted-index-03.png)
 
 - Quá trình `tokenize` và `normalization` này gọi là `analysis`, sẽ discuss ở chapter tiếp theo.
-- 
 
+## Analysis & analyzer
+- Quá trình analysis bao gồm các bước sau:
+ - Đầu tiên, tokenizing text block thành các term khác nhau
+ - Sau đó normalizing các term này theo chuẩn để improve khả năng search
+
+- Quá trình analysis được thực hiện bởi analyzer.
+- Analyzer thực hiện ba chức năng:
+ - Character filter: filter out những kí tự đặc biệt (VD: thẻ html), hoặc đổi kí tự thành từ (VD: `&` -> `and`)
+
+ - Tokenizer: string sau đó được tách thành từng token khác nhau (có thể là by whitespace/ punctuation)
  
+ - Token filter: token filter sẽ change term để improve khả năng search (VD: lowercase (`Quick` -> `quick`), remove stopword (`a`, `an`, `the`), add terms (các từ đồng âm như `jump`, `leap`))
+
+- ES cung cấp rất nhiều built-in analyzer, và bạn cũng có thể custom analyzer lại theo nhu cầu sử dụng.
+
+### Built-in analyzer
+- VD có string sau:
+```
+"Set the shape to semi-transparent by calling set_trans(5)"
+```
+- Các analyzer built-in của ES sẽ hoạt động như sau:
+ - Simple analyzer: tách string bởi các kí tự không phải là letter, sau đó lowercase tụi nó
  
+ ```
+set, the, shape, to, semi, transparent, by, calling, set, trans
+```
+ - Whitespace analyzer: tách các từ bởi dấu cách
+ ```
+ Set, the, shape, to, semi-transparent, by, calling, set_trans(5)
+ ```
+
+ - Language analyzer: có rất nhiều package cho từng language khác nhau. VD như tiếng anh sẽ remove các stop word như: `a`, `an`, `the`,..; sau đó đưa các từ về dạng nguyên gốc (vd: calling -> call, semi_trans -> semi_tran)
+ 
+ ```
+ set, shape, semi, transpar, call, set_tran, 5
+ ```
+
+### Khi nào analyzer được sử dụng?
+- Tuỳ vào kiểu field của bạn:
+ - VD field của bạn kiểu string (full text) -> khi bạn search bằng field này, mặc định ES sẽ analyze request ra để search
+ - VD field của bạn kiểu date (kiểu extract) -> khi search, es sẽ search chính xác luôn, không analyze nữa.
+
+- Search mà không ghi rõ field ra thì đang search trên field `_all`:
+```
+GET /_search?q=2014         # 12 results
+GET /_search?q=2014-09-15   # 12 results !
+```
+- Khi search rõ field ra thì tuỳ theo kiểu của field, es sẽ quyết định có dùng analyzer hay không
+
+```
+GET /_search?q=date:2014-09-15  # 1 result
+GET /_search?q=date:2014        # 0 results !
+```
+
+### Testing analyzer
+- ES cung cấp API để biết text được analyze thế nào.
+
+```
+GET /_analyze?analyzer=standard
+Text to analyze
+```
+- Nhận được body như sau:
+
+```
+{
+  "tokens": [
+    {
+      "token": "text",
+      "start_offset": 0,
+      "end_offset": 4,
+      "type": "<ALPHANUM>",
+      "position": 1
+    },
+    {
+      "token": "to",
+      "start_offset": 5,
+      "end_offset": 7,
+      "type": "<ALPHANUM>",
+      "position": 2
+    },
+    {
+      "token": "analyze",
+      "start_offset": 8,
+      "end_offset": 15,
+      "type": "<ALPHANUM>",
+      "position": 3
+    }
+  ]
+}
+```
+- Trong đó:
+    - `token`: Đây chính xác là những gì được lưu trong index
+    - `start offset`, `end_offset`: cái tên nói lên tất cả. Vị trí mà cái token này bắt đầu và kết thúc
+    - `type`: loại
+    - `position`: số thứ tự token từ trái qua phải
