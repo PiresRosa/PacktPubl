@@ -339,3 +339,169 @@ Text to analyze
     - `start offset`, `end_offset`: cái tên nói lên tất cả. Vị trí mà cái token này bắt đầu và kết thúc
     - `type`: loại
     - `position`: số thứ tự token từ trái qua phải
+
+### Chỉ định analyzer
+- Khi insert data vào ES, ES mặc định sẽ detect field type, sau đó đưa analyzer tương ứng vào.
+- Nếu bạn không muốn điều này xảy ra => lúc tạo index nên setting mapping cho nó.
+
+## Mapping
+- Mapping giống kiểu schema definition ấy.
+- Mapping giống JSON vậy, có kiểu simple & kiểu object.
+
+### Core simple field type
+- ES support mấy kiểu simple type sau:
+    - String: string
+    - Whole number: byte, short, integer, long
+    - Boolean: boolean
+    - Date: date
+- Khi bạn index 1 field chưa tồn tại, ES dựa vào quy tắc dynamic mapping sau để đoán kiểu dữ liệu của bạn để map:
+    - true/false -> boolean
+    - 123 (whole number) -> long
+    - 123.4 (floating point) -> double
+    - 2021-09-20 (String, valid date) -> date
+    - oh my god (String) -> string
+
+- Điều này nghĩa là nếu bạn insert dữ liệu là "123" -> kiểu của nó sẽ là string, không phải long. 
+- Tuy nhiên trường hợp field của bạn đã định nghĩa sẵn kiểu long rồi -> ES sẽ try parse trước, nếu ko parse được sẽ throw exception
+
+### View mapping
+- Gửi request là xong:
+
+```
+GET /{index_name}/_mapping/{type}
+```
+
+### Customize field mapping
+- Field không phải text thì chỉ cần định nghĩa type là xong:
+
+```
+{
+    "number_of_click": {
+        "type": "integer"
+    }
+}
+```
+
+- Field là kiểu text còn có 2 option nữa: index và analyzer
+ - index: kiểm soát string sẽ được analyze như nào:
+  - `analyzer`: index field này là full text
+  - `not_analyzed`: index field này là exact value
+  - `no`: không index field này. Field này sẽ không searchable.
+
+ - analyzer: kiểm soát dùng bộ analyzer nào (english, france,...)
+
+ ### Update mapping
+ - Chỉ thêm được field mới thôi, ko update được field cũ đâu
+ - Muốn update thì xoá cmn thằng cũ đi, thêm lại thằng mới.
+ 
+ ```
+ DELETE /gb
+ ```
+ - Tạo lại index
+
+```
+ PUT /gb
+ {
+  "mappings": {
+    "tweet": {
+      "properties": {
+        "tweet": {
+          "type": "string",
+          "analyzer": "english"
+        },
+        "date": {
+          "type": "date"
+        },
+        "name": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "long"
+        }
+      }
+    }
+  }
+}
+```
+
+- Thêm 1 field theo cách của bạn
+
+```
+PUT /gb/_mapping/tweet
+{
+  "properties": {
+    "tag": {
+      "type": "string",
+      "index": "not_analyzed"
+    }
+  }
+}
+```
+### Test the mapping
+- Sử dụng analyze API mà test
+
+```
+GET /gb/_analyze?field=tweet
+Black-cats
+```
+
+## Complex core field type
+### Multivalue fields
+- VD:
+```
+{ "tag": [ "search", "nosql" ]}
+```
+- Kiểu multivalue này không có mapping gì đặc biệt cả. Chỉ đơn giản là tất cả bọn này cùng 1 kiểu thôi.
+- Khi array index, nó sẽ spread value của array ra -> không thể tìm lại vị trí của phần tử như: đầu tiên, cuối cùng (thực tế sau sẽ chỉ có thể tìm min, max, median,...).
+- Chung quy lại, hãy hiểu arr là 1 cái túi, chứa dữ liệu.
+
+
+### Empty field
+- Lucene không lưu được kiểu null -> các kiểu dữ liệu sau sẽ đều được quy về kiểu empty:
+
+```
+{
+    "null_value": null,
+    "empty_arr: [],
+    "arr_with_null": [null]
+}
+```
+
+### Multiple level object
+- Đại khái là object trong object.
+- Mapping cho inner object: thì có thêm cái type là object thôi
+```
+{
+  "type": "object"
+}
+```
+- How inner object indexed: đơn giản là es flat ra, dùng dấu "." (Do lucene không support kiểu inner object)
+
+![inner object indexed](images/es-definitive-guide-inner-object-indexed.png)
+
+- Array of inner object: cũng flat na ná như array, có điều theo từng prop nữa:
+
+```
+{
+  "followers": [
+    {
+      "age": 35,
+      "name": "Mary White"
+    },
+    {
+      "age": 26,
+      "name": "Alex Jones"
+    },
+    {
+      "age": 19,
+      "name": "Lisa Smith"
+    }
+  ]
+}
+```
+-> sẽ flat thành:
+
+![es inner object flatten](images/es-definitive-guide-inner-object-flatten.png)
+
+- Lưu như này sẽ mất cmn tính chất của object -> làm sao ES giải quyết được nhu cầu muốn tìm ra object nào thoả mãn prop1=a && prop2=b? Tất cả sẽ được giải đáp trong chương 41 =))
+
