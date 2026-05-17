@@ -505,3 +505,104 @@ Black-cats
 
 - Lưu như này sẽ mất cmn tính chất của object -> làm sao ES giải quyết được nhu cầu muốn tìm ra object nào thoả mãn prop1=a && prop2=b? Tất cả sẽ được giải đáp trong chương 41 =))
 
+# Chap 7: Full body search
+- Search lite để nghịch thôi, ko phát huy được hết sức mạnh của ES
+- Anh em dùng JSON body để search cho xịn
+- Tại sao method GET mà lại có body?
+    - Vì tác giả thấy action là GET mới đúng, nghe POST kì quá
+    - Tác giả support cả POST luôn cho mấy thằng thuộc REST tộc đỡ phải thắc mắc, lí luận.
+
+## Empty search
+```
+GET /_search
+{}
+
+GET /index_2021*/type1,type2/_search
+{
+    "from": 30,
+    "size": 10
+}
+```
+
+## Query DSL
+- Cú pháp:
+
+```
+GET /_search
+{
+    "query": QUERY_HERE
+}
+```
+
+- Cái empty search phía trên, bản chất là cái `match_all`, tương đương với query sau:
+```
+GET /_search
+{
+    "query": {
+        "match_all": {}
+    }
+}
+```
+
+- Structure query:
+```
+{
+    QUERY_NAME: {
+        ARG: VALUE,
+        ARG: VALUE,
+        ...
+    }
+}
+```
+- Nếu query trên field cụ thể thì query như sau:
+```
+{
+    QUERY_NAME: {
+        FIELD_NAME: {
+            ARG: VALUE,
+            ARG: VALUE,
+            ...
+        }
+    }
+}
+```
+- VD dùng query để tìm field tweet nào chứa elasticsearch:
+
+```
+GET /_search
+{
+    "query": {
+        "match": {
+            "tweet": "elasticsearch"
+        }
+    }
+}
+```
+- Kết hợp nhiều mệnh đề: dùng query bool
+
+```
+{
+  "bool": {
+    "must": {
+      "match": {
+        "tweet": "elasticsearch"
+      }
+    },
+    "must_not": {
+      "match": {
+        "name": "mary"
+      }
+    },
+    "should": {
+      "match": {
+        "tweet": "full text"
+      }
+    }
+  }
+}
+```
+
+## Queries & Filters
+- Filter: câu hỏi dạng yes/no, cache được nên hiệu suất cao
+- Query: câu hỏi dạng có match không, match thế nào, điểm số ra sao => ko cache được, hiệu suất thấp hơn
+- => Cần kết hợp query & filter sao cho hài hoà.
