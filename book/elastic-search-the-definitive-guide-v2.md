@@ -606,3 +606,171 @@ GET /_search
 - Filter: câu hỏi dạng yes/no, cache được nên hiệu suất cao
 - Query: câu hỏi dạng có match không, match thế nào, điểm số ra sao => ko cache được, hiệu suất thấp hơn
 - => Cần kết hợp query & filter sao cho hài hoà.
+- Khi nào dùng cái gì:
+ - Khi nào cần xét tới độ liên quan, tính điểm liên quan => dùng query
+ - Filter thì dùng cho mọi thứ :))
+
+## Một số query & filter quan trọng
+### Term filter
+- Dùng để filter exact value, thường dùng trong các field: number, date, boolean hoặc not_analyzed exact value string
+- VD:
+
+```
+{"term":{"age": 26}}
+{"term":{"date": "2021-09-22"}}
+{"term":{"public": true}}
+{"term":{"tag": "full_text"}}
+```
+
+### Terms filter
+- Cũng giống term filter, khác ở chỗ cho bạn đưa nhiều value để match vào:
+
+```
+{"term": {"tag": ["es", "lucene", "fulltext"]}}
+```
+
+### Range filter
+- Dùng 1 số term như: lt, gte, gt, lte để so sánh. Dùng cho number & date.
+```
+{
+    "range": {
+        "age": {
+            "gte": 20,
+            "lt": 30
+        }
+    }
+}
+```
+
+### Exist & missing filter
+- Exist để tìm doc có field, missing tìm doc bị thiếu field
+- VD:
+
+```
+{
+    "exist": {
+        "field": "title"
+    }
+}
+```
+
+### bool filter
+- Bool filter để kết hợp nhiều mệnh đề filter, sử dụng boolean logic
+```
+{
+    "bool": {
+        "must": {"term": {"folder": "inbox"}},
+        "must_not": {"term": {"tag": "spam"}},
+        "should": [
+            {"term": {"starred": true}},
+            {"term": {"unread": true}}
+        ]
+    }
+}
+```
+
+### match_all query
+- Mặc định nếu không có query nào được định nghĩa thì match_all được sử dụng
+
+```
+{"match_all": {}}
+```
+
+### match query
+- Dùng match query cho cả full-text field và cả exact field đều được
+- Nếu là full-text field thì es sẽ dùng analyzer để phân tích ra trước khi search
+- VD:
+
+```
+{
+    "match": {
+        "tweet": "About search"
+    }
+}
+```
+- Nếu là field exact thì nó sẽ tìm chính xác. 
+```
+{"match": {"age": 26}}
+{"match": {"date": "2021-09-22"}}
+{"match": {"public": true}}
+{"match": {"tag": "full_text"}}
+```
+- Vì vậy mà nếu search trên exact field thì tốt nhất nên dùng filter (vì nó cache được)
+
+### multi_match query
+- Giống match query, nhưng dùng trên nhiều field được
+```
+{
+    "multi_match": {
+        "query": "full text search",
+        "fields": ["title", "body"]
+    }
+}
+```
+
+### bool query
+- Giống bool filter thôi, dùng để kết hợp nhiều query với nhau.
+- Trong đó:
+ - must: phải có
+ - must_not: không được có
+ - should: nếu có thì tăng điểm, ko có thì cũng không sao.
+
+```
+{
+    "bool": {
+        "must": {
+            "match": {
+                "title": "how to make money"
+            }
+        },
+        "must_not": {
+            "match": {
+                "tag": "spam"
+            }
+        },
+        "should": [
+            "match": {
+                "tag": "starred"
+            },
+            "range": {
+                "date": {
+                    "gte": "2021-09-22"
+                }
+            }
+        ]
+    }
+}
+```
+
+## Combining query with filter
+- Có thể dùng query trong filter context, hoặc dùng filter trong query context.
+- Kết hợp dùng thế nào cho hiệu năng okie là được
+
+### Filtering a query
+- VD có query sau:
+```
+{
+    "match": {
+        "email": "bussiness opportunity"
+    }
+}
+```
+- Muốn kết hợp với filter, chỉ tìm những cháu có trong folder inbox thôi:
+```
+{
+    "filtered": {
+        "query": {
+            "match": {
+                "email": "bussiness opportunity"
+            }
+        },
+        "filter": {
+            "term": {
+                "folder": "inbox"
+            }
+        }
+    }
+}
+```
+- Viết query như sau:
+
