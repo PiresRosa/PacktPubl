@@ -773,4 +773,75 @@ GET /_search
 }
 ```
 - Viết query như sau:
+```
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "match": {
+          "email": "business oppotunity"
+        }
+      },
+      "filter": {
+        "term": {
+          "folder": "inbox"
+        }
+      }
+    }
+  }
+}
+```
 
+### Just a filter
+- Chỉ có filter thôi, ko có query nữa.
+- Cái này tương đương với query match_all
+
+```
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "match_all": {}
+      },
+
+      "filter": {
+        "term": {
+          "folder": "inbox"
+        }
+      }
+    }
+  }
+}
+```
+
+### A query as filter
+- Đưa query vào điều kiện filter
+
+```
+{
+  "query": {
+    "filtered": {
+      "bool": {
+        "must": {
+          "term": {
+            "folder": "inbox"
+          }
+        },
+        "must_not": {
+          "query": {
+            "match": {
+              "email": "business urgent"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Validating query
+- Dùng API: `/{index_name}/_validate/query` để validate
+- Có thể thêm explain vào để biết tại sao lỗi: `/{index_name}/_validate/query?explain`
+
+# Chap 8: Sorting & relevance
