@@ -845,3 +845,126 @@ GET /_search
 - Có thể thêm explain vào để biết tại sao lỗi: `/{index_name}/_validate/query?explain`
 
 # Chap 8: Sorting & relevance
+## Sorting
+- Sort trong ES dựa trên điểm, được biểu thị bởi `_score`, là số dạng float
+- Dùng query filter thôi thì score sẽ là 1 (do query match_all sẽ set giá trị score là 1 cho tất cả các bản ghi)
+
+### Sorting by field value
+- Sử dụng param sort, kết hợp với 1 field
+- Nếu dùng sort này thì _score sẽ set về null
+```
+{
+  "query": {
+    "filtered": {
+      "filter": {
+        "term": {
+          "user_id": 1
+        }
+      }
+    }
+  },
+  "sort": {
+    "date": {
+      "order": "desc"
+    }
+  }
+}
+```
+- Mặc định sẽ tự sort desc rồi, có thể rút gọn mệnh đề sort lại
+```
+{
+  "query": "...",
+  "sort": "number_of_child"
+}
+```
+
+### Multilevel sorting
+- Dùng array sort
+```
+{
+  "query": "...",
+  "sort": [
+    {
+      "date": {
+        "order": "desc"
+      }
+    },
+    {
+      "_score": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+```
+- Thứ tự trong sort quan trọng nha. Đầu tiên các bản ghi sẽ sort theo điều kiện đầu tiên trước. Gặp những record bằng nhau sẽ sort theo điều kiện thứ nhì.
+- Có thể viết luôn sort lên url thì:
+
+```
+_search?sort=date:desc&sort=_score&q=search
+```
+
+### Sorting on multivalue fields
+- Đối với field dạng array, muốn sort thì phải định nghĩa xem sort bởi value min, max hay median
+```
+{
+  "query": "...",
+  "sort": {
+    "date": {
+      "order": "asc",
+      "mode": "min"
+    }
+  }
+}
+```
+
+### String sorting & multifields
+- Analyzed string cũng được coi như multiple value field vậy (tức là 1 string được tách thành nhiều từ khác nhau, giống như array á)
+  - => sort on multiple value sẽ phải chọn ra mode: min/max (default là min)
+  - Tuy nhiên trò chọn này không đúng mục đích lắm.
+  - Đơn giản chỉ là muốn sort từ trái qua phải của 1 string thôi, ko phải min max gì cả
+  
+- Vậy làm thế nào?
+#### Cách lởm:
+ - Chia ra 2 field, 1 field dùng not_analyzed để sort
+ - Tuy nhiên chia 2 field có vẻ tốn bộ nhớ.
+ - Việc chúng ta muốn: vẫn là 1 field, nhưng index theo 2 cách khác nhau
+
+#### Cách xịn
+- Bình thường định nghĩa mapping như sau:
+```
+{
+  "tweet": {
+    "type": "string",
+    "analyzer": "english"
+  }
+}
+```
+- Đổi mapping lại như sau:
+
+```
+{
+  "tweet": {
+    "type": "string",
+    "analyzer": "english",
+    "fields": {
+      "raw": {
+        "type": "string",
+        "index": "not_analyzer"
+      }
+    }
+  }
+}
+```
+- Khi sort dùng field `tweet.raw`
+
+```
+GET /_search
+{
+  "query": "...",
+  "sort": "tweet.raw"
+}
+```
+
+## What is relevance
+- Relevance là 
