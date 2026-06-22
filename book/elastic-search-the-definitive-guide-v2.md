@@ -968,3 +968,9 @@ GET /_search
 
 ## What is relevance
 - Relevance là 
+
+# Chap 43: Designing for scale 
+- Đoạn đầu chém về tính scale của ES xịn vl
+- Chúng ta đều có ước muốn làm ứng dụng to như Facebook, tuy nhiên thì không phải lúc nào ví tiền cũng cho phép.
+- Chúng ta nên chọn 
+response times of the slowest node
