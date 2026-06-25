@@ -83,4 +83,7 @@
     - Command này đơn giản là replace toàn bộ commit gần nhất bằng commit hiện tại.
     - Nếu đã commit lên remote rồi thì đừng dùng command này không là lỗi sml
 
+# Chap 2: Git branching
+- 
+
 
