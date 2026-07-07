@@ -18,7 +18,7 @@
 ### Cách 1: add user vào 1 admin group
 - Thử mở file config của sudo bằng lệnh: `sudo visudo`. Thấy dòng sau:
 ```
-## Allow people in group ưheel to run all commands
+## Allow people in group wheel to run all commands
 %wheel ALL=(ALL) ALL
 ```
 - Dấu % biểu thị rằng đây là group

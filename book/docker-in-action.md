@@ -6,7 +6,7 @@
 - Trong lịch sử, UNIX-style system có khái niêm `jail` để limit resource mà chương trình có thể access
 - 2005, Solaris 10 và Solaris Container của Sun được release, đưa ra khái niệm container, để nâng quyền hạn truy cập resource của ứng dụng (kiểu cấp cho quyền nào thì đc access cái đó, không bị fix cứng như thằng `jail` nữa)
 - Container của Sun dùng cũng ngon, nhưng có 1 số vấn đề:
-+ Dùng phức tạp => người dùng hay config sai => gặp vấn đề về security
+    - Dùng phức tạp => người dùng hay config sai => gặp vấn đề về security
 
 - Hình minh hoạ docker
 ![Anh so 1](images/dockerinaction_1.PNG)
@@ -15,13 +15,14 @@
 - Docker distribute (phân phối) các image này 1 cách dễ dàng thông qua `registries` và `indexes`. Có thể dùng luôn hàng có sẵn của docker là docker hub hoặc tự host 1 cái cho ngầu.
 
 - Điểm mạnh của docker:
-+ Tăng tính portable: vì dễ cài giống JVM
-+ Bảo vệ máy tính đỡ rác, virus
+    - Tăng tính portable: vì dễ cài giống JVM
+    - Bảo vệ máy tính đỡ rác, virus
 
 ![Anh so 2](images/dockerinaction_2.PNG)
 
 ### 1.2: Tại sao docker quan trọng?
 - Docker cung cấp giải pháp abtract (?)
+    - Thay vì phải quan tâm những thứ hoa lá cành như: cài phần mềm này thế nào thì chỉ cần quan tâm: cần cài phần mềm nào. Còn lại bố mày lo.
 - Làm cho những ông lớn công nghệ như Amazon, Google, Microsoft ngồi lại với nhau, phát triển nhiều sản phẩm phục vụ open source hơn thay vì phát triển các giải pháp, dịch vụ riêng bên họ.
 - Docker làm việc cài và gỡ app giống như trên app store trên điện thoại: thích thì cài, ko thích thì gỡ là xong.
 - Docker không làm ảnh hưởng đến máy tính của bạn. Lỡ cài phần mềm nào ngu ngu thì xoá cmn đi là xong, nhẹ người.
@@ -44,8 +45,8 @@ Giả sử tình huống:
 - Linux có tính năng gọi là namespace, cho phép tạo các namespace khác nhau
 - Docker dùng tính năng này để tạo các namespace khác nhau cho các container
 - Mục đích dùng namespace: tránh conflict
-+ Các process ko kill lẫn nhau
-+ Process ở bên trong 1 container chỉ access được chính process bên trong nó thôi, ko can thiệp vào máy host bên ngoài được.
+    -  Các process ko kill lẫn nhau
+    -  Process ở bên trong 1 container chỉ access được chính process bên trong nó thôi, ko can thiệp vào máy host bên ngoài được.
 
 - Docker có option cho việc ko tạo namespace riêng mà dùng chung với máy host: `--pid host`
 (lưu ý: chỉ dùng option này khi thật sự cần)
