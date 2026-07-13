@@ -49,3 +49,115 @@ Chap này cover:
 - Cleaning up (dọn dẹp)
 
 Trong chương này, sẽ dùng 1 chương trình gọi là Nginx - 1 con webserver nha.
+
+## 2.1. Controlling container: xây dựng 1 website monitor
+- Tưởng tượng rằng một ngày đẹp trời, khách hàng bước vào văn phòng của bạn và nói rằng:
+    - Tao muốn có 1 website được monitored
+    - Khi web down, cần email tới cho tụi tao biết
+    - Mày nhớ dùng Nginx nhá, vì tao thấy nó đang hot thì phải.
+- Cái mô hình trông đại khái thế này:
+![Client website architecture](images/dockerinaction-client-want-architecture.png)
+
+- Trong đó:
+    - Con số 1 chạy Nginx
+    - Con số 2 chạy mailer
+    - Có số 3 chạy watcher
+- Dưới đây bạn sẽ được học 1 số skill:
+    - Tạo detached và interactive container
+    - Liệt kê các container có trong hệ thống của bạn
+    - Xem log của container
+    - Stop và restart container
+    - Reattach terminal vào 1 container
+    - Detach từ 1 attached container
+
+### 2.1.1: Tạo và start 1 container mới
+- Docker gọi tập hợp các file và các chỉ dẫn để chạy 1 chương trình là image.
+- Khi cài software thì thực ra chúng ta đang dùng Docker để tải image hoặc tạo ra 1 image.
+- Image chi tiết hơn thì sẽ được cover ở chương 3. Tạm thời giờ cứ hiểu image là image, dùng để chạy chương trình là ok.
+- Bây giờ chạy command sau:
+
+```
+docker run --detach --name web nginx:latest
+```
+- Giải thích:
+    - Lệnh trên chạy 1 container tên là web, build dựa trên image có tên là `nginx` ở phiên bản mới nhất (`latest`)
+    - `--detach` để chạy service dưới background
+- Chạy thêm 1 container nữa ở background cho con mailer:
+```
+docker run -d --name mailer dockerinaction/ch2_mailer
+```
+### 2.1.2. Running interactive container (chạy container giao tiếp được)
+- Ví dụ chạy 1 container interactive
+```
+docker run --interactive --tty --name web_test --link web:web busybox:1.29 /bin/sh
+```
+- Trong đó:
+    - `--interactive --tty`: option để attach terminal hiện tại vào
+    - `--link`: dùng để liên kết 2 con container vào với nhau (để gọi được tới nhau ấy)
+- Bây giờ thử test gọi sang container web bằng lệnh `wget`:
+```
+wget -O - http://web:80/
+```
+- Sẽ thấy trả về HTML của nginx như hình dưới
+![dockerinaction-call-wget-to-web](images/dockerinaction-call-wget-to-web.png)
+
+- Bây giờ để làm nốt yêu cầu của khách hàng, ta chạy 1 container nữa:
+
+```
+docker run -it --name agent --link web:insideweb --link mailer:insidemailer dockerinaction/ch2_agent
+```
+- Sẽ thấy mỗi giây in ra dòng chữ `System up` như hình dưới
+![dockerinaction-run-agent-result](images/dockerinaction-run-agent-result.png)
+
+### 2.1.3. Liệt kê, dừng, restart và xem output của container
+- Xem container đang chạy: `docker ps`
+- Restart container: `docker restart {name}`
+- Xem log: `docker logs {name}`
+
+- Giờ thử dùng lệnh `docker logs web`, sẽ thấy output như hình:
+
+![dockerinaction-docker-logs-web](images/dockerinaction-docker-logs-web.png)
+- Bạn thấy log là do container `agent` đang gửi request sang để kiểm tra xem còn running hay không.
+- Cách này dùng tạm thôi, vì nếu container chạy lâu dài mà cứ log như này thì không ổn (nhiều log quá)
+    - Cách tốt hơn là sử dụng volumes, sẽ được discuss ở chap 4
+- Thử log ở cả mailer và agent:
+![dockerinaction-logs-mailer-agent](images/dockerinaction-logs-mailer-agent.png)
+
+- TIP: thêm `--follow` hoặc `-f` vào thì sẽ watch log của container và in ra. Bình thường không có thì nó chỉ in ra log tới thời điểm gọi thôi.
+
+- Để stop container: `docker stop {name}`
+- Ví dụ stop con web: `docker stop web`
+    - Khi tail log sẽ thấy thế này:
+![dockerinaction-stop-web](images/dockerinaction-stop-web.png)
+
+- OK. Như vậy là đã detect được khi NGINX server down, client vui rồi.
+- Học feature cơ bản của docker là một chuyện, nhưng hiểu tại sao nó hữu ích, cách sử dụng và customize nó cho các task khác nhau mới là chuyện khó & hay.
+
+## 2.2 Solve problems and the PID namespace
+- Chương này nói về vấn đề PID trong UNIX:
+    - Đại khái ở hệ điều hành Linux thì mỗi chương trình đều có 1 PID khác nhau
+    - Nếu 2 container cùng chạy mà trùng PID -> cái chạy sau sẽ không run lên được
+    - Docker resolve vấn đề này bằng cách dùng namespace trong Linux
+
+## 2.3. Loại bỏ xung đột: xây dựng 1 bộ các website
+- Thử lấy 1 ví dụ khác:
+    - Client muốn build 1 hệ thống có thể tự dựng rất nhiều website cho khách hàng của họ.
+    - Client cũng muốn dùng lại công nghệ monitor dùng ở chap trước.
+- Bạn có thể nghĩ: đơn giản vl, nhân lên là xong như hình dưới
+
+![dockerinaction-multiple-web-agent](images/dockerinaction-multiple-web-agent.png)
+
+- Tuy nhiên, sự thật phức tạp hơn những gì bạn nghĩ
+
+### 2.3.1: Flexible container identification (Đặt ID container động)
+- Thử chạy nhiều con web xem sao:
+```
+docker run -d --name webid nginx
+docker run -d --name webid nginx
+```
+- Sẽ gặp lỗi thế này:
+```
+FATA[0000] Error response from daemon: Conflict. The name "webid" is
+already in use by container 2b5958ba6a00. You have to delete (or rename)
+that container to be able to reuse that name.
+```
