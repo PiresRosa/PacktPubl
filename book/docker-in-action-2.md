@@ -161,3 +161,78 @@ FATA[0000] Error response from daemon: Conflict. The name "webid" is
 already in use by container 2b5958ba6a00. You have to delete (or rename)
 that container to be able to reuse that name.
 ```
+- Có thể đổi tên lại container là lại chạy được bth:
+```
+docker rename webid webid-old
+docker run -d --name webid nginx
+```
+- Tuy nhiên, việc rename này có ít thì còn dùng được, nhiều thì ko dùng được.
+- Solution thì có thể dùng luôn id của docker generate ra là được.
+
+```
+CID = $(docker create nginx:latest)
+echo $CID
+```
+- Dùng shell variable thì cũng được, mà nó chỉ dùng được trong terminal session hiện tại thôi, mở 1 cái terminal khác là chịu.
+- Docker hỗ trợ option cidfile để lưu cái id của container vào file
+
+```
+docker create --cidfile /tmp/web.cid nginx
+cat /tmp/web.cid
+```
+- Lưu ý là nếu file web.cid trong vd trên mà tồn tại rồi thì docker sẽ báo lỗi nhé.
+- Như VD của khách hàng cần, anh em có thể dùng chiến thuật thế này:
+    - Dựng 1 cái pattern cho cid file, vd: /container/web/customer{id}/web.cid
+    - VD khách hàng số 8 thì cid file sẽ lưu ở /container/web/customer8/web.cid
+
+### 2.3.2. Container state & dependencies
+- Các state của container
+![dockerinaction-container-state](images/dockerinaction-container-state.png)
+
+- Đến thời điểm hiện tại thì script của chúng ta trông như này:
+
+```
+MAILER_CID=$(docker run -d dockerinaction/ch2_mailer)
+WEB_CID=$(docker create nginx)
+AGENT_CID=$(docker create --link $WEB_CID:insideweb --link $MAILER_CID:insidemailer dockerinaction/ch2_agent)
+```
+
+- 2 container WEB_CID và AGENT_CID sẽ chưa chạy luôn, mà chỉ create để đó thôi.
+- Nếu gõ `docker ps` thì sẽ không thấy ngay đâu, vì docker ps chỉ hiển thị các container running thôi.
+    - Muốn xem tất thì dùng `docker ps -a` nhé.
+- Giờ gõ:
+```
+docker start $AGENT_CID
+docker start $WEB_CID
+```
+
+- khi chạy thì sẽ hiển thị ra lỗi, đại khái như này:
+```
+
+Error response from daemon: Cannot start container 03e65e3c6ee34e714665a8dc4e33fb19257d11402b151380ed4c0a5e38779d0a: Cannot link to a non running container: /clever_wright AS /modest_hopper/insideweb FATA[0000] Error: failed to start one or more containers
+```
+- Lí do: do container AGENT_CID phụ thuộc vào WEB_CID => muốn start được agent lên thì chạy con web lên trước đã.
+    - Solution là đổi thứ tự chạy lại là được
+
+```
+docker start $WEB_CID
+docker start AGENT_CID
+```
+- Hiểu sâu hơn tại sao:
+    - Bản chất việc link là dựa vào IP address.
+    - Nếu 1 container chưa được start => làm méo gì có IP mà link được.
+- Feature link là feature cũ, may be sẽ bị gỡ trong các version tiếp theo của Docker
+    - Việc học con link này chỉ để hiểu sâu hơn nó work thế nào thôi.
+
+- Đến lúc này, ae có thể sửa script lại chạy cho ngon:
+
+```
+MAILER_CID = $(docker run - d dockerinaction/ch2_mailer)
+WEB_CID=$(docker run -d nginx)
+AGENT_CID=$(docker run -d --link $WEB_CID:insideweb --link $MAILER_CID:insidemailer dockerinaction/ch2_agent)
+```
+- Về cơ bản thì script của bạn ngon vkl rồi. Sau này có site mới thì cứ cầm script run lên là xong.
+- Client cảm ơn bạn về web và hệ thống monitor. Tuy nhiên, mọi thứ lại thay đổi:
+    - Họ dự định build website với Wordpress.
+    - Wordpress thì có sẵn image trên dockerhub rồi.
+    - Bạn cần build 1 hệ thống ít phụ thuộc vào môi trường nhất có thể
