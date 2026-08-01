@@ -236,3 +236,72 @@ AGENT_CID=$(docker run -d --link $WEB_CID:insideweb --link $MAILER_CID:insidemai
     - Họ dự định build website với Wordpress.
     - Wordpress thì có sẵn image trên dockerhub rồi.
     - Bạn cần build 1 hệ thống ít phụ thuộc vào môi trường nhất có thể
+
+## 2.4. Building environment-agnostic systems
+- Việc xây dựng 1 hệ thống ít phụ thuộc vào môi trường là rất quan trọng.
+- Docker cung cấp 3 tính năng cho việc này:
+    - Read-only filesystém
+    - Environment variable injection
+    - Volumes
+
+- Volume thì sẽ được học ở Chap 4. Giờ học trước 2 cái đầu nha.
+- Giờ tưởng tượng là chúng ta cần dùng thêm MySQL cho hệ thống web wordpress.
+    - Web của chúng ta sẽ chỉ ghi vào MySQL thôi, k ghi ra container nữa, nên ta sẽ dùng Read-only file system để tránh ghi thêm vào đâu nữa.
+
+### 2.4.1. Read-only filesystems
+- Thử run container ở ready only mode:
+
+```
+docker run -d --name wp --read-only wordpress:5.0.0-php7.2-apache
+```
+- Thử check xem container có running hay không:
+
+```
+docker inspect --format "{{.State.Running}}" wp
+```
+- Quả này log ra false. Check log thử coi sao:
+```
+docker logs wp
+```
+
+- Sẽ nhả log ra thế này:
+```
+
+WordPress not found in /var/www/html - copying now...
+Complete! WordPress has been successfully copied to /var/www/html
+... skip output ...
+Wed Dec 12 15:17:36 2018 (1): Fatal Error Unable to create lock file: ↵ Bad file descriptor (9)
+```
+- Vấn đề:
+    - Đại khái là con apache lúc run lên thì nó cần tạo ra 1 file, gọi là lock file.
+    - Container lại run ở mode read-only => ghi fail => error
+- Mà giờ lại có 1 vấn đề nữa:
+    - container ghi 1 file cho apache, mà không nói file này ở đâu
+    - => làm sao ta có thể tạo exception cho nó được
+    - Solution: dùng command docker diff để check:
+
+- Thực hiện:
+    - Run 1 container writeable lên:
+    ```
+    docker run --name writeable_wp wordpress:5.0.0-php7.2-apache
+    ```
+    - Chạy lệnh diff:
+    ```
+    docker container diff wp_writeable
+    ```
+        - Sẽ thấy log ra như sau:
+        ```
+        C /run
+        C /run/apache2
+        A /run/apache2/apache2.pid
+        ```
+    - Command diff sẽ được giải thích chi tiết ở chapter 3
+    - Giờ sẽ mount 1 folder từ host vào để apache trong container write được lock file
+        - Ngoài ra cũng cần cung cấp in-memory system file để apache chạy nữa
+    ```
+    docker run -d --name wp2 --read-only -v /runapache2/ --tmpfs /tmp wordpress:5.0.0-php7.2-apache
+    ```
+- Wordpress thì cũng có liên quan đến con MySQL
+```
+docker run -d --name wpdb -e MYSQL_ROOT_PASSWORD=ch2demo mysql:5.7
+```
