@@ -84,3 +84,98 @@
 - Desktop app: dùng electron
     - VS Code
     - Atom
+
+# Chap 2: Node programming fundamentals (a ă â b c về Node)
+- Chap này cover:
+    - Tổ chức code theo module
+    - Handing one-off events với callbacks (?)
+    - Handling event lặp đi lặp lại với event emitters
+    - Thử implement code tuần tự và song song (serial & parallel flow control)
+    - Sử dụng flow-control tools
+
+## 2.1: Tổ chức và tái sử dụng tính năng của Node
+- Tổ chức tất cả các code vào 1 file thì lởm lắm. Khó maintain nữa.
+![nodeinaction-code-organize](images/nodeinaction-code-organize.png)
+- Đoạn này nói về việc tách code ra các file, khi import vào có khả năng bị conflict name.
+    - VD đoạn code PHP:
+        - Đoạn này chạy sẽ báo lỗi: `Fatal error: Cannot redeclare uppercase_trim()`. Lí do vì hàm uppercase_trim kia trong file string_handlers.php cũng có -> lỗi
+        - Để khắc phục thì PHP 
+```
+function uppercase_trim($text) {
+    return trim(strtoupper($text));
+}
+include('string_handlers.php');
+```
+- Để khắc phục lỗi này, đội PHP dùng khái niệm namespace, Ruby thì dùng module
+- Kiểu import của mấy ngôn ngữ kia thì vẫn import tất cả file vào
+- Node thì cho phép chỉ import cái mình dùng vào thôi. Tránh được việc trùng tên.
+    - Các module của Node dùng từ khoá `module.exports` hoặc `exports` để biểu thị việc tạo 1 module riêng
+![nodeinaction-module-export](images/nodeinaction-module-export.png)
+
+## 2.2. Tạo 1 Node project mới
+```
+mkdir 1_module
+cd 1_module
+npm init -y
+```
+- Trong đó:
+    - init -y: để đồng ý các option luôn, đỡ phải lằng ngoằng.
+### 2.2.1: Tạo module
+- Tạo file `currency.js`:
+```
+const canadianDollar = 0.91;
+const canadianDollar = 0.91;
+
+function roundTwo(amount) {
+        return Math.round(amount * 100) / 100;
+}
+
+exports.canadianToUS = canadian => roundTwo(canadian * canadianDollar);
+export.USToCanadian = us => roundTwo(us/canadianDollar);
+```
+- Như vậy 2 con hàng: `canadianToUS` và `USToCanadian` đã được export ra để sử dụng.
+- Khi dùng import, node sẽ tìm theo thứ tự:
+    - core module
+    - folder hiện tại
+    - thư mục node_modules
+
+- ** LƯU Ý VỀ DÙNG REQUIRE **
+    - `require` là một trong những synchronous operation hiếm hoi ở Node.
+        - Vì module thường được sử dụng ở trên đầu của file.
+        - Dùng require synchronous giúp cho code clean, có thứ thự và dễ đọc hơn
+    - Hạn chế sử dụng `require` trong business logic của ứng dụng, có thể làm chậm ứng dụng.
+    - Nên dùng lúc khởi tạo ứng dụng thôi nhé ae.
+- Tạo file `test_currency.js`:
+```
+const currency = require('./currency');
+console.log('50 Can -> US:');
+console.log(currency.canadianToUS(50));
+console.log('30 US -> Can:');
+console.log(currency.USToCanadian(30));
+```
+- Trong đó:
+    - `./`: biểu thị là muốn import file cùng thư mục
+    - Khi import không có đuôi gì:
+        - Đầu tiên tìm file `.js`
+        - Sau tìm file `.JSON`
+![nodeinaction-import-file](images/nodeinaction-import-file.png)
+
+## 2.3: Fine-tuning module creation by using module.exports
+- Ý là fix cái hệ số 0.91 trong file kia thì nghe vẻ không thơm lắm.
+- Cái export nên return 1 cái function ra, sau đó dùng hàm tạo để truyền hệ số vào thì application có vẻ ổn áp hơn nhiều. VD như này:
+
+```
+const Currency = require('./currency');
+const canadianDollar = 0.91;
+const currency = new Currency(canadianDollar);
+console.log(currency.canadianToUS(50));
+```
+- Lưu ý là node không cho overwritten lại exports. Như vd dưới đây là invalid:
+
+```nodejs
+exports = Currency // Invalid
+```
+- Muốn hoạt động được thì thay export = modules.exports.
+- Lưu ý:
+    - Nếu có cả exports và module.exports => module.exports được sử dụng, exports sẽ bị ignore
+![nodeinaction-export-under-the-hood](images/nodeinaction-export-under-the-hood.png)
