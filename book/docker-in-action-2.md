@@ -240,7 +240,7 @@ AGENT_CID=$(docker run -d --link $WEB_CID:insideweb --link $MAILER_CID:insidemai
 ## 2.4. Building environment-agnostic systems
 - Việc xây dựng 1 hệ thống ít phụ thuộc vào môi trường là rất quan trọng.
 - Docker cung cấp 3 tính năng cho việc này:
-    - Read-only filesystém
+    - Read-only filesystem
     - Environment variable injection
     - Volumes
 
@@ -299,9 +299,193 @@ Wed Dec 12 15:17:36 2018 (1): Fatal Error Unable to create lock file: ↵ Bad fi
     - Giờ sẽ mount 1 folder từ host vào để apache trong container write được lock file
         - Ngoài ra cũng cần cung cấp in-memory system file để apache chạy nữa
     ```
-    docker run -d --name wp2 --read-only -v /runapache2/ --tmpfs /tmp wordpress:5.0.0-php7.2-apache
+    docker run -d --name wp2 --read-only -v /run/apache2/ --tmpfs /tmp wordpress:5.0.0-php7.2-apache
     ```
+- Chạy command trên thì container chạy ngon lành rồi
+```
+docker logs wp2
+WordPress not found in /var/www/html - copying now...
+Complete! WordPress has been successfully copied to /var/www/html
+... skip output ...
+[Wed Dec 12 16:25:40.776359 2018] [mpm_prefork:notice] [pid 1] ↵
+AH00163: Apache/2.4.25 (Debian) PHP/7.2.13 configured -- ↵
+resuming normal operations
+[Wed Dec 12 16:25:40.776517 2018] [core:notice] [pid 1] ↵
+AH00094: Command line: 'apache2 -D FOREGROUND'
+```
+
 - Wordpress thì cũng có liên quan đến con MySQL
 ```
 docker run -d --name wpdb -e MYSQL_ROOT_PASSWORD=ch2demo mysql:5.7
 ```
+- Như vậy cần link đến con MySQL để con wp chạy được:
+```
+docker run -d --name wp3 --link wpdb:mysql -p 8080:80 --read-only -v /run/apache2/ --tmpfs /tmp wordpress:5.0.0-php7.2-apache
+```
+- Kiểm tra xem container có chạy hay không:
+```
+docker inspect --format "{{.State.Running}}" wp3
+```
+- Bây giờ, script cài đặt của bạn đã được thay đổi:
+
+```bash
+DB_CID=$(docker create -e MYSQL_ROOT_PASSWORD=ch2demo mysql5.7)
+docker start $DB_CID
+
+MAILER_CID =$(docker create dockerinaction/ch2_mailer)
+docker start $MAILER_CID
+
+WP_CID=$(docker create --link $DB_CID:mysql -p 80 --read-only -v /run/apache2/ --tmpfs /tmp wordpress:5.0.0-php7.2-apache)
+docker start $WP_CID
+
+AGENT_CID = $(docker create --link $WP_CID:insideweb --link $MAILER_CID:insidemailer dockerinaction/ch2_agent)
+
+docker start $AGENT_CID
+```
+
+- OK. Đến giờ mọi chuyện cũng ổn: bạn có 1 container WP read-only đang chạy, ghi dữ liệu vào 1 container khác. 
+- Design này vẫn còn 2 vấn đề:
+    - 1: wp container và mysql container đang chạy trên cùng 1 máy
+    - 2: wp đang dùng 1 số setting default quan trọng như: admin pass, admin user, db salt,... => dễ bị lộ
+- Để giải quyết vấn đề trên, dùng Environment variable
+
+### 2.4.2: Environment variable injection
+- Để dùng env var thì image của container phải support env var.
+- Wordpress container có support variable:
+    - WORDPRESS_DB_HOST
+    - WORDPRESS_DB_USER
+    - WORDPRESS_DB_PASSWORD
+    - WORDPRESS_DB_NAME
+    - ....
+
+- Ví dụ mà muốn connnect đến 1 máy khác chứa db thì chạy như này:
+```
+docker create --env WORDPRESS_DB_HOST=<db_host_name> wordpress:5.0.0-php7.2-apache
+```
+- Sử dụng environment variable giúp bạn tách biệt được mối quan hệ vật lý (cùng 1 máy tính) giữa container wordpress và MySQL.
+- Script lúc này trông như sau:
+
+```
+#!/bin/sh
+if [ ! -n "$CLIENT_ID" ]; then
+ echo "Client ID not set"
+ exit 1
+fi
+WP_CID=$(docker create \
+ --link $DB_CID:mysql \
+ --name wp_$CLIENT_ID \
+ -p 80 \
+ --read-only -v /run/apache2/ --tmpfs /tmp \
+ -e WORDPRESS_DB_NAME=$CLIENT_ID \
+ --read-only wordpress:5.0.0-php7.2-apache)
+docker start $WP_CID
+
+AGENT_CID=$(docker create \
+ --name agent_$CLIENT_ID \
+ --link $WP_CID:insideweb \
+
+ --link $MAILER_CID:insidemailer \
+ dockerinaction/ch2_agent)
+docker start $AGENT_CID
+```
+- Muốn run thì chạy lệnh:
+```
+CLIENT_ID=dockerinaction ./start-wp-multiple-clients.sh
+```
+
+## 2.5 Building durable containers
+- Thi thoảng software có thể bị crash khi gặp 1 số điều kiện hiếm gặp cụ thể.
+- Con watcher build ở chương trước giúp detect được container down, nhưng mà nó không giúp restore service.
+
+### 2.5.1: Automatically restarting containers
+- docker có option `--restart` ở lúc tạo container để giúp container có thể tự restart nếu gặp lỗi.
+- default thì docker để là never restart
+    - lí do: vì nhiều khi việc restart không những không giải quyết được vấn đề mà còn làm vấn đề phức tạp lên.
+- Khi restart thì docker dùng backoff strategy, kiểu sẽ tăng thời gian lên theo hàm số mũ (2, 4, 8, 16,... giây)
+
+
+### 2.5.2: Sử dụng PID 1 và init systems
+- `init system` là chương trình sử dụng để chạy và maintain state của chương trình khác.
+- process nào có id là 1 đều được coi là init process (kể cả về lí thuyết, nó không phải là init process đi chăng nữa)
+- init process:
+    - start các process khác
+    - restart chúng trong trường hợp có fail
+    - transform và forward signal gửi bởi OS
+    - Ngăn việc resource leak.
+## 2.6: Cleaning up
+- docker rm <container-name>
+- container đang chạy thì không dừng được. Muốn dừng thì có 2 cách:
+    - dùng `-f`: force, sẽ gửi SIG_KILL, container dừng luôn
+    - stop lại trước (docker stop): sẽ gửi SIG_HUP, container sẽ có thời gian xử lý trước khi xoá (dạng graceful shutdown)
+- Đối với 1 số container tạo ra để trải nghiệm chơi, có thể để nó tự xoá bằng cách thêm --rm vào:
+```
+docker run --rm --name auto-exit-test busybox:1.29 echo Hello World
+docker ps -a
+```
+
+## Tóm tắt các nội dung đã được học của chương:
+- Container có thể run attach vào terminal hoặc run ở detach mode (background)
+- Mặc định, tất cả các container của Docker đều có PID namespace riêng, isolate process với các conainer khác.
+- Docker phân biệt các container dựa vào id, hoặc name
+- Có 6 trạng thái của container: created, running, restarting, paused, removing, exited
+- `docker exec` command có thể dùng để chạy process run bên trong của container.
+- Có thể truyền thêm input hoặc config thông qua environment variable lúc container creation.
+- Sử dụng `--read-only` để container chỉ đọc
+- Sử dụng `--restart` để cấu hình container restart theo ý muốn.
+- Có thể clean up các image không sử dụng bằng command `docker rm`
+
+## Chap 3: Software installation simplified
+- Chương này nói về:
+    - Cài đặt phần mềm
+    - Tìm & cài ở Docker hub
+    - Cài ở source khác
+    - Hiểu về filesystem isolation
+    - Làm việc với images và layers
+
+- Các phần mềm được distribute thông qua image.
+- Để nói cho docker biết image nào bạn muốn sử dụng, cần đưa ra các thông số như:
+    - repo nào
+    - tag nào (phiên bản nào)
+- Chap này nói về layer nữa. Khá quan trọng để build được 1 con image xịn nên chú ý vào.
+
+## 3.1. Identitfying software
+- Đoạn này ko quan trọng lắm, đại khái nói về software đang ở host nào
+
+## 3.2. Finding & installing software
+- Mục này đại khái nói về config registries ở terminal để dùng đúng (kiểu tự host 1 cái docker registry private chẳng hạn)
+- Dùng 1 registry riêng thì có thể theo cú pháp này:
+
+```
+docker pull [REGISTRYHOST:PORT/][USERNAME/]NAME[:TAG]
+
+VD:
+docker pull quay.io/dockerinaction/ch3_hello_registry:latest
+```
+- Sau khi dùng xong, có thể remove image đi:
+```
+docker rmi quay.io/dockerinaction/ch3_hello_registry
+```
+- command `docker load` để load image từ file vào trong Docker
+- Để lưu 1 image vào file, dùng command `docker save`
+```
+docker pull busybox:latest
+docker save -o myfile.tar busybox:latest
+```
+- Nhìn chung đoạn trên nói về việc sử dụng file để đóng gói và sharing docker image (docker save & docker load). Cái này hiện ko xài nữa đâu.
+
+### 3.2.4: Cài image từ dockerfile
+- Về mặt kĩ thuật thì cách này bạn ko cài 1 image, mà là bạn làm theo hướng dẫn để build 1 con image (chi tiết sẽ có ở chương 7).
+- Distribute image tương tự như việc distribute file vậy. Có cái nó sẽ nhỏ gọn hơn nhiều.
+- Cách này có 2 nhược điểm:
+    - Thứ 1: tuỳ từng project, thời gian build có thể sẽ lâu
+    - Thứ 2: kết quả build ra có thể khác nhau giữa các máy khác nhau (VD như build phụ thuộc vào version lúc đó. Giống image của con openresty ấy, toàn bị outdate/ tác giả remove cmn đi rồi => run ko lên được)
+- Dù có nhược điểm, nhưng cách này hiện vẫn đang là cách phổ thông vkl nhé ae.
+
+#### Activity
+- Chỗ này có 1 activity nho nhỏ: tìm password
+- Đại khái cho 1 repo: `docker run -it --rm dockerinaction/ch3_ex2_hunt`
+- Chạy con này lên sẽ dòi pass. Tìm pass và điền vào.
+- Tìm pass bằng cách chạy container khác lên:`docker run -it --rm dockerinaction/ch3_huntanswer`
+    - Kĩ năng chỗ này là vào docker hub để tìm file chứ ko có vẹo gì cả.
+
+### 3.3. Installation file & isolation
