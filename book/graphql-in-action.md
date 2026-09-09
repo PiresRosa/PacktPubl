@@ -192,4 +192,15 @@
 - Tốn nhiều thời gian để học hơn:
     - FE cần học cú pháp
     - BE: cần học cú pháp, schema, resolvers và 1 số concept khác nữa.
-    
+
+# Chap 2: Exploring GraphQL APIs
+- Chap này cover các nội dung:
+    - Sử dụng GraphQL trên browser IDE để test GraphQL request
+    - Gửi graphQL request cơ bản
+    - Khám phá GraphQL API của đội Github
+    - Khám phá các tính năng bên trong của GraphQL
+
+## 2.1 GraphiQL editor
+- Chữ `i` ở đây là chơi chữ, đọc tương tự `graphical`
+- Dùng ở [https://graphql.org/swapi-graphql/](đây), khá xịn.
+- 

@@ -1,0 +1,39 @@
+{
+    "parts": 
+    [
+        {
+            "id": 1,
+            "type": "body",
+            "tier": "common"
+        },
+        {
+            "id": 2,
+            "type": "body",
+            "tier": "rare"
+        },
+        {
+            "id": 3,
+            "type": "wheel",
+            "tier": "epic"
+        }
+    ],
+
+    "attribute_part": 
+    [
+        {
+            "id": 1,
+            "part_id": 1,
+            "type": "health"
+        },
+        {
+            "id": 2,
+            "part_id": 1,
+            "type": "magic"
+        },
+        {
+            "id": 3,
+            "part_id": 2,
+            "type": "health"
+        }
+    ]
+}
