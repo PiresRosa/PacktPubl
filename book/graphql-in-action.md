@@ -192,4 +192,371 @@
 - Tốn nhiều thời gian để học hơn:
     - FE cần học cú pháp
     - BE: cần học cú pháp, schema, resolvers và 1 số concept khác nữa.
-    
+
+
+# Chap 2: Exporing GraphQL API
+## 2.2 Basic of GraphQL Language
+### 2.2.1. Request
+### 2.2.2 Field
+- Là 1 core concept của GraphQL
+- Field nằm trong cặp ngoặc {}, 
+- Support 2 loại dữ liệu:
+  - Scalar type (primitive type): Int, String, Float, Boolean, ID (xem chương 4)
+  - Object
+
+## 2.3. Example from Github API
+### 2.3.3. Introspective query
+- Đại khái là các prop để lấy ra meta data
+  - __type
+  - __schema
+  - __typename
+
+# Chap 3: Customizing & organizing GraphQL operations
+- Chap này cover:
+  - Sử dụng arg để customize thứ mà request field trả về
+  - Customize response property name với alias
+  - Describe runtime excution với directive
+  - Giảm duplicate text với fragments
+  - Composing query & separating data requirement responsibilities
+
+## 3.1. Customizing fields with args
+- Field giống như function vậy: nhân vào args. VD:
+```
+query UserInfo {
+  user(email: "jane@doe.name") {
+    firstName
+    lastName
+    userName
+  }
+}
+```
+
+### 3.1.1: Identifying a single record to return
+- Đại ý là dùng id làm param để return về 1 record duy nhất.
+- Một số  framework sử dụng Node interface để tìm kiếm thông tin về bất cứ Node nào trong database.
+
+```
+query NodeInfo {
+  node(id: "UNIQUE-ID") {
+    ... on USER {
+      firstName
+      lastName
+      username
+      email
+    }
+  }
+}
+```
+
+### 3.1.2: Limit số lượng record trả về của list field
+- Thiết kế API mà ko limit => bad practice
+- Vì thế mà Github API luôn dùng arg `first` hoặc `last` khi bạn request 1 list các record. VD:
+
+```
+query OrgInfo {
+  organization(login: "jscomplete") {
+    name
+    description
+    websiteUrl
+    repositories(last: 10) {
+      nodes {
+        name
+      }
+    }
+  }
+}
+```
+
+### 3.1.3: Sắp xếp record, sử dụng arg
+- VD lấy repo sắp xếp theo tên
+```
+query orgReposByName {
+  organization(login: "jscomplete") {
+    repositories(first: 10, orderBy: { field: NAME, direction: ASC}) {
+      nodes {
+        name
+      }
+    }
+  }
+}
+```
+- Order by độ phổ biến giảm dần (STARGAZERS)
+```
+query  orgReposByStargazer {
+  organization(login: "jscomplete") {
+    repositories(first: 10, orderBy: {field: STARGAZERS, direction: DESC }) {
+      nodes {
+        name
+      }
+    }
+  }
+}
+```
+
+### 3.1.4. Phân trang
+- Dùng Github API, provide `after` và `before`
+- Để lấy ra cursor phân trang, dùng edges
+
+```
+query OrgRepoConnectionExample {
+  organization(login: "jscomplete") {
+    repositories (
+      first: 10,
+      orderBy: { field: CREATED_AT, direction: ASC }
+    ) {
+      edges {
+        cursor
+        node {
+          name
+        }
+      }
+    }
+  }
+}
+```
+- Response trả về sẽ có thêm `cursor`
+
+```
+{
+  "data": {
+    "organization": {
+      "repositories": {
+        "edges": [
+          {
+            "cursor": "Y3Vyc29yOnYyOpK5MjAxNi0wNy0yNFQxMDo0NzoxNCswNzowMM4D0UlB",
+            "node": {
+              "name": "graphql-project"
+            }
+          },
+          {
+            "cursor": "Y3Vyc29yOnYyOpK5MjAxNi0wOC0wNVQxMjowNDo0MyswNzowMM4D36tI",
+            "node": {
+              "name": "react-virtual-dom-demo"
+            }
+          },
+          {
+            "cursor": "Y3Vyc29yOnYyOpK5MjAxNi0wOC0xMlQxMToyNjoyMCswNzowMM4D583W",
+            "node": {
+              "name": "learning-graphql-and-relay"
+            }
+          },
+          {
+            "cursor": "Y3Vyc29yOnYyOpK5MjAxNi0wOS0yM1QwMDozOTo0MiswNzowMM4EHAlI",
+            "node": {
+              "name": "learn-fullstack-javascript"
+            }
+          },
+          {
+            "cursor": "Y3Vyc29yOnYyOpK5MjAxNi0wOS0yOVQwOTowOToyOCswNzowMM4EJM_h",
+            "node": {
+              "name": "learning-reactjs"
+            }
+          },
+          {
+            "cursor": "Y3Vyc29yOnYyOpK5MjAxNi0xMS0wM1QwMTo1ODowMyswNzowMM4EVOFK",
+            "node": {
+              "name": "node-react-template"
+            }
+          },
+          {
+            "cursor": "Y3Vyc29yOnYyOpK5MjAxNy0wMS0yMVQyMzo1NTo0MyswNzowMM4Ev4A3",
+            "node": {
+              "name": "advanced-nodejs"
+            }
+          },
+          {
+            "cursor": "Y3Vyc29yOnYyOpK5MjAxNy0wMS0yN1QxMTozNjo1MyswNzowMM4Ex3iC",
+            "node": {
+              "name": "react-blog-example"
+            }
+          },
+          {
+            "cursor": "Y3Vyc29yOnYyOpK5MjAxNy0wMy0xNFQwMToyMTozNSswNzowMM4FDt1k",
+            "node": {
+              "name": "graphfront"
+            }
+          },
+          {
+            "cursor": "Y3Vyc29yOnYyOpK5MjAxNy0wMy0xNFQwMToyMzo0OSswNzowMM4FDt4-",
+            "node": {
+              "name": "graphfront-ui"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+- Muốn paging thì thêm after vào param:
+
+```
+query OrgRepoConnectionExample {
+  organization(login: "jscomplete") {
+    repositories(
+      first: 10,
+      after: "{cursor}"
+      orderBy: { field: CREATED_AT, direction: ASC }
+    ) {
+      edges {
+        cursor
+        node {
+          name
+        }
+      }
+    }
+  }
+}
+```
+- Có thể thêm 1 số meta data để lấy thông tin khác như: pageInfo, totalCount
+
+```
+query metaData {
+  organization(login: "jscomplete") {
+    repositories(
+      first: 50,
+      orderBy: { field: STARGAZERS, direction: DESC }
+    ) {
+      totalCount
+      pageInfo {
+        hasNextPage
+      },
+      
+    }
+  }
+}
+```
+
+### 3.1.5: Searching & filtering
+### 3.1.6: Providing inpujt for mutation
+- Ở github API, dùng param input là 1 object cho tất cả các mutation
+
+```
+mutation StarARepo {
+  addStar(input: { starrableId: "ID" }) {
+    starrable {
+      stargazers {
+        totalCount
+      }
+    }
+  }
+}
+```
+
+## 3.2. Renaming fields with aliases
+- Thêm dấu : sau field name cần đặt lại là đc
+```
+query ProfileInfoWithAlias {
+  user(login: "minhphong306") {
+    name
+    companyName: company
+    bio
+  }
+}
+```
+
+## 3.3: Customizing response with directives
+- ..
+
+### 3.3.1. Variables and input values
+- Có thể khai báo variable:
+
+```
+query OrgInfo($orgLogin: String!) {
+  organization(login: $orgLogin) {
+    name
+    description
+    websiteUrl
+  }
+}
+```
+- Khi execute ở phía editor, provide biến json vào tab query variable
+```
+{
+  "orgLogin": "beeketing"
+}
+```
+
+- Có thể dùng default variable;
+
+```
+query OrgInfoWithDefault ($orgLogin: String = "jsComplete") {
+  organization(login: $orgLogin) {
+    name
+    description
+    websiteUrl
+  }
+}
+```
+
+### 3.3.2. @include directive
+- Đại khái là sẽ trả về field nếu điều kiện if bên trong đúng
+```
+fieldName @include(if: $condition)
+```
+
+- VD:
+
+```
+query OrgInfo($orgLogin: String!, $fullDetails: Boolean!) {
+  organization(login:$orgLogin) {
+    name
+    description
+    websiteUrl @include(if:$fullDetails)
+  }
+}
+
+
+{
+  "orgLogin": "jscomplete",
+  "fullDetails": false
+}
+```
+
+### 3.3.3. @skip directive
+- ngược lại với @include
+
+```
+query OrgInfo($orgLogin: String!, $partialDetails: Boolean!){
+  organization(login:$orgLogin) {
+    name
+    description
+    websiteUrl @skip(if:$partialDetails)
+  }
+}
+
+{"orgLogin": "jscomplete", "partialDetails": false}
+```
+
+### 3.3.4. @deprecated directive
+- Dùng để cảnh báo cho người dùng field đó bỏ đi
+
+```
+type User {
+  emailAddress: String
+  email: String @deprecated(reason: "User 'emailAddress'.")
+}
+```
+
+## 3.4. GraphQL fragment
+- Đại khái là tách code ra thành các thành phần nhỏ hơn
+
+```
+fragment orgFields on Organization {
+  name
+  description
+  websiteUrl
+}
+```
+- Chỉ có thể define fragment của object type thôi, ko define đươc fragment của scalar value
+- DÙng như sau:
+
+```
+query OrgInfoWithFragment {
+  organization(login: "jscomplete") {
+    ...orgFields
+  }
+}
+```
+- `...` được gọi là fragment spread
+- 
