@@ -444,7 +444,8 @@ mutation StarARepo {
 ```
 
 ## 3.2. Renaming fields with aliases
-- Thêm dấu : sau field name cần đặt lại là đc
+- Cú pháp: `aliasName: fieldName`
+- Thêm dấu : vào. Dưới đây rename company -> companyName
 ```
 query ProfileInfoWithAlias {
   user(login: "minhphong306") {
@@ -559,4 +560,298 @@ query OrgInfoWithFragment {
 }
 ```
 - `...` được gọi là fragment spread
-- 
+
+# Part 2: Building GraphQL APIs
+- Nội dung phần này:
+    - Chap 4: Học về cách plan để map UI -> APIs operations
+    - Chap 5: Make graphQL schema
+    - Chap 6: Resolve field on get
+    - Chap 7: Optimize
+    - Chap 8: Resolve field on create, update, delete
+
+# Chap 4: Designing GrapQL schema
+- Chap này sẽ build 1 trang để lookup snippet code, gọi là AZdev
+
+## 4.1. Why azdev
+## 4.2. API requirements
+- Sử dụng 2 loại db:
+    - Postgre để lưu transactional data 
+    - MongoDB để lưu dynamic data
+- Việc sử dụng nhiều loại db là không hiếm gặp, vd như việc đọc từ cache ra
+- Quy ước:
+    - Task: coi là 1 document
+    - Approach: coi là 1 cách để làm task.
+    - 1 task có thể có nhiều cách làm, 1 cách làm thì thuộc về 1 task
+    - Mọi người đều có thể vào AZdev để tìm kiếm task và các approach
+    - Ngườ dùng đã đăng nhập có thể thêm Task, Approach, upvote hay downvote
+    - Những entity Task, Approach, User sẽ được lưu ở PostgreSQL
+    - Một số data khác như: giải thích, lưu ý, general note sẽ được lưu ở Mongo.
+- Naming entities trong GraphQL schema:
+    - Với db to, nên đầu tư chút thời gian để đặt tên cho cần thận
+    - Trong GraphQL schema, nên sử dụng specific name cho type khi có thể
+        - VD: Bạn có 1 `Lesson`, thuộc về 1 `Course` -> nên đặt lên là `CourseLesson` thay vì `Lesson`, dù database model đặt tên là `lessons`.
+        - Điều này đặc biệt quan trọng nếu GraphQL service của bạn public.
+            - Khi db của bạn phát triển lên, bạn có nhu cầu giới thiệu 1 entity mới, và deprecate cái cũ đi.
+            - Nếu bạn đặt cụ thể cho các entity thì drop sẽ dễ hơn nhiều.
+
+### 4.2.1. The core types
+- Entity chính: User, Task, Approach
+- Trong GraphQL schema:
+    - Table thường map với object types
+    - Table column thường map với field
+- Thử design 3 core type trên:
+
+```
+type User {
+    id: ID!
+    createdAt String!
+    username: String!
+    name: String
+}
+
+type Task {
+    id: ID!
+    createdAt: String!
+    content: String!
+}
+
+type Approach {
+    id: ID!
+    createdAt: String!
+    content: String!
+}
+```
+- Kiểu ID là kiểu đặc biệt, nó là unique identifier; là kiểu String (kể cả value trong DB có lưu là int đi nữa).
+    - Việc lưu String sẽ ổn hơn là int, vì int ở javascript có limit.
+- Kiểu createdAt cũng là string. GraphQL thì không có built-in forrmat cho trường date-time, cách đơn giản nhất là serialize đội này về định dạng standard như ISO/UTC
+- Dấu `!` biểu thị là không được null
+
+- Note graphQL & type modifier
+    - Dấu `!` được gọi là modifier, vì nó thay dổi kiểu dữ liệu về not null
+    - `[]` cũng được gọi là moditifer, vì nó đổi dữ liệu sang kiểu array
+    - Các modifier này có để được combine với nhau, VD:
+        - `[String!]!`: nghĩa là array này không được null (vẫn được rỗng nhé)
+        - Nếu muốn validate 1 field là non-empty array, chỉ có cách bạn tự viết logic trong resolver hoặc định nghĩa 1 custom type cho nó.
+- `id` và `createdAt` là 2 field điển hình cho việc type của GraphQL không nhất thiết phải giống hệt với column trong database.
+- Các type viết bên trên được hiểu là `output type` - type cho output operation.
+    - Type này khác với `input type`, là các type được dùng cho mutation (input operation). Chỗ này sẽ được học sau.
+
+- Vậy password field ở đâu?
+    - password không nên là readable field trong output.
+    - password chỉ dùng trong mutation, hoặc authenticate user
+
+## 4.3. Queries
+- Viết pseudo code cho các query cần thiết
+
+### 4.3.1. List các task mới nhất
+```
+query {
+    taskMainList {
+        id
+        content
+    }
+}
+```
+- Dùng `taskMainList` mà không dùng `mainTaskList`, dù `mainTaskList` nghe có vẻ thuận hơn, vì để group lại theo nhóm. Sau này dùng GraphiQL cũng autocomplete tiện hơn.
+- Query root field là cái định nghĩa ngay phía dưới Query type
+
+```
+type Query {
+    taskMainList: [Task!]
+
+    # more query on root fields
+}
+```
+- `[Task!] nghĩa là các item bên trong array trả về không được null
+- Root field nullability
+    - Một good practice trong GraphQL schema là chỉ để field non-null nếu bạn thật sự muốn phân biệt rõ ràng giữa null và empty
+    - Chỉ sử dụng nullable field nếu bạn muốn hiểu sự vắng mặt của chúng có ý nghĩa.
+    - Tuy nhiên, root field thì đặc biệt hơn.
+    - Khi 1 field có lỗi, executor sẽ set field này là null
+    - Nếu field này định nghĩa là non-null, executor sẽ lan truyền đến cha của nó.
+    - Nếu cha lại non-null -> executor tiếp tục tìm kiếm lên trên theo tree.
+
+    - Điều này nghĩa là nếu root `taskMainList` mà là non-null => error sẽ throw lên trên là Query type (parent của taskMainList) => toàn bộ response sẽ bị null, mặc dù query có thể có root field khác.
+    - Đây không phải là 1 ý tưởng hay. 1 bad root field có thể block data response của field khác. Ở chương tiếp theo sẽ gặp lại ví dụ này.
+
+### 4.3.2. Search & the union/interface types
+- Giả sử cần thiết kế tính năng search:
+    - Khi search sẽ phân tích fulltext
+    - Nếu match task, sẽ hiển thị approach count
+    - Nếu match approach, sẽ hiển thị task info
+![graphql-in-action-azdev-search.png](images/graphql-in-action-azdev-search.png)
+- Để support việc này, đơn giản là thêm field vào 3 core type bên trên:
+
+```
+type Task {
+    ....
+    approachCount: Int!
+}
+
+type Approach {
+    ....
+    task: Task!
+}
+```
+- Có thể bạn sẽ nghĩ tới design: tách result trả về thành 2 cục khác nhau: cục TaskList và cục ApproachList như bên dưới
+
+```
+query {
+    search(term: "something") {
+        taskList {
+            id
+            content
+            approachCount
+        }
+
+        approachList {
+            id
+            content
+            task {
+                id
+                content
+            }
+        }
+    }
+}
+```
+- Làm như trên sẽ mất đi độ chính xác (độ khớp) của search  (cái nào khớp nhiều hơn thì nằm bên trên)
+- Như vậy, ta cần return về 1 list các object match thôi.
+- Tuy nhiên thì 2 object này lại có các field khác nhau => cần tạo ra 1 type kết hợp 2 type trên lại.
+- Một cách tiếp cận là làm cho search root field biểu thị một array object, có các nullable field tùy theo model mà nó biểu thị. VD:
+
+```
+search(term: "something") {
+    id
+    content
+    
+    approachCount // when result is a Task
+
+    task { // when result is a Approach
+        id
+        content
+    }
+}
+```
+
+- Cách này tốt hơn, giải quyết vấn đề
+- Tuy nhiên thì người nào dùng API lại cần dựa trên field nào null để xác định cách hiển thị kết quả tìm kiếm (tức là phía FE cần check field nào null và đoán type là approach hay task)
+- GraphQL có cách tốt hơn để giải quyết bài toán này: sử dụng union type hoặc interface type
+
+#### Sử dụng union type
+```
+query {
+    search(term: "something") {
+        type: __typename {
+            ... on Task {
+                id
+                content
+                approachCount
+            }
+
+            ... on Approach {
+                id
+                content
+                task {
+                    id
+                    content
+                }
+            }
+        }
+    }
+}
+```
+- Dựa vào inline fragment ... on mà ta build được điều kiện, nếu là type A thì hiển thị field này, nếu là fieldB thì hiển thị cái này
+- Query thì ok rồi, còn schema cũng cần định nghĩa type nữa. GraphQL có từ khóa union dùng để implement việc build ra 1 type kết hợp giữa 2 type như sau:
+
+```
+union TaskOrApproach = Task | Approach
+
+type Query {
+    #...
+    search(term: String!): [TaskOrApproach!]
+}
+```
+
+#### Sử dụng interface type
+- Nhìn cái trên thì có 1 tí duplicate: field type, id, content trong task luôn được sử dụng, mà lại định nghĩa đi định nghĩa lại.
+- Nếu mà gộp vào search root field được như sau thì ngon:
+
+```
+query {
+    search(term: "something") {
+        type: __typename
+        id
+        content
+        ... on Task {
+            approachCount
+        }
+
+        ... on Approach {
+            task {
+                id
+            }
+        }
+    }
+}
+```
+- Câu hỏi đặt ra là: Khi nào dùng interface, khi nào dùng union
+    - Dùng interface: khi 2 model có shared field
+    - Dùng union: khi 2 group model không có shared field
+
+- Dùng interface trong schema như sau:
+
+```
+interface SearchResultItem {
+    id: ID!
+    content: String!
+}
+
+type Task implements SearchResultItem {
+    #....
+    approachCount: Int!
+
+
+}
+
+type Approach implements SearchResultItem {
+    #...
+    task: Task!
+}
+
+type Query {
+    #...
+    search(term: String!): [SearchResultItem!]
+}
+```
+- Dùng interface hay hơn dùng union ở chỗ nhìn cái là biết ngay các field nào khác nhau. Union thì vẫn cần phải đọc code khá nhiều.
+
+- TIP: 1 graphQL type có thể implement nhiều type khác nhau. Muốn implement chỉ cần đưa list các dấu phẩy vào là ok.
+
+### 4.3.4. Page cho 1 task record
+
+```
+query {
+    taskInfo() {
+
+    }
+}
+```
+- Schema design
+
+```
+type Query {
+    #...
+    taskInfo(id: ID!): Task
+}
+```
+- Hơn nữa, Az dev cho phép sắp xếp Approach theo vote count. Để làm điều này, thêm field VoteCount vào:
+
+```
+type Approach implements SearchResultItem {
+    #....
+    voteCount: Int!
+}
+```
+
+### 4.3.5. Entity relationships
