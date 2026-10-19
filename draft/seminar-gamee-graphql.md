@@ -59,3 +59,23 @@ POST /books
 
 POST /authors
 
+---
+Tham khảo video tutorial
+https://www.youtube.com/watch?v=AEptYkblFg8&ab_channel=HenryWebDev
+
+- Lấy VD với REST, có nhiều endpoint (books, authors)
+    - Lấy book xong, quay ra lấy author
+    - Mất nhiều request để lấy ra được thông tin cần thiết. 
+    - Vẽ 1 sơ đồ mô tả quan hệ graph giữa các thực thể (suy nghĩ kiểu graphQL)
+- Tạo thư mục server:
+    - yarn init
+    - yarn add  express apollo-server-express graphql nodemon mongoose
+
+- Tạo thư mục schema/schema.js
+- Định nghĩa type book
+- Định nghĩa Root type
+    - Root type = gốc = nơi mà bắt đầu xử lý
+    - Cú pháp luôn là Query
+    - Là nơi định nghĩa yêu cầu truy xuất dữ liệu
+- Tạo resolver/resolver.js
+    - Resolver giống controller, là nơi thật sự trả về dữ liệu 
