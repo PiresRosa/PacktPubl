@@ -1,0 +1,18 @@
+<@U02CA99QDGA>, <@U02G7EGAEDB>, <@U02LV89R5K2>,  <@U02GCKFDG9J>, <@U02SKNGC527>
+
+
+https://hooks.slack.com/services/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
+
+
+{
+  User: {
+    Username: 'phongdo+10@starbots.net',
+    Attributes: [ [Object], [Object] ],
+    UserCreateDate: 2022-02-14T10:25:53.733Z,
+    UserLastModifiedDate: 2022-02-14T10:25:53.733Z,
+    Enabled: true,
+    UserStatus: 'FORCE_CHANGE_PASSWORD'
+  }
+}
+
+

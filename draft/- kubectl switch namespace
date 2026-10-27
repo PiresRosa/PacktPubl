@@ -1,0 +1,12 @@
+- kubectl switch namespace
+- kubectl get args
+- 
+
+
+kubectl logs -n testnet -l app=service-game-graph-api -f
+
+
+
+./assets/game-simulator/star-bots-server.x64, token, 102, 110, 20, 120, match_id
+
+./assets/game-simulator/star-bots-server.x64, token, 102, 110, 20, 120, match_id

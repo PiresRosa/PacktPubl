@@ -1,0 +1,17 @@
+LAST DAY
+    - Phong: API login with wallet
+    - Long Kim: Thêm part, fix testnet version
+    - Hoàng Ngô: update logic ranking, gửi mail
+    - Hoàng Anh: Xây dựng game cơ bản
+    - Nhung: Reward sau 1 tuần
+    - Long Trương: Thêm wheel APEX
+TODAY
+    - Phong: Support testnet; comple api login market place
+    - Long Kim: Fix test net và thêm part
+    - Hoàng Ngô: Hoàn thành phần ranking
+    - Hoàng Anh: Hoàn thiện game
+    - Nhung: update logic ranking
+    - Long Trương: Tiếp tục thêm wheel APEX
+BLOCKER
+    - Phong: Coginito not support filter by custom attribute
+    - Hoàng Ngô: chưa có requirement rõ ràng cho việc reset ranking

@@ -1,0 +1,7 @@
+[
+  { trait_type: "body", value: "Rare Sandstorm" },
+  { trait_type: "wheel1", value: "Common Minion" },
+  { trait_type: "wheel2", value: "Common Twin" },
+  { trait_type: "weapon", value: "Common HolyShotgun" },
+  { trait_type: "gadget", value: "Uncommon SonicExplosive" }
+]
