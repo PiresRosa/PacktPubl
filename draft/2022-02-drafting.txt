@@ -1,0 +1,285 @@
+import {Controller, Get, Request, UseGuards} from '@nestjs/common';
+import {AuthService} from "./auth.service";
+import JwtAuthenticationGuard from "./jwt.guard";
+
+@Controller()
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
+
+  @Get("createMessage")
+  getData() {
+    return this.authService.getJwtToken();
+  }
+
+  @Get("readMessage")
+  @UseGuards(JwtAuthenticationGuard)
+  readData(@Request() req) {
+    console.log(req);
+  }
+}
+===
+<@U02LV89R5K2>,  <@U02SKNGC527>, <@U02LQC7P3HA>, <@U02P4BK4QDR> 
+nam hoang, phong  do,  phuc do, long kim
+
+
+===
+====
+TODO login:
+- Draw flow & list api, mock response
+- Check sign by wallet flow
+
+Notes:
+- Click "Don't ask me again" -> create attribute in cognito
+
+
+===
+Payload validate:  {
+    at_hash: '5fWqCZLQ4vzD-S_r0iwUbw',
+    sub: '4c725236-388b-4a5e-bb3c-b4a1ebcbfde6',
+    aud: '55tc25ttvdb04gn1evdc84dp6q',
+    email_verified: true,
+    token_use: 'id',
+    auth_time: 1644393548,
+    iss: 'https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_onqMkfwpD',
+    'cognito:username': '4c725236-388b-4a5e-bb3c-b4a1ebcbfde6',
+    exp: 1644397148,
+    iat: 1644393548,
+    jti: 'ac35d86a-1f4a-4fb0-b1c3-da33f73a4204',
+    email: 'phongdo+1@starbots.net'
+  }
+  
+  ===
+
+  axieinfinity api calls
+
+  {"errors":[{"message":"This data graph is missing a valid configuration. More details may be available in the server logs.","extensions":{"code":"INTERNAL_SERVER_ERROR","exception":{"stacktrace":["Error: This data graph is missing a valid configuration. More details may be available in the server logs.","    at gateway.load.then.catch.err (/app/node_modules/apollo-server-core/dist/ApolloServer.js:224:23)","    at process._tickCallback (internal/process/next_tick.js:68:7)"]}}}]}
+
+
+
+
+{operationName: "VerifyEmail", variables: {email: "phongdo+1@starbots.net"},…}
+operationName: "VerifyEmail"
+query: "mutation VerifyEmail($email: String!) {\n  verifyEmail(email: $email) {\n    result\n    __typename\n  }\n}\n"
+variables: {email: "phongdo+1@starbots.net"}
+==
+curl 'https://captcha.axieinfinity.com/api/geetest/register' \
+  -H 'authority: captcha.axieinfinity.com' \
+  -H 'sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="98", "Google Chrome";v="98"' \
+  -H 'accept: application/json' \
+  -H 'content-type: application/json' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36' \
+  -H 'sec-ch-ua-platform: "Linux"' \
+  -H 'origin: https://marketplace.axieinfinity.com' \
+  -H 'sec-fetch-site: same-site' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'referer: https://marketplace.axieinfinity.com/' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  --compressed
+
+
+  ====
+  curl 'https://graphql-gateway.axieinfinity.com/graphql' \
+  -H 'authority: graphql-gateway.axieinfinity.com' \
+  -H 'sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="98", "Google Chrome";v="98"' \
+  -H 'captcha-token: {"geetest_challenge":"5e85283f38f70bedc6f1be7c6a1a09d6hv","geetest_validate":"e5eb58e9a20d02c953eebe6831850577","geetest_seccode":"e5eb58e9a20d02c953eebe6831850577|jordan"}' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOjIzNjExMDU0LCJhY3RpdmF0ZWQiOmZhbHNlLCJyb25pbkFkZHJlc3MiOiIweDlkNTA4OWU0MmNhNmRjYzM3YTQyODI5NmUyNTMwMWQ4MzEyMmQ0YzAiLCJldGhBZGRyZXNzIjpudWxsLCJpYXQiOjE2NDQ0MDQzODEsImV4cCI6MTY0NTAwOTE4MSwiaXNzIjoiQXhpZUluZmluaXR5In0.Y7CLdZsM4AYQmUnPGCAOiqKVYh04MEmBO_9nY7qK9dg' \
+  -H 'content-type: application/json' \
+  -H 'accept: */*' \
+  -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36' \
+  -H 'sec-ch-ua-platform: "Linux"' \
+  -H 'origin: https://marketplace.axieinfinity.com' \
+  -H 'sec-fetch-site: same-site' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'referer: https://marketplace.axieinfinity.com/' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  -H 'cookie: _ga=GA1.2.1647910177.1641632234; cf_clearance=z4WqRUx3z1FGKvdCmjDeWd5MzXOBwJyJRjxX5XLnJGA-1644404237-0-150; _gid=GA1.2.1507282553.1644404243; _gat_gtag_UA_150383258_1=1' \
+  --data-raw $'{"operationName":"VerifyEmail","variables":{"email":"phongdo+1@starbots.net"},"query":"mutation VerifyEmail($email: String\u0021) {\\n  verifyEmail(email: $email) {\\n    result\\n    __typename\\n  }\\n}\\n"}' \
+  --compressed
+
+  ===
+  curl 'https://graphql-gateway.axieinfinity.com/graphql' \
+  -H 'authority: graphql-gateway.axieinfinity.com' \
+  -H 'sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="98", "Google Chrome";v="98"' \
+  -H 'accept: */*' \
+  -H 'content-type: application/json' \
+  -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOjIzNjExMDU0LCJhY3RpdmF0ZWQiOmZhbHNlLCJyb25pbkFkZHJlc3MiOiIweDlkNTA4OWU0MmNhNmRjYzM3YTQyODI5NmUyNTMwMWQ4MzEyMmQ0YzAiLCJldGhBZGRyZXNzIjpudWxsLCJpYXQiOjE2NDQ0MDQzODEsImV4cCI6MTY0NTAwOTE4MSwiaXNzIjoiQXhpZUluZmluaXR5In0.Y7CLdZsM4AYQmUnPGCAOiqKVYh04MEmBO_9nY7qK9dg' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36' \
+  -H 'sec-ch-ua-platform: "Linux"' \
+  -H 'origin: https://marketplace.axieinfinity.com' \
+  -H 'sec-fetch-site: same-site' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'referer: https://marketplace.axieinfinity.com/' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  -H 'cookie: _ga=GA1.2.1647910177.1641632234; cf_clearance=z4WqRUx3z1FGKvdCmjDeWd5MzXOBwJyJRjxX5XLnJGA-1644404237-0-150; _gid=GA1.2.1507282553.1644404243; _gat_gtag_UA_150383258_1=1' \
+  --data-raw $'{"operationName":"AttachEmail","variables":{"code":772139,"password":"Abcd1234\u0021"},"query":"mutation AttachEmail($code: Int\u0021, $password: String\u0021) {\\n  attachEmail(code: $code, password: $password) {\\n    ...ProfileBrief\\n    __typename\\n  }\\n}\\n\\nfragment ProfileBrief on AccountProfile {\\n  accountId\\n  addresses {\\n    ...Addresses\\n    __typename\\n  }\\n  email\\n  activated\\n  name\\n  settings {\\n    unsubscribeNotificationEmail\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment Addresses on NetAddresses {\\n  ethereum\\n  tomo\\n  loom\\n  ronin\\n  __typename\\n}\\n"}' \
+  --compressed
+
+
+  ===
+
+  curl 'https://graphql-gateway.axieinfinity.com/graphql' \
+  -H 'authority: graphql-gateway.axieinfinity.com' \
+  -H 'sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="98", "Google Chrome";v="98"' \
+  -H 'accept: */*' \
+  -H 'content-type: application/json' \
+  -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOjIzNjExMDU0LCJhY3RpdmF0ZWQiOmZhbHNlLCJyb25pbkFkZHJlc3MiOiIweDlkNTA4OWU0MmNhNmRjYzM3YTQyODI5NmUyNTMwMWQ4MzEyMmQ0YzAiLCJldGhBZGRyZXNzIjpudWxsLCJpYXQiOjE2NDQ0MDQzODEsImV4cCI6MTY0NTAwOTE4MSwiaXNzIjoiQXhpZUluZmluaXR5In0.Y7CLdZsM4AYQmUnPGCAOiqKVYh04MEmBO_9nY7qK9dg' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36' \
+  -H 'sec-ch-ua-platform: "Linux"' \
+  -H 'origin: https://marketplace.axieinfinity.com' \
+  -H 'sec-fetch-site: same-site' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'referer: https://marketplace.axieinfinity.com/' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  -H 'cookie: _ga=GA1.2.1647910177.1641632234; cf_clearance=z4WqRUx3z1FGKvdCmjDeWd5MzXOBwJyJRjxX5XLnJGA-1644404237-0-150; _gid=GA1.2.1507282553.1644404243; _gat_gtag_UA_150383258_1=1' \
+  --data-raw '{"operationName":"GetProfileBrief","variables":{},"query":"query GetProfileBrief {\n  profile {\n    ...ProfileBrief\n    __typename\n  }\n}\n\nfragment ProfileBrief on AccountProfile {\n  accountId\n  addresses {\n    ...Addresses\n    __typename\n  }\n  email\n  activated\n  name\n  settings {\n    unsubscribeNotificationEmail\n    __typename\n  }\n  __typename\n}\n\nfragment Addresses on NetAddresses {\n  ethereum\n  tomo\n  loom\n  ronin\n  __typename\n}\n"}' \
+  --compressed
+
+
+  ===
+  Link wallet
+
+  import {Injectable} from '@nestjs/common';
+import {InjectRepository} from '@nestjs/typeorm';
+import {ConfigService} from '@nestjs/config';
+import {Repository} from 'typeorm';
+import Users from './entities/user.entity';
+import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
+import {CognitoUserPool} from 'amazon-cognito-identity-js';
+import * as AWS from 'aws-sdk';
+import {User} from "./types/user.type";
+import {LinkWalletInput} from "../../graphql.schema";
+
+
+@Injectable()
+export class UsersService {
+  private userPool: CognitoUserPool;
+
+  constructor(
+    @InjectRepository(Users) private usersRepository: Repository<Users>,
+    private configService: ConfigService
+  ) {
+    this.userPool = new CognitoUserPool({
+      UserPoolId: configService.get('COGNITO_USER_POOL_ID'),
+      ClientId: configService.get('COGNITO_CLIENT_ID')
+    });
+  }
+
+  safeStringify(obj, indent = 2){
+    let cache = [];
+    const retVal = JSON.stringify(
+      obj,
+      (key, value) =>
+        typeof value === "object" && value !== null
+          ? cache.includes(value)
+            ? undefined // Duplicate reference found, discard key
+            : cache.push(value) && value // Store value in our collection
+          : value,
+      indent
+    );
+    cache = null;
+    return retVal;
+  };
+
+  async linkWallet(user: User, linkInput: LinkWalletInput) {
+    // new code
+    const authenticationData = {
+      Username: 'phongdo+35@starbots.net',
+      Password: 'Abcd1234!',
+    };
+    const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(
+      authenticationData
+    );
+    const poolData = {
+      UserPoolId: this.configService.get('COGNITO_USER_POOL_ID'),
+      ClientId: this.configService.get('COGNITO_CLIENT_ID'),
+    };
+    const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    const userData = {
+      Username: 'phongdo+1@starbots.net',
+      Pool: userPool,
+    };
+
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    await cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: function(result) {
+        const accessToken = result.getAccessToken().getJwtToken(); 
+        console.log('Access token', accessToken);
+
+        cognitoUser.getUserAttributes(function(err, result) {
+          if (err) {
+            console.log(err.message || JSON.stringify(err));
+            return;
+          }
+          for (let i = 0; i < result.length; i++) {
+            console.log(
+              'attribute ' + result[i].getName() + ' has value ' + result[i].getValue()
+            );
+          }
+        });
+      },
+
+      onFailure: function(err) {
+        console.log('Got err: ', err.message || JSON.stringify(err));
+      },
+    });
+
+
+  }
+
+
+  async linkWallet2(user: User, linkInput: LinkWalletInput) {
+    AWS.config.update({
+      region: this.configService.get('COGNITO_REGION'),
+      accessKeyId: this.configService.get('AWS_ACCESS_KEY_ID'),
+      secretAccessKey: this.configService.get('AWS_SECRET_ACCESS_KEY'),
+      credentials: {
+        accessKeyId: this.configService.get('AWS_ACCESS_KEY_ID'),
+        secretAccessKey: this.configService.get('AWS_SECRET_ACCESS_KEY'),
+      }
+    });
+
+    const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+    const res = await cognitoidentityserviceprovider.adminGetUser({
+      UserPoolId: this.userPool.getUserPoolId(),
+      Username: user.email,
+    }).promise();
+
+    console.log('Get user res: ', this.safeStringify(res));
+
+
+
+    // const authenticationData = {
+    //   Username: 'username',
+    //   Password: 'password',
+    // };
+    // const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(
+    //   authenticationData
+    // );
+    //
+    // const userData = {
+    //   Username: 'username',
+    //   Pool: this.userPool,
+    // };
+    // const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    //
+    // cognitoUser.getUserAttributes(function(err, result) {
+    //   if (err) {
+    //     console.log('err: ', err);
+    //     return;
+    //   }
+    //   for (let i = 0; i < result.length; i++) {
+    //     console.log(
+    //       'attribute ' + result[i].getName() + ' has value ' + result[i].getValue()
+    //     );
+    //   }
+    // });
+  }
+}
